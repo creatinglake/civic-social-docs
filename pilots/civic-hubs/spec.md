@@ -13,53 +13,53 @@ Civic.Social Infrastructure Program
 
 ## Table of Contents
 
-### How to Read This Document
+### [How to Read This Document](#how-to-read-this-document-1)
 
 ### Executive Overview
-1. Executive Summary
-2. Purpose of the Pilot
-3. Relationship to the Civic.Social Pilot Program
-4. Strategic Importance
+1. [Executive Summary](#1-executive-summary)
+2. [Purpose of the Pilot](#2-purpose-of-the-pilot)
+3. [Relationship to the Civic.Social Pilot Program](#3-relationship-to-the-civicsocial-pilot-program)
+4. [Strategic Importance](#4-strategic-importance)
 
 ### Strategic Context
-5. What is a Civic Hub
-6. Architectural Role of Civic Hubs
-7. Civic Hub Governance
-8. Social Design Philosophy
-9. Modular Hub Configuration
-10. Example Civic Hub Use Cases
-11. Hub Engine Approach
+5. [What is a Civic Hub](#5-what-is-a-civic-hub)
+6. [Architectural Role of Civic Hubs](#6-architectural-role-of-civic-hubs)
+7. [Civic Hub Governance](#7-civic-hub-governance)
+8. [Social Design Philosophy](#8-social-design-philosophy)
+9. [Modular Hub Configuration](#9-modular-hub-configuration)
+10. [Example Civic Hub Use Cases](#10-example-civic-hub-use-cases)
+11. [Hub Engine Approach](#11-hub-engine-approach)
 
 ### Hub Architecture
-12. Minimum Viable Civic Hub Stack
-13. Hub API and Discovery Requirements
-14. Hub Event Model
-15. Hub Identity Integration Model
-16. Hub Credential and Participation Policy Model
-17. Hub-to-Process Integration Model
-18. Federation and Discovery Model
-19. Moderation Model
-20. Portability Requirements
+12. [Minimum Viable Civic Hub Stack](#12-minimum-viable-civic-hub-stack)
+13. [Hub API and Discovery Requirements](#13-hub-api-and-discovery-requirements)
+14. [Hub Event Model](#14-hub-event-model)
+15. [Hub Identity Integration Model](#15-hub-identity-integration-model)
+16. [Hub Credential and Participation Policy Model](#16-hub-credential-and-participation-policy-model)
+17. [Hub-to-Process Integration Model](#17-hub-to-process-integration-model)
+18. [Federation and Discovery Model](#18-federation-and-discovery-model)
+19. [Moderation Model](#19-moderation-model)
+20. [Portability Requirements](#21-portability-requirements)
 
 ### Pilot Implementation
-21. Minimum Viable Pilot Scope (In Scope / Out of Scope / Prototype vs Production)
-22. Pilot Phases and Timeline
-23. Pilot Demonstration Scenarios
-24. Success and Validation Criteria (Deliverable Criteria / Technical Validation / Future Usability Evaluation)
-25. Expected Deliverables
+21. [Minimum Viable Pilot Scope (In Scope / Out of Scope / Prototype vs Production)](#22-minimum-viable-pilot-scope)
+22. [Pilot Phases and Timeline](#23-pilot-phases-and-timeline)
+23. [Pilot Demonstration Scenarios](#24-pilot-demonstration-scenarios)
+24. [Success and Validation Criteria (Deliverable Criteria / Technical Validation / Future Usability Evaluation)](#25-success-and-validation-criteria)
+25. [Expected Deliverables](#26-expected-deliverables)
 
 ### Ecosystem and Partnerships
-26. Relationship to Other Civic.Social Pilots
-27. Estimated Development Effort and Team Roles
-28. Potential Pilot Partners
-29. Estimated Budget
+26. [Relationship to Other Civic.Social Pilots](#27-relationship-to-other-civicsocial-pilots)
+27. [Estimated Development Effort and Team Roles](#28-estimated-development-effort-and-team-roles)
+28. [Potential Pilot Partners](#29-potential-pilot-partners)
+29. [Estimated Budget](#30-estimated-budget)
 
 ### Pilot Plan
-30. Risks and Mitigations
-31. Open Questions for Further Design
+30. [Risks and Mitigations](#31-risks-and-mitigations)
+31. [Open Questions for Further Design](#32-open-questions-for-further-design)
 
 ### Conclusion and Future Work
-32. Conclusion
+32. [Conclusion](#33-conclusion)
 
 ---
 

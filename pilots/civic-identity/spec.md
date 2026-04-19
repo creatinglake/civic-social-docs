@@ -13,72 +13,72 @@ Civic.Social Infrastructure Program
 
 ## Table of Contents
 
-### How to Read This Document
+### [How to Read This Document](#how-to-read-this-document-1)
 
 ### Executive Overview
-1. Executive Summary
-2. Purpose of the Pilot
-3. Relationship to the Civic.Social Pilot Program
-4. Strategic Importance
+1. [Executive Summary](#1-executive-summary)
+2. [Purpose of the Pilot](#2-purpose-of-the-pilot)
+3. [Relationship to the Civic.Social Pilot Program](#3-relationship-to-the-civicsocial-pilot-program)
+4. [Strategic Importance](#4-strategic-importance)
 
 ### Strategic Context
-5. Architectural Rationale
-6. Identity Design Principles
-7. Identity Architecture Overview
-8. Citizen Node Definition
-9. Personal Data Store (PDS) — Minimal Scope
-10. Identity Layer vs PDS Layer vs Application Layer
-11. Role of Civic Identity in the Civic.Social Architecture
-12. Why Civic Identity Matters for Democracy
+5. [Architectural Rationale](#5-architectural-rationale)
+6. [Identity Design Principles](#6-identity-design-principles)
+7. [Identity Architecture Overview](#7-identity-architecture-overview)
+8. [Citizen Node Definition](#8-citizen-node-definition)
+9. [Personal Data Store (PDS) — Minimal Scope](#9-personal-data-store-pds--minimal-scope)
+10. [Identity Layer vs PDS Layer vs Application Layer](#10-identity-layer-vs-pds-layer-vs-application-layer)
+11. [Role of Civic Identity in the Civic.Social Architecture](#11-role-of-civic-identity-in-the-civicsocial-architecture)
+12. [Why Civic Identity Matters for Democracy](#12-why-civic-identity-matters-for-democracy)
 
 ### Identity Architecture
-13. Civic Identity Integration Architecture
-14. Civic Identity Integration Requirements
-15. Core Identity Model
-16. Credential Types
-17. Proof of Personhood Model (includes Pilot Position on Proof of Personhood)
-18. Jurisdiction Credentials
-19. Civic Role Credentials
-20. Identity Verification Paths
-21. Authentication and Ecosystem Access Model
+13. [Civic Identity Integration Architecture](#13-civic-identity-integration-architecture)
+14. [Civic Identity Integration Requirements](#14-civic-identity-integration-requirements)
+15. [Core Identity Model](#15-core-identity-model)
+16. [Credential Types](#16-credential-types)
+17. [Proof of Personhood Model (includes Pilot Position on Proof of Personhood)](#17-proof-of-personhood-model)
+18. [Jurisdiction Credentials](#18-jurisdiction-credentials)
+19. [Civic Role Credentials](#19-civic-role-credentials)
+20. [Identity Verification Paths](#20-identity-verification-paths)
+21. [Authentication and Ecosystem Access Model](#21-authentication-and-ecosystem-access-model)
 
 ### Identity Policy
-22. Civic Identity Policy Model (includes Standard Identity Mode Presets)
-23. Identity Policy Object
-24. Result Stratification Model
+22. [Civic Identity Policy Model (includes Standard Identity Mode Presets)](#22-civic-identity-policy-model)
+23. [Identity Policy Object](#23-identity-policy-object)
+24. [Result Stratification Model](#24-result-stratification-model)
 
 ### Identity Infrastructure
-25. Identity Wallet Strategy
-26. Privacy Model
-27. Interoperability Standards Foundation
-28. Credential Issuers
-29. Civic Identity Service Model
-30. Identity Governance Model
-31. Minimum Viable Civic Identity Stack
+25. [Identity Wallet Strategy](#25-identity-wallet-strategy)
+26. [Privacy Model](#26-privacy-model)
+27. [Interoperability Standards Foundation](#27-interoperability-standards-foundation)
+28. [Credential Issuers](#28-credential-issuers)
+29. [Civic Identity Service Model](#29-civic-identity-service-model)
+30. [Identity Governance Model](#30-identity-governance-model)
+31. [Minimum Viable Civic Identity Stack](#31-minimum-viable-civic-identity-stack)
 
 ### Pilot Implementation
-32. Minimum Viable Pilot Scope (In Scope / Out of Scope / Prototype vs Production)
-33. Pilot Phases
-34. Expected Deliverables
-35. Civic Identity User Journey (includes Social Graph Portability)
-36. Example Civic Identity Use Cases
-37. Success and Validation Criteria (Deliverable Criteria / Technical Validation / Future Usability Evaluation)
+32. [Minimum Viable Pilot Scope (In Scope / Out of Scope / Prototype vs Production)](#32-minimum-viable-pilot-scope)
+33. [Pilot Phases](#33-pilot-phases)
+34. [Expected Deliverables](#34-expected-deliverables)
+35. [Civic Identity User Journey (includes Social Graph Portability)](#35-civic-identity-user-journey)
+36. [Example Civic Identity Use Cases](#36-example-civic-identity-use-cases)
+37. [Success and Validation Criteria (Deliverable Criteria / Technical Validation / Future Usability Evaluation)](#37-success-and-validation-criteria)
 
 ### Ecosystem and Partnerships
-38. Estimated Development Effort
-39. Relationship to Other Civic.Social Pilots (includes Relationship to Civic Credentialing Pilot)
+38. [Estimated Development Effort](#38-estimated-development-effort)
+39. [Relationship to Other Civic.Social Pilots (includes Relationship to Civic Credentialing Pilot)](#39-relationship-to-other-civicsocial-pilots)
 
 ### Pilot Plan
-40. Pilot Team Roles
-41. Potential Pilot Partners
-42. Estimated Budget
-43. Timeline
-44. Risks and Mitigations
+40. [Pilot Team Roles](#40-pilot-team-roles)
+41. [Potential Pilot Partners](#41-potential-pilot-partners)
+42. [Estimated Budget](#42-estimated-budget)
+43. [Timeline](#43-timeline)
+44. [Risks and Mitigations](#44-risks-and-mitigations)
 
 ### Conclusion and Future Work
-45. Conclusion
-46. Open Questions for Further Design
-References
+45. [Conclusion](#45-conclusion)
+46. [Open Questions for Further Design](#46-open-questions-for-further-design)
+[References](#references)
 
 ---
 
