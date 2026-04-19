@@ -39,27 +39,28 @@ Civic.Social Infrastructure Program
 17. [Hub-to-Process Integration Model](#17-hub-to-process-integration-model)
 18. [Federation and Discovery Model](#18-federation-and-discovery-model)
 19. [Moderation Model](#19-moderation-model)
-20. [Portability Requirements](#21-portability-requirements)
+20. [AI-Assisted Moderation (Optional)](#20-ai-assisted-moderation-optional)
+21. [Portability Requirements](#21-portability-requirements)
 
 ### Pilot Implementation
-21. [Minimum Viable Pilot Scope (In Scope / Out of Scope / Prototype vs Production)](#22-minimum-viable-pilot-scope)
-22. [Pilot Phases and Timeline](#23-pilot-phases-and-timeline)
-23. [Pilot Demonstration Scenarios](#24-pilot-demonstration-scenarios)
-24. [Success and Validation Criteria (Deliverable Criteria / Technical Validation / Future Usability Evaluation)](#25-success-and-validation-criteria)
-25. [Expected Deliverables](#26-expected-deliverables)
+22. [Minimum Viable Pilot Scope (In Scope / Out of Scope / Prototype vs Production)](#22-minimum-viable-pilot-scope)
+23. [Pilot Phases and Timeline](#23-pilot-phases-and-timeline)
+24. [Pilot Demonstration Scenarios](#24-pilot-demonstration-scenarios)
+25. [Success and Validation Criteria (Deliverable Criteria / Technical Validation / Future Usability Evaluation)](#25-success-and-validation-criteria)
+26. [Expected Deliverables](#26-expected-deliverables)
 
 ### Ecosystem and Partnerships
-26. [Relationship to Other Civic.Social Pilots](#27-relationship-to-other-civicsocial-pilots)
-27. [Estimated Development Effort and Team Roles](#28-estimated-development-effort-and-team-roles)
-28. [Potential Pilot Partners](#29-potential-pilot-partners)
-29. [Estimated Budget](#30-estimated-budget)
+27. [Relationship to Other Civic.Social Pilots](#27-relationship-to-other-civicsocial-pilots)
+28. [Estimated Development Effort and Team Roles](#28-estimated-development-effort-and-team-roles)
+29. [Potential Pilot Partners](#29-potential-pilot-partners)
+30. [Estimated Budget](#30-estimated-budget)
 
 ### Pilot Plan
-30. [Risks and Mitigations](#31-risks-and-mitigations)
-31. [Open Questions for Further Design](#32-open-questions-for-further-design)
+31. [Risks and Mitigations](#31-risks-and-mitigations)
+32. [Open Questions for Further Design](#32-open-questions-for-further-design)
 
 ### Conclusion and Future Work
-32. [Conclusion](#33-conclusion)
+33. [Conclusion](#33-conclusion)
 
 ---
 
