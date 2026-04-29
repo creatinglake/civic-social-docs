@@ -13,10 +13,10 @@ the work:
   definitions). Other documents in this repo refer to these definitions
   rather than restating them.
 
-- **`strategy/`** — narrative and positioning material describing what
-  Civic.Social is, why it matters, and the case for the work. New readers
-  should start here; **[Before & After](strategy/before-and-after.md)** is
-  the recommended entry point.
+- **`case/`** — the case for Civic.Social: narrative and positioning
+  material describing what Civic.Social is and why it matters. New readers
+  should start here; **[Before & After](case/before-and-after.md)** is the
+  recommended entry point.
 
 - **`ecosystem/`** — specifications describing the conceptual substrate of
   Civic.Social: the design process, the civic event model, hub architecture,
@@ -29,20 +29,20 @@ the work:
 
 Other top-level directories may be added as the documentation grows.
 
-## Strategy reading list
+## The case for Civic.Social
 
 For funders, partners, and anyone new to the project:
 
-- **[Before & After](strategy/before-and-after.md)** — what fragmentation
+- **[Before & After](case/before-and-after.md)** — what fragmentation
   feels like today, and what a connected civic ecosystem makes possible.
   The most accessible introduction.
-- **[Positioning Memo](strategy/positioning-memo.md)** — the full
+- **[Positioning Memo](case/positioning-memo.md)** — the full
   positioning case: the problem, the insight (infrastructure before
   platform), what Civic.Social is and is not, and the governance approach.
-- **[The Investment Case — Why This, Why Now, Why Us](strategy/why-this-why-now-why-us.md)** —
+- **[The Investment Case — Why This, Why Now, Why Us](case/why-this-why-now-why-us.md)** —
   a structured response to the four questions funders and partners ask
   about every civic infrastructure investment.
-- **[Civic.Social Deck (Feb 2026)](strategy/civic-social-deck-2026-02-26.pdf)** —
+- **[Civic.Social Deck (Feb 2026)](case/civic-social-deck-2026-02-26.pdf)** —
   15-slide visual overview. Useful as a quick walkthrough for first
   conversations. PDF renders inline on GitHub.
 

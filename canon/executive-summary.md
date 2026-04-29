@@ -46,7 +46,7 @@ Civic.Social is currently seeking seed funding to formalize coalition governance
 
 **Founding Steward:** Adam Lake — six years in the self-sovereign identity space (DIDs, W3C Verifiable Credentials) and fifteen years tracking decentralized social networking. The technical and operational team Civic.Social needs is not yet in place; active recruiting is underway, and funder partners who can help connect the right people are welcomed.
 
-For the longer case, see [The Investment Case — Why This, Why Now, Why Us](../strategy/why-this-why-now-why-us.md).
+For the longer case, see [The Investment Case — Why This, Why Now, Why Us](../case/why-this-why-now-why-us.md).
 
 ---
 
