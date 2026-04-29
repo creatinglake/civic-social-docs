@@ -1,8 +1,8 @@
 ---
 status: review
-last-reviewed: 2026-04-19
+last-reviewed: 2026-04-29
 owners: [adam]
-version: 0.1
+version: 0.2
 ---
 
 # Civic.Social — Executive Summary
@@ -32,6 +32,7 @@ Three converging forces make this moment optimal: (1) W3C standards for decentra
 ## Current State
 
 **Phase 1 (In Progress):**
+
 - Three foundational specifications complete: Civic Hub, Civic Event, Civic Process
 - Working implementation of the Civic Hub with advisory voting and proposal processes
 - Foundation for decentralized identity integration
@@ -39,11 +40,13 @@ Three converging forces make this moment optimal: (1) W3C standards for decentra
 
 ## The Ask
 
-**[PLACEHOLDER — Budget and ask amount to be determined]**
+Civic.Social is currently seeking seed funding to formalize coalition governance, validate technical architecture, define pilot jurisdictions and partners, and develop detailed implementation and cost modeling. The work proceeds in phased pilots — each designed to deliver immediate, practical value to participating jurisdictions and organizations while incrementally advancing the long-term integration vision. Specific pilot budgets and scope are detailed in the individual pilot funder briefs (see [`pilots/`](../pilots/)).
 
 ## Team
 
-**[PLACEHOLDER — Team information to be added]**
+**Founding Steward:** Adam Lake — six years in the self-sovereign identity space (DIDs, W3C Verifiable Credentials) and fifteen years tracking decentralized social networking. The technical and operational team Civic.Social needs is not yet in place; active recruiting is underway, and funder partners who can help connect the right people are welcomed.
+
+For the longer case, see [The Investment Case — Why This, Why Now, Why Us](../strategy/why-this-why-now-why-us.md).
 
 ---
 
