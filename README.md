@@ -13,6 +13,11 @@ the work:
   definitions). Other documents in this repo refer to these definitions
   rather than restating them.
 
+- **`strategy/`** — narrative and positioning material describing what
+  Civic.Social is, why it matters, and the case for the work. New readers
+  should start here; **[Before & After](strategy/before-and-after.md)** is
+  the recommended entry point.
+
 - **`ecosystem/`** — specifications describing the conceptual substrate of
   Civic.Social: the design process, the civic event model, hub architecture,
   identity and personal data approach. These are the ideas everything else
@@ -23,6 +28,20 @@ the work:
   Additional pilot specs will be added as they reach publishable state.
 
 Other top-level directories may be added as the documentation grows.
+
+## Strategy reading list
+
+For funders, partners, and anyone new to the project:
+
+- **[Before & After](strategy/before-and-after.md)** — what fragmentation
+  feels like today, and what a connected civic ecosystem makes possible.
+  The most accessible introduction.
+- **[Positioning Memo](strategy/positioning-memo.md)** — the full
+  positioning case: the problem, the insight (infrastructure before
+  platform), what Civic.Social is and is not, and the governance approach.
+- **[The Investment Case — Why This, Why Now, Why Us](strategy/why-this-why-now-why-us.md)** —
+  a structured response to the four questions funders and partners ask
+  about every civic infrastructure investment.
 
 ## Document status
 
