@@ -156,25 +156,13 @@ The key architectural insight is that hubs are independently operated but intero
 
 ## 6. Architectural Role of Civic Hubs
 
-Within the Civic.Social architecture, Civic Hubs serve as the **Civic Hub Layer** — the community-operated spaces where participation actually happens.
+The Civic.Social architecture is organized around **four canonical open specifications** — the Civic Identity Spec, the Civic Hub Spec, the Civic Process Spec, and the Civic Activity Spec — each of which extends underlying open web standards (W3C DIDs and Verifiable Credentials, ActivityPub, ActivityStreams) into a civic-participation context. Together those four specs form the interoperability foundation that the rest of the ecosystem — citizen dashboards, activity feeds, discovery interfaces, representative spaces, and any number of third-party civic applications — builds on as interfaces and downstream tools, not as foundational components.
 
-The Civic.Social ecosystem is organized into six canonical layers:
+Civic Hubs operate at the **Civic Hub Spec** layer: they are the community-operated digital spaces where participation actually happens. This pilot focuses on defining what it means to be a compliant Civic Hub and demonstrating the model with real community deployments.
 
-**Identity Layer** — Decentralized identity enabled by Decentralized Identifiers (DIDs) and Verifiable Credentials. Citizens verify once and participate across the ecosystem.
+Civic Hubs sit at the center of the architecture. They host civic processes (per the Civic Process Spec), authenticate citizens through the identity layer (per the Civic Identity Spec), and publish events into the shared activity layer (per the Civic Activity Spec). Hubs are the primary organizational node in the ecosystem — where existing groups, jurisdictions, and communities gain digital infrastructure they control. Hubs map to real-world social structures, giving them a persistent space to organize and participate.
 
-**Civic Hub Layer** — Community-operated hubs where groups and communities organize, host processes, and emit events to the ecosystem. This is where this pilot operates.
-
-**Civic Process Layer** — Modular, pluggable participation tools (advisory voting, citizen assemblies, participatory budgeting) that integrate through the Civic Process Plugin Framework.
-
-**Civic Activity Feed Layer** — Aggregation, distribution, and discovery of civic events across the ecosystem, including hubs and processes.
-
-**Discovery Layer** — Hub and process discovery, indexing, and search.
-
-**Citizen Dashboard** — Personal interfaces for citizens to manage participation and credentials.
-
-Civic Hubs sit at the center of this architecture. They host processes from the Process Layer, authenticate citizens through the Identity Layer, publish events into the Civic Activity Feed Layer, and appear in the Discovery Layer. The hub is the primary organizational node in the ecosystem — where existing groups, jurisdictions, and communities gain digital infrastructure they control. Hubs map to real-world social structures, giving them a persistent space to organize and participate.
-
-Importantly, Civic Hubs remain fully accessible without the dashboard or feed. The dashboard and feed act as aggregation and discovery interfaces, not gatekeepers. A citizen can visit a hub directly, authenticate, and participate without ever using a dashboard or activity feed. This ensures that hubs function as independent spaces even before the broader ecosystem infrastructure is fully deployed.
+Importantly, Civic Hubs remain fully accessible without dashboards, feeds, or discovery interfaces. Those are downstream surfaces built on the four canonical specs, not gatekeepers. A citizen can visit a hub directly, authenticate, and participate without ever using a dashboard or activity feed. This ensures that hubs function as independent spaces even before the broader ecosystem infrastructure is fully deployed.
 
 ---
 

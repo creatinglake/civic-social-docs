@@ -291,31 +291,21 @@ A citizen should be able to:
 
 All while the underlying infrastructure remains decentralized and independently operated.
 
-### Architectural Layers
+### Four Canonical Open Specs
 
-At a high level, the Civic.Social ecosystem consists of several interoperating layers:
+The Civic.Social architecture is organized around **four canonical open specifications** — each of which extends underlying open web standards into a civic-participation context:
 
-**Civic Identity Layer**
+**Civic Identity Spec.** Decentralized identifiers (DIDs) and verifiable credentials (VCs) enable trusted authentication and participation across the network. This pilot defines this spec.
 
-Decentralized identifiers and verifiable credentials enable trusted authentication and participation across the network.
+**Civic Hub Spec.** Standardizes the hub interface so any compliant hub is interchangeable — communities can switch software without losing data, members, or history.
 
-**Activity Federation Layer**
+**Civic Process Spec.** Plugin contract for democratic processes — votes, deliberations, proposals. Anyone can author a new process; any compliant hub or dashboard can host it.
 
-Protocols such as ActivityPub and standardized civic event schemas allow civic hubs and processes to publish participation opportunities and updates into shared civic activity feeds.
+**Civic Activity Spec.** Common shape for civic events. Activity emitted anywhere in the ecosystem flows consistently into any feed, notification stream, or embed. Built on standardized event schemas and forward-compatible with ActivityPub / ActivityStreams.
 
-**Civic Spaces Layer**
+Together these four specs form the interoperability foundation that the rest of the ecosystem — citizen dashboards, activity feeds, discovery interfaces, representative spaces, and any number of third-party civic applications — builds on as interfaces and downstream tools, not as foundational components.
 
-Civic Hubs represent communities, jurisdictions, or civic organizations where participation processes occur.
-
-**Civic Process Layer**
-
-Modular civic processes (citizen assemblies, advisory voting, participatory budgeting, petitions, etc.) integrate through the Civic Process Plugin Framework.
-
-**Citizen Interface Layer**
-
-Feeds, dashboards, hubs, and external websites provide entry points where citizens discover and participate in civic processes.
-
-Identity and activity federation together enable this federated civic ecosystem to feel seamless while preserving local autonomy and independence.
+Identity and activity together enable this federated civic ecosystem to feel seamless while preserving local autonomy and independence.
 
 The Civic.Social identity architecture is built around decentralized identity technologies.
 

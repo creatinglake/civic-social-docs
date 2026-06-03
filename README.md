@@ -23,9 +23,18 @@ the work:
   identity and personal data approach. These are the ideas everything else
   builds on.
 
-- **`pilots/`** — specifications for specific pilot programs. This initial
-  release includes the Civic Identity Pilot and the Civic Hubs Pilot.
+- **`pilots/`** — specifications for specific pilot programs. Current
+  pilot specs include the **[Civic Identity Pilot](pilots/civic-identity/civic-identity-pilot-spec.md)**,
+  the **[Civic Hubs Pilot](pilots/civic-hubs/civic-hubs-pilot-spec.md)**,
+  and the **[Civic Process Plugin Pilot](pilots/civic-process/civic-process-pilot-spec.md)**.
   Additional pilot specs will be added as they reach publishable state.
+
+- **`positions/`** — public statements of where Civic.Social stands on
+  questions of principle, setting out our commitments and the values that
+  constrain the work. The first is
+  **[Our Approach to AI](positions/our-approach-to-ai.md)** — how we think
+  about building with AI, the tensions we carry, and what we commit to over
+  time.
 
 Other top-level directories may be added as the documentation grows.
 
