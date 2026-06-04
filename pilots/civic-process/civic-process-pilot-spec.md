@@ -742,7 +742,7 @@ The pilot program is deliberately designed so that the order in which pilots are
 
 Indicative timeline: **6–9 months at typical scope** across four phases (see section 25), scaling to 4–6 months at lean scope or 9–12 months at expanded scope (see section 32 for tier definitions). The compressed range relative to other pilots reflects that two of the three exemplar plugins are already operational and the third is already deployed live; the pilot is primarily formalization, host machinery, and standards-alignment work rather than greenfield construction.
 
-Roles required:
+Roles required (responsibilities, not headcount):
 
 - **Civic architecture lead.** Owns the Civic Process Plugin Specification and the alignment posture with IDT, DDS, and DelibTech.
 - **Lead full-stack engineer.** Owns the reference plugin host implementation and the Tier 1 exemplar conformance work.
@@ -750,6 +750,8 @@ Roles required:
 - **Identity / standards advisor (part-time).** Advises on DID (Decentralized Identifier), VC (Verifiable Credential), IDT (Metagov Interoperable Deliberative Tools), and DDS (Decentralized Deliberation Standard) alignment questions.
 - **Ecosystem coordinator (part-time).** Owns outreach and alignment conversations with Metagov, DDS Working Group, DelibTech Network, and prospective plugin author organizations.
 - **Documentation specialist (part-time).** Owns the plugin author and host operator guides.
+
+At the **lean tier**, most of these responsibilities are absorbed by the founding steward, with AI-assisted development covering the engineering execution and selective advisor engagement for the identity/standards questions. The **typical tier** adds a part-time contractor or two (commonly a technical writer for the guides and a part-time engineer for the harness or Polis productization), with the founding steward continuing to hold the architecture and ecosystem-coordination work. The **expanded tier** brings an additional engineer to meaningful capacity and funds dedicated time for ecosystem coordination, multiple external plugin-author engagements, and convenings. The role list above describes the work; the staffing pattern reflects the tier.
 
 ---
 
@@ -779,17 +781,19 @@ Organizations whose standardization work the pilot aligns with: **Metagov** (Int
 
 This pilot's scope is also moderated by what already exists. The two Tier 1 exemplars (`civic.vote`, `civic.proposal`) are already operational in the Civic.Social Hub reference implementation, and a live Polis instance is already deployed and integrated with the representative-space service. The pilot's work is formalization, host machinery, and standards-alignment — not greenfield plugin construction. This is why even the lean tier produces a publishable specification and a working reference host.
 
-### Lean — $125,000 – $175,000 (≈ 4–6 months)
+The figures below assume the way Civic.Social currently operates: the founding steward leads the work, with contractors and advisors brought in for specific pieces as the tier scales up. If the pilot were staffed instead with multiple full-time engineers, a dedicated ecosystem coordinator, and a dedicated documentation specialist (the more conventional nonprofit-team approach), the totals would roughly double or triple. The figures reflect actual operating practice, not a hypothetical fully-staffed team.
 
-Specification drafted and published as the Civic Process Plugin Specification v0.1. Reference host machinery (manifest inspection, capability granting, identity handoff, activity ingestion) built into the Civic.Social Hub. The two existing Tier 1 exemplars (`civic.vote`, `civic.proposal`) formalized against the specification. Polis Tier 3 integration documented as a reference pattern, building on the existing live deployment, but not fully productized against the new specification. Minimal documentation: a plugin author quickstart. Single host environment.
+### Lean — $50,000 – $75,000 (≈ 4–6 months)
 
-### Typical — $225,000 – $350,000 (≈ 6–9 months)
+Specification drafted and published as the Civic Process Plugin Specification v0.1. Reference host machinery (manifest inspection, capability granting, identity handoff, activity ingestion) built into the Civic.Social Hub. The two existing Tier 1 exemplars (`civic.vote`, `civic.proposal`) formalized against the specification. Polis Tier 3 integration documented as a reference pattern, building on the existing live deployment, but not fully productized against the new specification. The plugin development harness (conformance test suite plus AGENTS.md-style guidance for AI coding tools) shipped at first-version completeness. Minimal documentation beyond a plugin author quickstart. Single host environment. Executed primarily by the founding steward; budget covers founder compensation, hosting, tools, and selective advisor fees.
 
-Everything in lean, plus: Polis fully productized as a Tier 3 plugin under the full specification. Worked IDT compatibility example (export and import paths). DDS structural mapping document. Complete plugin author and host operator guides. Cross-host portability proof — the same plugin running in a second host environment (the representative-space service is the natural candidate). One round of external plugin-author engagement, likely with one team from the Metagov IDT cohort.
+### Typical — $100,000 – $175,000 (≈ 6–9 months)
 
-### Expanded — $350,000 – $550,000 (≈ 9–12 months)
+Everything in lean, plus: Polis fully productized as a Tier 3 plugin under the full specification. Worked IDT compatibility example (export and import paths). DDS structural mapping document. Complete plugin author and host operator guides. Cross-host portability proof — the same plugin running in a second host environment (the representative-space service is the natural candidate). One round of external plugin-author engagement, likely with one team from the Metagov IDT cohort. Budget adds a part-time contractor or two (commonly a technical writer for the guides and a part-time engineer for the harness or Polis productization), plus advisor fees, travel for one or two community-group meetings, and ecosystem outreach time.
 
-Everything in typical, plus: active sustained engagement with the Metagov IDT and DDS Working Group communities (including travel and convenings). Two or more cross-host portability proofs. Multiple external plugin-author engagements producing at least one third-party plugin built against the specification. Stronger documentation and reference materials, including video walkthroughs and worked plugin templates. Specification governance scaffolding for ongoing third-party contribution.
+### Expanded — $200,000 – $300,000 (≈ 9–12 months)
+
+Everything in typical, plus: an additional engineer at meaningful capacity, sustained engagement with the Metagov IDT and DDS Working Group communities (including travel and convenings), two or more cross-host portability proofs, multiple external plugin-author engagements producing at least one third-party plugin built against the specification, stronger documentation and reference materials (including video walkthroughs and worked plugin templates), and specification governance scaffolding for ongoing third-party contribution.
 
 ### Cost Drivers Within and Across Tiers
 
