@@ -1,6 +1,6 @@
 ---
 status: draft
-last-reviewed: 2026-04-19
+last-reviewed: 2026-07-03
 owners: [adam]
 version: 0.1
 ---
@@ -18,7 +18,7 @@ The next paradigm is not more SaaS. It is:
 **Agent-mediated infrastructure.**
 
 In this model:
-- Infrastructure provides interoperability (identity, feeds, processes, hubs)
+- Infrastructure provides interoperability (identity, activity feeds, processes, spaces)
 - AI agents provide usability, coordination, and interaction
 
 AI is not an add-on feature layer. It is the **interface and coordination layer** that makes a federated civic ecosystem usable.
@@ -83,7 +83,7 @@ Multiple agents can coexist. No single "official AI."
 ### 3.5 Edge Intelligence
 Agents operate at:
 - user level
-- hub level
+- space level (e.g., hub)
 - organizational level
 
 ### 3.6 AI as Layered Augmentation
@@ -93,13 +93,7 @@ AI augments interaction and coordination but does not replace or redefine core i
 
 ## 4. Role of AI in the Architecture
 
-AI agents sit **on top of** Civic.Social infrastructure layers:
-
-- Identity → context (who you are, what you're eligible for)
-- Feed → input stream (what's happening)
-- Processes → action surface (what you can do)
-- Hubs → local governance context
-- Dashboard → interaction surface
+AI agents sit **on top of** the canonical five-layer Civic.Social architecture (Open Web Standards → Civic Specifications → Sovereign Foundation → Components → Interfaces; see the terminology glossary) — consuming identity context, the activity stream, available processes, and each space's local governance context.
 
 Agents translate this system into a usable experience.
 
@@ -302,7 +296,7 @@ Civic.Social must not depend on:
 
 ### Phase 3 — Ecosystem
 - Publish civic models openly
-- Allow hubs/orgs to choose models
+- Allow spaces/orgs to choose models
 
 ---
 

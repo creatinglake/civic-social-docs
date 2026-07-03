@@ -1,15 +1,17 @@
 ---
-status: stable
-last-reviewed: 2026-04-19
+status: review
+last-reviewed: 2026-07-03
 owners: [adam]
-version: 0.1
+version: 0.4
 ---
 
-# Civic.Social Architecture Baseline (v0.3 Draft)
+# Civic.Social Architecture Baseline (v0.4 Draft)
 
 ## 1. Purpose of This Document
 
 This document establishes the baseline conceptual architecture for the Civic.Social ecosystem. It serves as the "source of truth" describing how the major components of the system fit together and provides a stable reference for defining pilot projects.
+
+> **Relationship to the canonical specifications.** This document is the conceptual companion to the four canonical Civic.Social specifications — **Civic Space · Civic Process · Civic Activity · Civic Identity**. Where this baseline conflicts with those specifications, the specifications govern.
 
 The architecture described here is intentionally **conceptual rather than deeply technical**. Detailed protocol specifications, APIs, schemas, and infrastructure decisions will be developed during pilot implementations.
 
@@ -22,6 +24,8 @@ This document exists to ensure that all pilots remain logically consistent as Ci
 Civic.Social aims to create **shared digital civic infrastructure** that connects citizens, civic organizations, and governments through interoperable digital spaces.
 
 Instead of isolated civic tools and platforms, the system creates a **federated civic ecosystem** where communities operate their own Civic Hubs while remaining connected through shared identity, standards, and information flows.
+
+The Civic Hub is the community-scoped instance of a more general primitive, the **Civic Space** — a scoped host environment whose types form an open set distinguished by scope: community-scoped Civic Hubs, individual-scoped Citizen Dashboards, entity-scoped Representative Spaces, and future scopes registered without redesigning the primitive.
 
 The system is designed so that civic processes can appear across many interfaces — hubs, dashboards, feeds, and external websites — while remaining interoperable through open standards.
 
@@ -56,7 +60,7 @@ This allows openness while maintaining transparency.
 
 ## Open Standards
 
-Protocols and integration standards are open so independent developers can build compatible tools, hubs, dashboards, and civic processes.
+Protocols and integration standards are open so independent developers can build compatible tools, civic spaces, and civic processes.
 
 ## Modular Civic Processes
 
@@ -72,7 +76,7 @@ Tools remain independent but communicate through shared standards.
 
 ## Local Autonomy
 
-Each hub controls its own moderation policies, enabled plugins, and governance rules.
+Each space controls its own moderation policies, enabled plugins, and governance rules.
 
 ---
 
@@ -207,7 +211,7 @@ Examples:
 
 ## Civic Activity Feed
 
-A unified stream of civic activity aggregated from hubs, civic processes, and organizations.
+A unified stream of civic activity aggregated from civic spaces, civic processes, and organizations.
 
 Feed items may include:
 
@@ -222,7 +226,7 @@ A personal civic interface where citizens:
 
 - access civic tools
 - view civic feed
-- manage hub subscriptions
+- manage space subscriptions
 - discover civic opportunities
 
 The reference Civic.Social dashboard is **curated for reliability and neutrality**.
@@ -233,7 +237,7 @@ However open standards allow anyone to build alternative dashboards.
 
 # 5. System Architecture Overview
 
-The Civic.Social ecosystem can be understood as a network of **interfaces connected to shared civic processes through identity.**
+The Civic.Social ecosystem can be understood as a network of **interfaces connected to shared civic processes through identity.** (This is an informal view; the canonical five-layer model is given in Section 6.)
 
 ```
 Citizens
@@ -278,23 +282,79 @@ Important architectural note:
 
 # 6. Infrastructure Layers
 
-## Layer 1 — Identity Layer
+The ecosystem is organized into the five canonical architecture layers (defined in the terminology glossary), read bottom → top.
 
-Provides decentralized identity and credential verification. This layer encompasses the Citizen Node (DID + credentials) and the Personal Data Store (relationships + preferences), forming the citizen-controlled foundation of the ecosystem. Applications built on top of these layers are replaceable — a citizen's identity and accumulated civic relationships travel with them.
+## Layer 1 — Open Web Standards
+
+The bedrock, adopted rather than invented:
+
+- Decentralized Identifiers (DIDs)
+- Verifiable Credentials (VCs)
+- OpenID4VCI / OpenID4VP / SIOPv2
+- ActivityPub / ActivityStreams
+- JSON-LD, OAuth 2.0 / OIDC
+
+## Layer 2 — Civic Specifications
+
+Civic.Social's open specifications, which extend the web standards: **Civic Space · Civic Process · Civic Activity · Civic Identity**, plus companion documents (Civic Plugin Architecture, Discovery Layer, Authorization Model Note).
+
+## Layer 3 — Sovereign Foundation
+
+Identity and data owned by the participant, labeled by holder — person, entity, or community. For the person, this layer encompasses the Citizen Node (DID + credentials) and the Personal Data Store (relationships + preferences), forming the citizen-controlled foundation of the ecosystem; entities and communities hold parallel node + data store foundations. Applications built on top of this layer are replaceable — a participant's identity and accumulated civic relationships travel with them.
 
 Responsibilities:
 
 - issue credentials
 - verify participation eligibility
 - enable secure authentication
-- maintain citizen-controlled data (PDS)
+- maintain participant-controlled data (PDS and its entity/community counterparts)
 
-Possible technologies:
+## Layer 4 — Components
 
-- Decentralized Identifiers (DIDs)
-- Verifiable Credentials (VCs)
+Reusable building blocks — one engine, many lenses. Two components (the Activity Feed and Civic Processes) are shippable as standalone embeds on any web page.
 
-## Layer 2 — Civic Hub Layer
+### Plugin Framework and Process Runtime
+
+Provides modular extensibility for spaces. Plugins may be deployed in two ways.
+
+**Embedded Plugins** — modules that run inside the space software.
+
+Examples:
+
+- events
+- announcements
+- simple polls
+
+**Federated Plugins** — external services integrated through APIs and activity protocols.
+
+Examples:
+
+- citizen assembly platforms
+- deliberation tools
+- legislative testimony tools
+
+The hybrid model allows simple tools to run locally while complex civic processes remain independent services. External civic tools — deliberation platforms, voting tools, participatory budgeting systems, legislative testimony tools — integrate through this framework.
+
+### Civic Activity Feed Engine
+
+Aggregates updates across the ecosystem.
+
+Possible feed items:
+
+- process openings
+- vote results
+- space announcements
+- civic participation opportunities
+
+### Identity Adapter and Access Control
+
+The replaceable seams through which spaces authenticate participants, verify credentials, and enforce authorization (see the Authorization Model Note).
+
+## Layer 5 — Interfaces
+
+The distinct pieces of software people use: **Civic Spaces by scope**, plus infrastructure roles. Civic Spaces form an open, extensible set of types distinguished by scope.
+
+### Civic Hub (community-scoped)
 
 Hosts digital civic spaces for communities.
 
@@ -307,57 +367,7 @@ Capabilities:
 
 Hubs operate independently but may federate with others.
 
-## Layer 3 — Plugin Framework
-
-Provides modular extensibility for hubs.
-
-Plugins may be deployed in two ways.
-
-### Embedded Plugins
-
-Modules that run inside the hub software.
-
-Examples:
-
-- events
-- announcements
-- simple polls
-
-### Federated Plugins
-
-External services integrated through APIs and event protocols.
-
-Examples:
-
-- citizen assembly platforms
-- deliberation tools
-- legislative testimony tools
-
-The hybrid model allows simple tools to run locally while complex civic processes remain independent services.
-
-## Layer 4 — Civic Process Layer
-
-External civic tools and services integrated through the plugin framework.
-
-Examples:
-
-- deliberation platforms
-- voting tools
-- participatory budgeting systems
-- legislative testimony tools
-
-## Layer 5 — Civic Activity Feed Layer
-
-Aggregates updates across the ecosystem.
-
-Possible feed items:
-
-- process openings
-- vote results
-- hub announcements
-- civic participation opportunities
-
-## Layer 6 — Citizen Dashboard
+### Citizen Dashboard (individual-scoped)
 
 A personal interface for navigating civic life.
 
@@ -365,10 +375,22 @@ Capabilities include:
 
 - civic feed
 - civic tools
-- hub subscriptions
+- space subscriptions
 - participation history
 
 The dashboard is designed to be **a curated civic interface** rather than an open information marketplace.
+
+### Representative Space (entity-scoped)
+
+The neutral, public-facing surface for elected officials, candidates, and institutional bodies. Entities control their voice; they do not control the accountability data displayed alongside it.
+
+### Infrastructure Roles
+
+Ecosystem participants that serve the foundation rather than hosting processes at a scope: Citizen Account Providers (host a citizen's foundation on their behalf, federated like email providers) and Badge / Credential Issuers.
+
+---
+
+Two cross-cutting properties are deliberately **not** layers: **federation** is a capability of the Civic Activity Specification and the Discovery Layer, and **portability** is a contract of the Civic Space Specification over the Sovereign Foundation.
 
 ---
 
@@ -379,9 +401,9 @@ Plugins represent ecosystem capabilities that may appear across multiple interfa
 Plugins may be distributed through:
 
 - a shared plugin marketplace
-- independent installations by hubs
+- independent installations by spaces
 
-Marketplace plugins may be certified, while hubs remain free to install additional plugins independently.
+Marketplace plugins may be certified, while spaces remain free to install additional plugins independently.
 
 ## Plugin Categories
 
@@ -428,7 +450,7 @@ Possible surfaces include:
 
 - Hub interface
 - Citizen dashboard interface
-- Civic feed events
+- Civic activity feed items
 - External website embeds
 
 ---
@@ -494,27 +516,27 @@ Typical participation flow:
 2. Citizen selects a civic process
 3. Identity credentials verify eligibility
 4. Citizen participates in the process
-5. Process emits civic events
-6. Hub records summary data
+5. Process emits civic activities
+6. The hosting space records summary data
 7. Civic Activity Feed distributes updates
 
-Example events:
+Example activities:
 
-- assembly.created
-- vote.opened
-- vote.closed
+- civic.process.created
+- civic.process.started
+- civic.process.ended
 
-This ensures hubs retain civic records even when processes run externally.
+This ensures spaces retain civic records even when processes run externally.
 
 ---
 
 # 10. Federation Model
 
-Hubs may federate information across the ecosystem.
+Spaces may federate information across the ecosystem. Federation is a capability of the Civic Activity Specification and the Discovery Layer, not a layer of the stack.
 
 Examples:
 
-- cross-hub civic feeds
+- cross-space civic feeds
 - federated directories
 - multi-jurisdiction civic processes
 
@@ -543,7 +565,7 @@ They can:
 
 All without creating new accounts.
 
-Participation becomes continuous and visible across civic life. fileciteturn1file0
+Participation becomes continuous and visible across civic life.
 
 ---
 
@@ -551,9 +573,9 @@ Participation becomes continuous and visible across civic life. fileciteturn1fil
 
 Governance occurs at multiple levels.
 
-## Hub Governance
+## Space Governance
 
-Each hub determines:
+Each space (e.g., a Civic Hub) determines:
 
 - moderation policies
 - enabled plugins
@@ -583,7 +605,7 @@ Each pilot validates key aspects of the architecture.
 
 # 14. Maturity and Evolution
 
-This document defines the **initial conceptual architecture (v0.1)** for Civic.Social.
+This document defines the **baseline conceptual architecture (v0.4)** for Civic.Social.
 
 Future versions of the architecture may expand:
 
@@ -598,4 +620,4 @@ The architecture is intentionally modular so that components can evolve through 
 
 # Version
 
-Civic.Social Architecture Baseline Version 0.3 Draft
+Civic.Social Architecture Baseline Version 0.4 Draft
