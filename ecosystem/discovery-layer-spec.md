@@ -1,6 +1,6 @@
 ---
 status: review
-last-reviewed: 2026-04-19
+last-reviewed: 2026-07-03
 owners: [adam]
 version: 0.1
 ---
@@ -38,8 +38,8 @@ The Civic.Social system can be understood as a set of interoperating layers:
 - **Identity → access**\
   Citizens authenticate once and carry credentials across the ecosystem
 
-- **Hubs → spaces**\
-  Community or jurisdiction-based environments where civic activity occurs
+- **Civic Spaces → environments**\
+  Scoped environments where civic activity occurs — community-scoped Civic Hubs, individual-scoped Citizen Dashboards, entity-scoped Representative Spaces, and future space types (Civic Space Specification)
 
 - **Civic Processes → functionality**\
   Modular components (process or information) that enable participation
@@ -62,7 +62,7 @@ Civic.Social adopts a hybrid discovery model:
 
 All civic activity originates from independent actors:
 
-- Civic Hubs
+- Civic Spaces (hubs, representative spaces, dashboards)
 - Civic Process providers
 - Civic organizations
 - Government systems
@@ -182,18 +182,18 @@ No algorithmic ranking beyond time and location is introduced in MVP.
 
 The discovery system indexes three primary entity types:
 
-### 6.1 Hubs (Spaces)
+### 6.1 Civic Spaces
 
-- Jurisdictional or organizational civic spaces
+- Scoped civic environments (community, individual, entity, and future scopes), keyed by their **space DID** (Civic Space Specification §3.5) with the serving URL as a resolvable attribute
 
 ### 6.2 Civic Processes (Functionality)
 
-- Process processes (e.g., voting, assemblies)
-- Information processes (e.g., data feeds, news)
+- Participation processes (e.g., voting, assemblies)
+- Information processes (e.g., data feeds, news) — note: "information process" here is a *discovery category*; only participation processes carry the full lifecycle contract of the Civic Process Specification
 
-### 6.3 Events (Activity)
+### 6.3 Civic Activities
 
-- Time-bound civic opportunities or updates
+- Time-bound civic opportunities or updates, per the Civic Activity Specification
 
 These form the foundation of the discovery graph.
 
@@ -216,38 +216,33 @@ Location:
 Fields:
 
 - name
-- type (hub, organization, process provider)
+- space (`{ id: <space DID>, scope, type }`) — for Civic Spaces; non-space publishers (organizations, process providers) use `type` (organization | process provider) instead
 - jurisdictions
 - feeds (URLs)
 - processes (optional)
 - contact
 
+Legacy manifests that serve a top-level `type: "hub"` remain readable for the life of v0.1; indexers accept both forms (Civic Space Specification §7.2.0).
+
 ---
 
 #### B. Civic Activity Feed Endpoint
 
-Provides structured civic events.
+Provides structured Civic Activities conforming to the **Civic Activity Specification** (the full envelope: `id`, `version`, `event_type`, `timestamp`, `process_id`, `actor`, `jurisdiction`, `action_url`, `source`, `data`, `meta.visibility`). This spec defines no separate feed-item shape.
 
-Each event should include:
-
-- id
-- type (vote, assembly, meeting, etc.)
-- title
-- summary
-- jurisdiction
-- start/end time
-- action URL
-- category/tags
+For discovery presentation, indexers derive display fields from the envelope: title and summary from `data`, the process type from `data.process.type`, time bounds from the referenced process descriptor, and the action link from `action_url`.
 
 ---
 
 #### C. Civic Process Descriptor (for Civic Processes)
 
-Fields:
+Participation processes publish the descriptor defined in the **Civic Process Specification §12.1** (id, type, title, status, lifecycle profile, actions, requirements, endpoints). Indexers map `title` → display name and `endpoints.view` → access URL.
+
+Information processes (discovery category only) publish the minimal record:
 
 - id
 - name
-- category (process | information)
+- category (`information`)
 - description
 - provider
 - jurisdictions (optional)
@@ -261,8 +256,9 @@ An indexer should:
 
 - Ingest manifests and feeds
 - Normalize data
-- Store indexed entities
+- Store indexed entities, **keyed by space DID where the publisher is a Civic Space** (URLs are resolvable attributes, not identity)
 - Expose query endpoints
+- Honor the migration protocol (7.4): re-bind a space's index entry when the space moves
 
 Example queries:
 
@@ -276,6 +272,17 @@ Example queries:
 
 - Primary: chronological
 - Secondary: geographic proximity
+
+---
+
+### 7.4 Space Migration & Re-Binding Protocol
+
+Civic Spaces can migrate between engines, providers, or domains (Civic Space Specification §9). Discovery must survive that move:
+
+1. **Identity is the DID, not the URL.** Indexers key space entries (and the provenance of their activities) on the space DID. The serving URL is re-resolved from the DID document.
+2. **The migration signal.** On migration, the space emits `civic.space.migrated` as the final activity from its old location, carrying the new binding; indexers that consume the old feed re-bind on receipt.
+3. **The tombstone.** For as long as the old domain remains under the community's control, the old `/.well-known/civic.json` SHOULD serve a `moved` marker pointing to the new binding: `{ "moved": { "space": "<space DID>", "url": "<new URL>" } }`. Indexers encountering a tombstone re-resolve and re-bind.
+4. **No dangling entries.** After re-binding, previously indexed activities remain valid (their `source.space_id` is unchanged); only the resolvable location updates. Indexers SHOULD retain the old URL as a historical alias for inbound links.
 
 ---
 
