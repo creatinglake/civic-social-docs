@@ -18,16 +18,23 @@ the work:
   should start here; **[Before & After](case/before-and-after.md)** is the
   recommended entry point.
 
-- **`ecosystem/`** — specifications describing the conceptual substrate of
-  Civic.Social: the design process, the civic event model, hub architecture,
-  identity and personal data approach. These are the ideas everything else
-  builds on.
+- **`ecosystem/`** — the four canonical specifications that anchor
+  Civic.Social —
+  **[Civic Space](ecosystem/civic-space-spec.md)** (`civic-space-spec.md`),
+  **[Civic Process](ecosystem/civic-process-spec.md)** (`civic-process-spec.md`),
+  **[Civic Activity](ecosystem/civic-activity-spec.md)** (`civic-activity-spec.md`),
+  and **[Civic Identity](ecosystem/civic-identity-spec.md)** (`civic-identity-spec.md`) —
+  plus their companion documents: the plugin architecture, the discovery
+  layer, the authorization model note, the architecture baseline, and the
+  AI documents. These are the ideas everything else builds on.
 
-- **`pilots/`** — specifications for specific pilot programs. Current
-  pilot specs include the **[Civic Identity Pilot](pilots/civic-identity/civic-identity-pilot-spec.md)**,
+- **`pilots/`** — specifications for the six pilot programs. Three are
+  fully specified: the **[Civic Identity Pilot](pilots/civic-identity/civic-identity-pilot-spec.md)**,
   the **[Civic Hubs Pilot](pilots/civic-hubs/civic-hubs-pilot-spec.md)**,
   and the **[Civic Process Plugin Pilot](pilots/civic-process/civic-process-pilot-spec.md)**.
-  Additional pilot specs will be added as they reach publishable state.
+  Three more are newly drafted — Civic Activity Feed & Discovery, Citizen
+  Dashboard, and Civic Credentialing — and their specs will be added as
+  they reach publishable state.
 
 - **`positions/`** — public statements of where Civic.Social stands on
   questions of principle, setting out our commitments and the values that

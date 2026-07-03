@@ -1,6 +1,6 @@
 ---
 status: review
-last-reviewed: 2026-04-29
+last-reviewed: 2026-07-03
 owners: [adam]
 version: 0.2
 ---
@@ -13,17 +13,17 @@ Civic participation today is fragmented across disconnected platforms, tools, an
 
 ## The Solution
 
-Civic.Social is open, federated infrastructure for civic participation—not a single platform, but the connective layer that allows independent civic tools, communities, and governments to interoperate. Communities operate their own Civic Hubs (self-governed digital spaces). Civic Processes (voting, citizen assemblies, budgeting, petitions) work as modular plugins that run across any interface. Citizens authenticate once with decentralized identity and participate everywhere. Events flow through a shared activity feed, creating network effects without centralized control.
+Civic.Social is open, federated infrastructure for civic participation—not a single platform, but the connective layer that allows independent civic tools, communities, and governments to interoperate. Communities operate their own Civic Hubs (self-governed community-scoped Civic Spaces). Civic Processes (voting, citizen assemblies, budgeting, petitions) work as modular plugins that run across any interface. Citizens authenticate once with decentralized identity and participate everywhere. Civic activities flow through a shared activity feed, creating network effects without centralized control.
 
 ## How It Works
 
 **Five Core Components:**
 
-1. **Civic Hubs** — Community-operated digital spaces that host civic processes and emit standardized events
+1. **Civic Hubs** — Community-operated Civic Spaces (the community-scoped space type) that host civic processes and emit standardized civic activities
 2. **Civic Processes** — Modular participation tools (advisory votes, deliberative assemblies, participatory budgeting, petitions) that can be deployed across any interface
 3. **Civic Identity** — Decentralized authentication based on W3C DIDs and Verifiable Credentials
 4. **Civic Activity Feed** — Aggregation and distribution layer that surfaces civic opportunities to citizens
-5. **Citizen Dashboard** — Personal civic interface where citizens access tools, view their feed, and manage subscriptions across multiple hubs
+5. **Citizen Dashboard** — The individual-scoped Civic Space: a personal civic interface where citizens access tools, view their feed, and manage subscriptions across multiple hubs
 
 ## Why Now
 
@@ -33,10 +33,10 @@ Three converging forces make this moment optimal: (1) W3C standards for decentra
 
 **Phase 1 (In Progress):**
 
-- Three foundational specifications complete: Civic Hub, Civic Event, Civic Process
+- Four canonical specifications drafted: Civic Space, Civic Process, Civic Activity, Civic Identity (the earlier Civic Hub and Civic Event specs, renamed and generalized)
 - Working implementation of the Civic Hub with advisory voting and proposal processes
 - Foundation for decentralized identity integration
-- Five coordinated pilot initiatives in development with municipalities and civic organizations
+- Six coordinated pilot initiatives in development with municipalities and civic organizations: Civic Hubs, Civic Process Plugins, Civic Identity, Civic Activity Feed & Discovery, Citizen Dashboard, and Civic Credentialing
 
 ## The Ask
 
