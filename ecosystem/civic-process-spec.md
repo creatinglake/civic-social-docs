@@ -1,11 +1,11 @@
 ---
-status: stable
-last-reviewed: 2026-04-19
+status: review
+last-reviewed: 2026-07-03
 owners: [adam]
-version: 0.1
+version: 0.2
 ---
 
-# Civic Process Specification v0.1
+# Civic Process Specification v0.2
 
 ## Purpose
 
@@ -14,10 +14,12 @@ Define a standard, interoperable model for **Civic Processes** within the Civic.
 A Civic Process is a structured, stateful interaction that enables participation between citizens, organizations, and institutions.
 
 This specification defines:
-- Process lifecycle
-- Identity requirements
-- Event model integration
-- Interface and integration contracts
+- Process lifecycle (canonical vocabulary + lifecycle profiles)
+- Identity, eligibility, and disclosure requirements
+- Activity model integration (per the Civic Activity Specification)
+- Interface and integration contracts (creation, descriptor, actions)
+
+**Relationship to plugins.** A Civic Process *type* is implemented and distributed as a **Civic Process Plugin**: a handler registered with the host space's process registry, packaged and trusted per the **Civic Plugin Architecture**. This specification defines the process contract a plugin implements; the plugin architecture defines how it is packaged, scoped, and installed. The two documents are companions and cross-reference each other.
 
 ---
 
@@ -50,7 +52,8 @@ Every Civic Process must define:
 - `created_at`
 
 ### 2.2 Lifecycle
-- `status` (draft | scheduled | active | closed | finalized)
+- `status` — drawn from the canonical state vocabulary (draft | scheduled | active | closed | finalized), as constrained by the process type's **lifecycle profile** (Section 4)
+- `lifecycle_profile` — the profile the process type declares (Section 4.2)
 - `starts_at`
 - `ends_at`
 
@@ -60,7 +63,9 @@ Every Civic Process must define:
 - `participation_mode`
   - open | gated | invitation-only
 - `interaction_type`
-  - vote | comment | deliberate | hybrid
+  - an open identifier describing the primary interaction (canonical values: vote | comment | deliberate | propose | allocate | signal | hybrid; process types MAY define additional values but MUST map them to the nearest canonical value for export)
+- `disclosure_policy`
+  - governs what participant data may be linked and published: `secret` (participation may be public; the participant's choice/content is never linked to their identity in stored ledgers or public activities), `on_the_record` (participant identity and content are published together), or a named policy from the Identity Policy Object (Civic Identity Specification). The policy MUST be declared before participation begins and published in the descriptor, so participants know the disclosure terms before acting. See the Civic Activity Specification §7 for how disclosure constrains activity payloads.
 
 ### 2.4 Actions
 Defines what participants can do:
@@ -87,6 +92,17 @@ Each action must define:
 - validation rules
 - resulting state changes (if applicable)
 
+### 2.5 Process Types, the Registry, and Handlers
+
+Every process instance has a `type` (e.g., `civic.vote`). A process **type** is defined by a **handler** registered with the host space's **process registry**:
+
+- The registry maps type identifiers to handler implementations. Type identifiers use reverse-namespace form (`civic.*` for canonical types; vendors use their own namespace).
+- A handler implements, at minimum: state initialization for a new instance, action handling (validate → apply → emit), a read model for consumers, and close/terminal-transition behavior for its lifecycle profile.
+- The service layer that hosts processes MUST remain type-agnostic: all process-specific logic lives in handlers; creation, dispatch, lifecycle checks, and feeds operate on the registry contract, never on hardcoded type checks.
+- Handlers are packaged as **Civic Process Plugins** (Civic Plugin Architecture): a plugin ships a manifest declaring its type(s), trust tier, capabilities, and targeted contract versions. A host installs the plugin, which registers its handler(s).
+
+This registry/handler contract is what makes the process set extensible: a third party adds a process type by implementing the handler contract and shipping a conformant plugin — no changes to the host's core.
+
 ---
 
 ## 3. Identity Integration
@@ -94,8 +110,9 @@ Each action must define:
 Civic Processes must integrate with decentralized identity systems.
 
 ### 3.1 Authentication
-- Users authenticate via DID-based login
-- Session established at hub or interface level
+- Users authenticate via DID-based login (target state)
+- Session established at the space or interface level
+- During early phases, a host space MAY satisfy this through a stub identity adapter at a **declared assurance level** (Civic Space Specification §7.3); the actor recorded on activities is always the authenticated identity, never taken from the request body
 
 ### 3.2 Credential Requirements
 Processes define required credentials:
@@ -116,9 +133,11 @@ Examples:
 
 ---
 
-## 4. Lifecycle Model
+## 4. Lifecycle Model and Lifecycle Profiles
 
-A Civic Process follows this lifecycle:
+### 4.1 Canonical State Vocabulary
+
+The canonical lifecycle states are:
 
 1. Draft
 2. Scheduled
@@ -126,13 +145,35 @@ A Civic Process follows this lifecycle:
 4. Closed
 5. Finalized
 
-### State Transitions
-- Draft → Scheduled
-- Scheduled → Active
-- Active → Closed
-- Closed → Finalized
+The five-state sequence (Draft → Scheduled → Active → Closed → Finalized) is a **canonical vocabulary, not a mandatory sequence for every process type**. Not every civic interaction is deliberation-shaped: announcements publish and archive; continuous processes stay open until closed by an administrator; ephemeral processes are born active.
 
-Each transition may emit events.
+### 4.2 Lifecycle Profiles
+
+Every process type declares its **lifecycle profile** in its descriptor. A profile is an ordered subset of the canonical vocabulary plus its transition rules. Named profiles:
+
+| Profile | States | Typical use |
+|---|---|---|
+| `deliberative` | draft → scheduled → active → closed → finalized | Votes, assemblies, budgets — the full model (`scheduled` optional where activation is manual) |
+| `continuous` | draft → active → closed | Standing conversations, idea boards — closed manually by an administrator |
+| `publish` | draft → active → archived | Announcements, reports — published, later archived |
+| `ephemeral` | active → closed | Lightweight interactions born active |
+
+Process types MAY define additional profiles, using only canonical state names plus at most one type-specific terminal alias (like `archived`), which MUST map to a canonical terminal state (`closed` or `finalized`) for export and cross-space consumption.
+
+### 4.3 Minimal Shared Lifecycle Requirements
+
+Regardless of profile, every process type MUST:
+
+- Support a pre-publication state (`draft` or equivalent) unless the profile is `ephemeral`
+- Be closable or archivable by an authorized administrator at any time
+- Emit a lifecycle activity on **every** terminal transition (no silent archiving)
+- Publish its lifecycle profile in the process descriptor (Section 12.1), so consumers know which transitions to expect
+
+### 4.4 State Transitions
+
+Transitions follow the declared profile and are irreversible under normal operation. Each transition MUST emit the corresponding lifecycle activity (Section 7).
+
+The phase model in Sections 5–6 describes the **`deliberative` profile** in full; other profiles execute the subset of phases their states support (e.g., a `publish` profile performs Initiation, Framing, Activation, and Publication only).
 
 ---
 
@@ -201,18 +242,18 @@ The full lifecycle consists of eight phases. Every Civic Process MUST support at
 - Validate that all required configuration is complete (actions defined, eligibility set, timeline valid)
 - Transition process status from `draft` or `scheduled` to `active`
 - Publish the process descriptor to the Civic Activity Feed
-- Make the process discoverable via the hub's `/.well-known/civic.json` manifest and process listing endpoints
+- Make the process discoverable via the host space's `/.well-known/civic.json` manifest and process listing endpoints
 
 **Required Data:**
 - All framing data must be finalized
 - The current timestamp must be at or after `starts_at` (or activation may be manual)
 
-**Identity Relationship:** The activating actor must have administrative authority over the process. For scheduled processes, activation may be performed by the system clock, in which case the actor is recorded as the hub itself.
+**Identity Relationship:** The activating actor must have administrative authority over the process. For scheduled processes, activation may be performed by the system clock, in which case the actor is recorded as the space itself.
 
 **Expected Outputs:**
 - Process status set to `active`
 - A `civic.process.started` event emitted
-- Process appears in hub process listings and Civic Activity Feed
+- Process appears in space process listings and Civic Activity Feed
 
 ---
 
@@ -223,7 +264,7 @@ The full lifecycle consists of eight phases. Every Civic Process MUST support at
 **Key Actions:**
 - Participants authenticate and present required credentials
 - Participants perform actions defined by the process (vote, comment, deliberate, propose, allocate budget)
-- The hub validates each action against the action contract (input schema, credential requirements, validation rules)
+- The host space validates each action against the action contract (input schema, credential requirements, validation rules)
 - Each valid action is recorded and emits an event
 
 **Required Data:**
@@ -259,7 +300,7 @@ The full lifecycle consists of eight phases. Every Civic Process MUST support at
 - Aggregation method configuration from framing phase
 - Process type handler's aggregation logic
 
-**Identity Relationship:** Aggregation is typically a system-level operation performed by the hub or a designated aggregation service. The aggregating actor (system or authorized administrator) is recorded for auditability. Individual participant identities are not exposed during aggregation unless the process explicitly requires transparent tallying.
+**Identity Relationship:** Aggregation is typically a system-level operation performed by the host space or a designated aggregation service. The aggregating actor (system or authorized administrator) is recorded for auditability. Individual participant identities are not exposed during aggregation unless the process explicitly requires transparent tallying.
 
 **Expected Outputs:**
 - Structured aggregation result (format defined by process type)
@@ -384,33 +425,38 @@ The Feedback / Continuity phase is unique in that it operates on a `finalized` p
 
 ---
 
-## 7. Event Integration (Activity Layer)
+## 7. Activity Integration
 
-All Civic Processes must publish standardized events.
+All Civic Processes must publish standardized **Civic Activities** (Civic Activity Specification). The full activity envelope — including `id`, `version`, `source`, and `meta.visibility` — is defined there; this section defines which activities a process emits and when. (The v0.1 wire field is `event_type`; see Civic Activity Specification §14.)
 
-### 7.1 Event Contract
+### 7.1 Activity Contract
 
-Each process action or lifecycle transition MUST result in one or more events.
+Each process action or lifecycle transition MUST result in one or more activities, emitted through the host space's single emission path.
 
-Events must include:
+Every activity carries the full envelope of the Civic Activity Specification §2–3, including:
 - process_id
 - event_type
 - timestamp
-- actor (optional for system events)
+- actor (a system identifier such as `system:auto-close` for system-initiated transitions)
 - jurisdiction
 - action_url
+- id, version, source, data (with `data.process.type`), meta.visibility
 
-### 7.2 Required Event Types
+### 7.2 Required Lifecycle Activity Types
 - `civic.process.created`
 - `civic.process.updated`
 - `civic.process.started`
-- `civic.process.ended`
+- `civic.process.ended` — emitted on the transition into a terminal state (`active` → `closed`, or the profile's terminal transition)
 - `civic.process.result_published`
 
-### 7.3 Participation Events (Optional)
+### 7.3 Participation Activities
+
+Every participant action MUST emit an activity (per 7.1). Where the action's semantics match a canonical participation type, that type MUST be used:
 - `civic.process.vote_submitted`
 - `civic.process.comment_added`
 - `civic.process.proposal_created`
+
+Actions with no matching canonical type emit `civic.process.action_taken` or a manifest-declared extension type (Civic Activity Specification §4.5). Participation activity **payloads** are constrained by the process's `disclosure_policy` (Section 2.3): a `secret` process never places the participant's choice or content in activities more visible than the policy allows.
 
 ### 7.4 Lifecycle Phase Events
 
@@ -422,21 +468,27 @@ Emitted when the framing phase is complete and the process configuration is fina
 
 ```json
 {
+  "id": "uuid",
+  "version": "1.0",
   "event_type": "civic.process.framed",
   "process_id": "string",
   "timestamp": "ISO8601",
   "actor": "DID of framing actor",
   "jurisdiction": "string",
   "action_url": "string",
+  "source": { "hub_id": "string", "hub_url": "url", "space_id": "did (recommended)" },
   "data": {
+    "process": { "type": "civic.vote" },
     "eligibility_requirements": ["array of credential types"],
     "participation_mode": "open | gated | invitation-only",
-    "interaction_type": "vote | comment | deliberate | hybrid",
+    "interaction_type": "vote | comment | deliberate | propose | allocate | signal | hybrid",
+    "disclosure_policy": "secret | on_the_record | named policy",
     "starts_at": "ISO8601",
     "ends_at": "ISO8601",
     "aggregation_method": "string (optional)",
     "action_count": "number of defined actions"
-  }
+  },
+  "meta": { "visibility": "public" }
 }
 ```
 
@@ -446,19 +498,24 @@ Emitted when the aggregation phase has finished processing participant inputs in
 
 ```json
 {
+  "id": "uuid",
+  "version": "1.0",
   "event_type": "civic.process.aggregation_completed",
   "process_id": "string",
   "timestamp": "ISO8601",
-  "actor": "DID of aggregating actor or hub system ID",
+  "actor": "DID of aggregating actor or space system ID",
   "jurisdiction": "string",
   "action_url": "string",
+  "source": { "hub_id": "string", "hub_url": "url", "space_id": "did (recommended)" },
   "data": {
+    "process": { "type": "civic.vote" },
     "aggregation_method": "string",
     "participant_count": "number",
     "result_summary": "string (human-readable summary)",
     "result_type": "tally | summary | synthesis | allocation",
     "anomalies": "array of strings (optional)"
-  }
+  },
+  "meta": { "visibility": "public" }
 }
 ```
 
@@ -468,18 +525,23 @@ Emitted when the outcome or decision has been formally recorded for the process.
 
 ```json
 {
+  "id": "uuid",
+  "version": "1.0",
   "event_type": "civic.process.outcome_recorded",
   "process_id": "string",
   "timestamp": "ISO8601",
   "actor": "DID of outcome author or decision authority",
   "jurisdiction": "string",
   "action_url": "string",
+  "source": { "hub_id": "string", "hub_url": "url", "space_id": "did (recommended)" },
   "data": {
+    "process": { "type": "civic.vote" },
     "outcome_type": "advisory | binding | informational | input",
     "outcome_description": "string",
     "decision_authority": "DID (optional, for binding outcomes)",
     "linked_process_id": "string (optional, if outcome feeds another process)"
-  }
+  },
+  "meta": { "visibility": "public" }
 }
 ```
 
@@ -489,17 +551,22 @@ Emitted when a participant submits feedback on a finalized process. This event t
 
 ```json
 {
+  "id": "uuid",
+  "version": "1.0",
   "event_type": "civic.process.feedback_received",
   "process_id": "string",
   "timestamp": "ISO8601",
   "actor": "DID of feedback submitter",
   "jurisdiction": "string",
   "action_url": "string",
+  "source": { "hub_id": "string", "hub_url": "url", "space_id": "did (recommended)" },
   "data": {
+    "process": { "type": "civic.vote" },
     "feedback_type": "process_quality | outcome_satisfaction | accessibility",
     "content": "string",
     "rating": "number (optional, 1-5 scale)"
-  }
+  },
+  "meta": { "visibility": "public" }
 }
 ```
 
@@ -515,16 +582,18 @@ Example:
 
 Each lifecycle phase MUST emit at least one event. The following table defines the minimum event emissions per phase:
 
-| Lifecycle Phase | Required Event(s) |
+| Lifecycle Phase | Required Activity/Activities |
 |---|---|
 | 0. Initiation | `civic.process.created` |
 | 1. Framing | `civic.process.framed` |
 | 2. Activation | `civic.process.started` |
-| 3. Participation | At least one participation event per action taken (e.g., `civic.process.vote_submitted`) |
-| 4. Aggregation | `civic.process.aggregation_completed` |
+| 3. Participation | At least one participation activity per action taken (e.g., `civic.process.vote_submitted`) |
+| 4. Aggregation | `civic.process.ended` (on the `active` → `closed` transition) followed by `civic.process.aggregation_completed` |
 | 5. Outcome / Decision | `civic.process.outcome_recorded` |
 | 6. Publication | `civic.process.result_published` |
 | 7. Feedback / Continuity | `civic.process.feedback_received` (per submission) and/or `civic.process.updated` (for outcome status changes) |
+
+Profiles other than `deliberative` emit the activities for the phases they execute; every profile emits `civic.process.created` and a terminal-transition activity (`civic.process.ended`, per Section 4.3).
 
 ### 7.7 Distribution
 
@@ -547,7 +616,7 @@ Every lifecycle phase MUST produce at least one event or observable output. Ther
 Lifecycle progression MUST be externally visible through at least one of the following mechanisms:
 - Events published to the Civic Activity Feed
 - State changes reflected in the process descriptor at `GET /process/:id`
-- Status updates available via the hub's event feed at `GET /events`
+- Status updates available via the space's activity feed at `GET /events`
 
 An external observer (another hub, a citizen interface, a monitoring service) MUST be able to reconstruct the current lifecycle phase of any process by reading its event history and current state.
 
@@ -571,8 +640,8 @@ Observability is the technical foundation for this verification. Without it, civ
 
 ### 8.5 Observability and Interoperability
 
-In a federated network of Civic Hubs, observability enables interoperability by providing a shared protocol for monitoring processes across jurisdictions. A hub in one jurisdiction can observe the progress and results of processes in another jurisdiction by consuming their event streams. This enables:
-- Cross-hub dashboards and citizen interfaces
+In a federated network of Civic Spaces, observability enables interoperability by providing a shared protocol for monitoring processes across jurisdictions. A space in one jurisdiction can observe the progress and results of processes in another jurisdiction by consuming their event streams. This enables:
+- Cross-space dashboards and citizen interfaces
 - Network-wide civic activity feeds
 - Automated monitoring of process health and compliance
 - Credential issuance triggered by process outcomes (e.g., participation credentials)
@@ -582,7 +651,7 @@ In a federated network of Civic Hubs, observability enables interoperability by 
 A compliant process MUST:
 - Emit events for all state transitions (Sections 7.2 and 7.4)
 - Reflect current status in the process descriptor endpoint
-- Make the event history for the process available via the hub's event feed
+- Make the event history for the process available via the space's activity feed
 - Not suppress or delay events for any phase that has completed
 
 ---
@@ -684,7 +753,7 @@ Processes MAY accept structured feedback from participants after finalization. F
 
 ### 11.5 Continuity as a Design Principle
 
-This phase is not optional overhead. It is essential for the Civic.Social ecosystem's core value proposition: transforming civic participation from isolated events into connected, accountable governance workflows. Hubs that implement the full lifecycle model, including feedback and continuity, provide citizens with a fundamentally different experience — one where their input has visible, traceable impact.
+This phase is not optional overhead. It is essential for the Civic.Social ecosystem's core value proposition: transforming civic participation from isolated events into connected, accountable governance workflows. Spaces that implement the full lifecycle model, including feedback and continuity, provide citizens with a fundamentally different experience — one where their input has visible, traceable impact.
 
 ---
 
@@ -693,28 +762,53 @@ This phase is not optional overhead. It is essential for the Civic.Social ecosys
 Civic Processes must expose interfaces for integration.
 
 ### 12.1 Process Descriptor
-Each process must publish a descriptor:
+
+Each process must publish a descriptor at `GET /process/:id`. The descriptor is the self-contained, protocol-native representation of the process — everything a consumer needs to display it, verify eligibility, and route actions:
 
 ```json
 {
   "id": "process-123",
   "type": "civic.vote",
   "title": "Library Expansion Vote",
+  "description": "string",
   "jurisdiction": "us-va-floyd",
-  "actions": ["submit_vote"],
+  "created_by": "did:example:creator",
+  "status": "active",
+  "lifecycle_profile": "deliberative",
+  "starts_at": "ISO8601",
+  "ends_at": "ISO8601",
+  "participation_mode": "gated",
+  "disclosure_policy": "secret",
+  "aggregation_method": "plurality",
+  "actions": [
+    {
+      "name": "submit_vote",
+      "input_schema": { "option_id": "string" },
+      "requires": { "credentials": ["vc:resident:us-va-floyd"] },
+      "emits": ["civic.process.vote_submitted"]
+    }
+  ],
   "requires": {
     "credentials": ["vc:resident:us-va-floyd"]
   },
   "endpoints": {
     "view": "https://example.org/process/123",
-    "action": "https://example.org/process/123/vote"
-  }
+    "action": "https://example.org/process/123/action"
+  },
+  "result": "object | null (populated per visibility rules after aggregation)",
+  "outcome": "object | null (populated when recorded, Section 10)",
+  "follow_up_process_ids": []
 }
 ```
 
+Descriptor completeness rule: **every property this specification requires a process to publish** — current status (8.2), lifecycle profile (4.3), disclosure policy (2.3), aggregation method (9.2), action contracts with emitted activity types (2.4, 7.5), and follow-up links (11.3) — appears in the descriptor. A consumer never needs out-of-band knowledge to interpret a process.
+
 ### 12.2 Required Endpoints
-- `GET /process/:id`
-- `POST /process/:id/action`
+
+- `POST /process` — create a process instance. Request body: `{ "type": "civic.vote", "metadata": { title, description, jurisdiction }, "lifecycle": { starts_at, ends_at }, "participation": { eligibility_requirements, participation_mode, disclosure_policy }, ...type-specific configuration }`. The creating actor comes from the authenticated context. Response: the created process descriptor (status `draft`). Creation authority is a space policy (which actors may initiate which types, and whether creation passes through a review flow) enforced at the authorization seam — review-vs-auto-approve is policy configuration, not a separate API.
+- `GET /process/:id` — the descriptor above. Pre-publication processes (`draft`, in-review) MUST NOT be readable by non-privileged callers.
+- `POST /process/:id/action` — execute an action. Request body: `{ "action": "submit_vote", "input": { ...per the action's input schema } }`. The actor is the authenticated identity; a body-supplied actor MUST be rejected. Response on success: the action's output per its contract (2.4). Error model: `400` invalid input (schema mismatch), `401` unauthenticated, `403` eligibility/credential failure or process not accepting actions in its current state, `404` unknown process, `409` duplicate where the action is once-per-participant. Error bodies: `{ "status": "error", "code": "string", "message": "string" }`.
+- `GET /process` — list processes (read layer; supports filtering by type and status).
 
 ### 12.3 Deep Linking
 - Web URL required
@@ -722,37 +816,40 @@ Each process must publish a descriptor:
 
 ---
 
-## 13. Hub Responsibilities
+## 13. Host Space Responsibilities
 
-Civic Hubs integrating processes must:
+Civic Spaces integrating processes must:
 
-- Authenticate users via identity layer
+- Authenticate users via the identity layer (through the identity adapter)
 - Verify credentials before participation
 - Host or embed process interfaces
-- Publish process events to Civic Activity Feed layer
+- Publish process activities to the Civic Activity Feed layer through the single emission path
+- Enforce the process's disclosure policy at the activity layer
 
 ---
 
 ## 14. Minimal Compliance Requirements
 
-To be compliant with v0.1, a Civic Process must:
+To be compliant with v0.2, a Civic Process must:
 
-- Define metadata and lifecycle
+- Define metadata, lifecycle profile, and disclosure policy
 - Integrate with identity for gated participation
-- Emit standardized events
-- Provide a process descriptor
-- Support basic action endpoint
+- Emit standardized activities (full envelope, per Section 7)
+- Provide a complete process descriptor (Section 12.1)
+- Support the creation and action endpoints (Section 12.2)
 
-### 14.1 Full Lifecycle Compliance (Recommended)
+### 14.1 Full Lifecycle Compliance
 
-Processes that implement the full lifecycle model defined in Section 5 must additionally:
+Processes with the `deliberative` profile that produce advisory or binding outcomes must additionally:
 
-- Emit lifecycle phase events as defined in Section 7.4
+- Emit lifecycle phase activities as defined in Section 7.4
 - Support aggregation with structured, publishable outputs (Section 9)
 - Record outcomes with type classification (Section 10)
 - Meet the minimum observability requirements defined in Section 8.6
 
-Full lifecycle compliance is recommended for all production deployments and will become required in v0.2.
+### 14.2 Conformance Phasing
+
+Specifications in this ecosystem define the target state; reference implementations converge through the pilot program. The reference implementation currently registers all process types through a uniform registry with one canonical process record, one creation path, one type-agnostic close mechanism, and one feed classifier; the unified action dispatcher (all participation actions through `POST /process/:id/action`), full descriptor completeness, and DID-based identity are targeted through the Civic Process Plugin and Civic Identity pilots.
 
 ---
 
@@ -780,11 +877,11 @@ The following are intentionally excluded:
 
 ## 17. Process as a First-Class Interoperable Object
 
-A Civic Process is not merely a data structure or an API endpoint. It is the fundamental unit of civic interaction in the Civic.Social ecosystem, and it is designed to operate as a first-class interoperable object across a federated network of hubs.
+A Civic Process is not merely a data structure or an API endpoint. It is the fundamental unit of civic interaction in the Civic.Social ecosystem, and it is designed to operate as a first-class interoperable object across a federated network of spaces.
 
 ### 17.1 Identity-Aware
 
-Every Civic Process is anchored in the decentralized identity layer. Creators, participants, and decision-makers are identified by DIDs. Eligibility is enforced through Verifiable Credentials. This means a process's provenance, participation record, and outcomes are cryptographically verifiable — not dependent on any single hub's authority.
+Every Civic Process is anchored in the decentralized identity layer. Creators, participants, and decision-makers are identified by DIDs. Eligibility is enforced through Verifiable Credentials. This means a process's provenance, participation record, and outcomes are cryptographically verifiable — not dependent on any single space's authority.
 
 ### 17.2 Lifecycle-Driven
 
@@ -792,11 +889,11 @@ Every process follows a defined lifecycle with observable phases and state trans
 
 ### 17.3 Event-Emitting
 
-Every significant action and transition in a Civic Process produces a standardized event. These events are the distribution mechanism: they flow into the Civic Activity Feed, enabling citizen interfaces, dashboards, monitoring systems, and other hubs to track and respond to civic activity in real time. Events are the connective tissue of the federated network.
+Every significant action and transition in a Civic Process produces a standardized event. These events are the distribution mechanism: they flow into the Civic Activity Feed, enabling citizen interfaces, dashboards, monitoring systems, and other spaces to track and respond to civic activity in real time. Events are the connective tissue of the federated network.
 
-### 17.4 Portable Across Hubs
+### 17.4 Portable Across Spaces
 
-A Civic Process descriptor contains everything needed to understand and interact with the process: its type, rules, actions, endpoints, and credential requirements. This descriptor is self-contained and protocol-native. A hub that receives a process descriptor from another hub can display the process, verify credentials, and route participant actions without any out-of-band coordination. This portability is what makes federation possible — processes are not locked to the hub that created them.
+A Civic Process descriptor contains everything needed to understand and interact with the process: its type, rules, actions, endpoints, and credential requirements. This descriptor is self-contained and protocol-native. A space that receives a process descriptor from another space can display the process, verify credentials, and route participant actions without any out-of-band coordination. This portability is what makes federation possible — processes are not locked to the space that created them.
 
 ### 17.5 Composable
 
