@@ -1,6 +1,6 @@
 ---
 status: stable
-last-reviewed: 2026-04-19
+last-reviewed: 2026-07-03
 owners: [adam]
 version: 0.1
 ---
@@ -8,6 +8,8 @@ version: 0.1
 # Civic Identity Pilot
 
 Civic.Social Infrastructure Program
+
+> **Relationship to the Civic Identity Specification.** The ecosystem-level normative identity content of this pilot has been promoted into the **Civic Identity Specification** ([ecosystem/civic-identity-spec.md](../../ecosystem/civic-identity-spec.md)). This pilot document remains the program and execution plan; where the two overlap, the specification governs.
 
 ---
 
@@ -295,13 +297,13 @@ All while the underlying infrastructure remains decentralized and independently 
 
 The Civic.Social architecture is organized around **four canonical open specifications** — each of which extends underlying open web standards into a civic-participation context:
 
-**Civic Identity Spec.** Decentralized identifiers (DIDs) and verifiable credentials (VCs) enable trusted authentication and participation across the network. This pilot defines this spec.
+**Civic Identity Specification.** Decentralized identifiers (DIDs) and verifiable credentials (VCs) enable trusted authentication and participation across the network. This pilot's ecosystem-level identity content is promoted into this spec.
 
-**Civic Hub Spec.** Standardizes the hub interface so any compliant hub is interchangeable — communities can switch software without losing data, members, or history.
+**Civic Space Specification.** Standardizes the scoped space contract so any compliant space is interchangeable — communities can switch software without losing data, members, or history. The Civic Hub is the community-scoped Civic Space type.
 
-**Civic Process Spec.** Plugin contract for democratic processes — votes, deliberations, proposals. Anyone can author a new process; any compliant hub or dashboard can host it.
+**Civic Process Specification.** Plugin contract for democratic processes — votes, deliberations, proposals. Anyone can author a new process; any compliant hub or dashboard can host it.
 
-**Civic Activity Spec.** Common shape for civic events. Activity emitted anywhere in the ecosystem flows consistently into any feed, notification stream, or embed. Built on standardized event schemas and forward-compatible with ActivityPub / ActivityStreams.
+**Civic Activity Specification.** Common shape for civic activities. Activity emitted anywhere in the ecosystem flows consistently into any feed, notification stream, or embed. Built on standardized activity schemas and forward-compatible with ActivityPub / ActivityStreams.
 
 Together these four specs form the interoperability foundation that the rest of the ecosystem — citizen dashboards, activity feeds, discovery interfaces, representative spaces, and any number of third-party civic applications — builds on as interfaces and downstream tools, not as foundational components.
 
@@ -979,7 +981,7 @@ To maximize accessibility, Civic.Social may initially support both:
 
 Importantly, users must retain the ability to export and migrate credentials to other compatible wallets.
 
-This prevents vendor lock-in and preserves the principles of decentralized identity.
+This prevents vendor lock-in and preserves the principles of decentralized identity. A corollary boundary rule applies across the ecosystem: **Civic Space exports never contain private keys** — space exports carry DIDs and credential references only, while key material lives exclusively in wallets and identity providers (see the Civic Space Specification's portability contract).
 
 ### Wallet vs Personal Data Store
 

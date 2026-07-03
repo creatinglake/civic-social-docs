@@ -103,7 +103,7 @@ The pilot produces artifacts that support a clear transition from v0.1 working d
 
 After the pilot, the path forward includes onboarding external plugin authors, formalizing community-group governance for the specification's evolution toward v1.0, and folding new alignment work as the adjacent standards mature. The open-standards foundation ensures the infrastructure remains viable regardless of which organizations operate it long-term.
 
-The pilot is designed with known risks and mitigations — including specification drift from real third-party plugin needs, the operational fragility of upstream open-source dependencies like Polis, and the deliberate gap between capability declaration and runtime enforcement. The [full specification](civic-process-pilot-spec.md) details each.
+The pilot is designed with known risks and mitigations — including specification drift from real third-party plugin needs, the operational fragility of upstream open-source dependencies like Polis, and the staged path from capability declaration to full runtime enforcement (host-seam enforcement is in place now; the sandbox tier follows, and the plugin architecture normatively bars third-party code from production before it exists — Civic Plugin Architecture §5a). The [full specification](civic-process-pilot-spec.md) details each.
 
 ---
 
