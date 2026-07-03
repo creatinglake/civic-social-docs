@@ -409,7 +409,7 @@ GET /process/:id/state
 
 Returns a UI-friendly read model of the process state, including current tallies and participation metrics. This endpoint supports real-time interfaces without requiring clients to reconstruct state from events.
 
-### Event Feed
+### Activity Feed
 
 ```
 GET /events
