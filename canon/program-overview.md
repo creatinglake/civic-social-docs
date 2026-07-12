@@ -175,6 +175,26 @@ Badges are verifiable credentials displayed publicly by mutual consent—the hol
 
 ---
 
+### 7. Civic.Social Governance Pilot
+
+Design and stress-test the governance layer of the ecosystem: how the civic specifications, registries, and conformance machinery are changed, who decides, and how the commons is funded without being captured.
+
+This pilot explores:
+
+- the incentive structures that keep an open standard aligned with the common good—and the ones that have historically corrupted standards bodies
+
+- standing, consensus, formal objection, and appeal, in a body with no purchasable membership
+
+- registry and conformance governance, including the trust-registry gatekeeping power the other pilots defer
+
+- the economics of a commons: how enough funding returns to sustain the infrastructure without creating a claim on its decisions
+
+- the relationship to upstream standards bodies (W3C, DIF, IETF, 1EdTech) and adjacent civic-layer efforts, and a repeatable test for what Civic.Social should author, profile, adopt, or hand off
+
+Each of the six preceding pilots defers its governance questions on the grounds that they need broader ecosystem input than any single pilot can convene. This is the pilot that convenes it.
+
+---
+
 ## Program Logic
 
 Each pilot produces meaningful value independently.
@@ -204,7 +224,7 @@ Together they create a system in which civic participation becomes continuous, v
 
 The Civic.Social Infrastructure Program seeks to demonstrate that a modular civic ecosystem—rather than a single centralized platform—can provide a stronger foundation for democratic participation.
 
-Through a coordinated set of six pilots, the program will explore how civic hubs, modular processes, civic activity feeds and discovery, citizen dashboards, decentralized civic identity, and civic credentials can work together to support a healthier civic environment.
+Through a coordinated set of seven pilots, the program will explore how civic hubs, modular processes, civic activity feeds and discovery, citizen dashboards, decentralized civic identity, and civic credentials can work together to support a healthier civic environment—and how the shared standards beneath them should be governed.
 
 These pilots collectively form the foundation for a new generation of interoperable civic infrastructure.
 

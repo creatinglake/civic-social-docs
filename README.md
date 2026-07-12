@@ -28,13 +28,16 @@ the work:
   layer, the authorization model note, the architecture baseline, and the
   AI documents. These are the ideas everything else builds on.
 
-- **`pilots/`** — specifications for the six pilot programs. Three are
+- **`pilots/`** — specifications for the seven pilot programs. Three are
   fully specified: the **[Civic Identity Pilot](pilots/civic-identity/civic-identity-pilot-spec.md)**,
   the **[Civic Hubs Pilot](pilots/civic-hubs/civic-hubs-pilot-spec.md)**,
   and the **[Civic Process Plugin Pilot](pilots/civic-process/civic-process-pilot-spec.md)**.
   Three more are newly drafted — Civic Activity Feed & Discovery, Citizen
   Dashboard, and Civic Credentialing — and their specs will be added as
-  they reach publishable state.
+  they reach publishable state. The seventh, the
+  **[Civic.Social Governance Pilot](pilots/civic-governance/civic-governance-pilot-spec.md)**,
+  addresses how the specifications themselves are governed — the question
+  the other six pilots each defer.
 
 - **`positions/`** — public statements of where Civic.Social stands on
   questions of principle, setting out our commitments and the values that
