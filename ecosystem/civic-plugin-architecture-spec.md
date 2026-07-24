@@ -1,13 +1,13 @@
 ---
 status: draft
-last-reviewed: 2026-07-03
+last-reviewed: 2026-07-24
 owners: [adam]
 version: 0.2
 ---
 
 # Civic.Social Plugin Architecture
 
-*Working architectural reference for the layer above the Civic Process Specification. This document will be formalized into the public, versioned Civic Process Plugin Specification through the [Civic Process Plugin Pilot](../pilots/civic-process/civic-process-pilot-spec.md).*
+*Working architectural reference for the layer above the Civic Process Specification. This document will be formalized into the public, versioned Civic Plugin Specification through the [Civic Process Plugin Pilot](../pilots/civic-process/civic-process-pilot-spec.md).*
 
 ---
 
@@ -17,9 +17,11 @@ The [Civic Process Specification](civic-process-spec.md) defines **what a Civic 
 
 A **host environment** is a defined term: **any conformant Civic Space (of any scope — Civic Hub, Representative Space, Citizen Dashboard, or a future space type), or an embed context** (a process surfaced standalone on a third-party web page, per the embeddable-components model). Wherever this document says "host," it means a host environment in this sense.
 
+**Plugin kinds.** A **Civic Plugin** is the general packaging unit of this architecture: a manifest, a declared trust tier, and a capability declaration (section 4.1), installed into a host environment. What a plugin *provides* determines its **kind**. This document currently specifies one kind — the **Civic Process Plugin**, which provides one or more Civic Process types per the Civic Process Specification — and most of what follows is written against it. Other kinds are anticipated and require no change to this architecture or to the Civic Process Specification: a calendar view, for example, that listens for activities and renders a UI surface without providing any process type is already expressible under the section 4.1 schema (`activities.listen` plus `ui.surfaces`, an empty provided-types list). The manifest, trust tiers, capability schema, and enforcement path (section 5a) apply uniformly to every kind; a new kind extends the vocabulary of what plugins may provide, not the architecture.
+
 The goal is a WordPress-style plugin library — drop-in extensions for every host environment — **without** WordPress's defining flaw, which is that plugins run with near-total access to the host. For civic infrastructure, where the integrity of a vote or a deliberation is the whole point, the trust boundary is the architecture.
 
-This document is a working architectural draft. It will be formalized into the public, versioned Civic Process Plugin Specification through the Civic Process Plugin Pilot.
+This document is a working architectural draft. It will be formalized into the public, versioned Civic Plugin Specification through the Civic Process Plugin Pilot.
 
 ---
 
@@ -33,7 +35,7 @@ When an architectural choice is ambiguous, this principle breaks the tie.
 
 ## 2. The Three Trust Tiers
 
-A Civic Process Plugin is not one kind of thing. Different plugins live in different places depending on how much the host trusts the plugin's code and where that code actually runs. The architecture defines three tiers; every plugin declares which tier it runs as in its manifest, and the host enforces the boundary appropriate to that tier.
+A Civic Plugin is not one uniform thing. Different plugins live in different places depending on how much the host trusts the plugin's code and where that code actually runs. The architecture defines three tiers; every plugin declares which tier it runs as in its manifest, and the host enforces the boundary appropriate to that tier.
 
 **Tier 1 — In-process handler.** First-party code that the host operator has written and vetted, running directly inside the host's own program via a handler registry. Fast, full access, simple — the plugin is effectively a built-in feature of the host that happens to be exposed through the plugin contract. The `civic.vote` and `civic.proposal` plugins in the Civic.Social Hub reference implementation are Tier 1. Most early implementations are expected to be Tier 1, and that is appropriate — but the architecture must not assume everything is Tier 1.
 
@@ -159,7 +161,7 @@ When a host installs a plugin, it inspects the manifest's declared contract vers
 
 ## 7. Host Compatibility
 
-A Civic Process Plugin is **universal by default**: it works in any compliant host environment. A plugin's manifest does not need to enumerate the host types it supports, and a host may install any plugin that satisfies its capability requirements. The same plugin runs unchanged across Civic Hubs, Representative Spaces, Citizen Dashboards, and external embeds — that portability is the central reason the plugin model exists.
+A Civic Plugin — of any kind — is **universal by default**: it works in any compliant host environment. A plugin's manifest does not need to enumerate the host types it supports, and a host may install any plugin that satisfies its capability requirements. The same plugin runs unchanged across Civic Hubs, Representative Spaces, Citizen Dashboards, and external embeds — that portability is the central reason the plugin model exists.
 
 A plugin author *may* declare host-specific requirements when the plugin genuinely depends on something only certain hosts provide — for example, access to a host-specific UI surface, host-provided context such as a representative's calendar, or trust assumptions that only certain host types satisfy. When such requirements are declared, the host enforces them at install time and refuses installations into hosts that cannot satisfy them. The default — no host requirements declared — means "this plugin works anywhere a compliant host exists."
 
@@ -171,7 +173,7 @@ This framing matters because the plugin model's reason for existing is portabili
 
 A compliant plugin should:
 
-- Define its process type per the Civic Process Specification (lifecycle profile, actions, activities)
+- Define its process type per the Civic Process Specification (lifecycle profile, actions, activities) — *process-kind plugins only; a plugin of another kind provides no process type and skips this item, and no other*
 - Ship a manifest declaring its id, version, and provided type(s); declare host-specific requirements only if the plugin genuinely needs them (plugins are universal by default)
 - State which trust tier it runs as (in-process, sandboxed, or external service)
 - Declare its capabilities per the section 4.1 schema — **every plugin, including first-party Tier 1 plugins, ships a manifest with capability declarations; there are no manifest-less plugins.** A stub manifest is a half-day of work and is what makes the conformance suite, the admin grant screen, and Stage 1 enforcement possible

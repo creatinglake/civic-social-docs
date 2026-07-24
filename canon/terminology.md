@@ -1,6 +1,6 @@
 ---
 status: stable
-last-reviewed: 2026-07-03
+last-reviewed: 2026-07-24
 owners: [adam]
 version: 0.2
 ---
@@ -31,8 +31,11 @@ The entity-scoped Civic Space: the neutral, public-facing surface for elected of
 **Civic Process**
 A structured, stateful civic interaction that enables participation (e.g., advisory voting, citizen assemblies, participatory budgeting, petitions, public consultations). Formerly referred to as "Civic Capability" in earlier documents. This is the canonical term.
 
+**Civic Plugin**
+The general packaging and trust unit of the ecosystem: a manifest, a declared trust tier, and a capability declaration, installable into any conformant host environment. What a plugin *provides* determines its **kind**. The first specified kind is the Civic Process Plugin; future kinds — for example, display/lens plugins such as a calendar view that listens to activities and renders a UI surface without providing any process type — reuse the same manifest, trust tiers, and capability schema. Defined in the Civic Plugin Architecture.
+
 **Civic Process Plugin**
-A modular implementation of a Civic Process that can be installed and run across multiple civic spaces (hubs, dashboards, representative spaces, external websites). Plugins are universal by default and integrate with their host only through the identity and activity seams. Formerly "Civic Capability Plugin."
+The first specified kind of Civic Plugin: a modular implementation of a Civic Process that can be installed and run across multiple civic spaces (hubs, dashboards, representative spaces, external websites). Plugins are universal by default and integrate with their host only through the identity and activity seams. Formerly "Civic Capability Plugin."
 
 **Civic Activity**
 A standardized data object representing an action or lifecycle transition within the ecosystem. Activities are the distribution layer — the single shared stream that all feeds, notifications, and federation surfaces are built from. Formerly "Civic Event"; the protocol-level term is now Civic Activity, aligned with the vocabulary of ActivityStreams 2.0. (For v0.1 backward compatibility, the wire-format field remains `event_type` and the transport endpoint remains `GET /events`; see the Civic Activity Specification.)
@@ -117,6 +120,6 @@ Federation is a capability of the Civic Activity Specification and the Discovery
 
 ---
 
-**Last updated:** July 3, 2026
+**Last updated:** July 24, 2026
 **Status:** Canonical terminology reference for all Civic.Social documents
 **Contact:** contact@civic.social
