@@ -7,7 +7,7 @@ version: 0.1
 
 # Civic Activity Specification v0.1 (Hybrid Model)
 
-> **Naming note.** This specification was previously titled the "Civic Event Specification." It has been renamed to the **Civic Activity Specification** to align with the vocabulary of ActivityStreams 2.0 and ActivityPub, which the ecosystem bridges to in a later phase, and to match the Civic Activity Feed layer that consumes these objects. The protocol-level term is **Civic Activity**. For v0.1, the wire-format field name remains `event_type` and the transport endpoint remains `GET /events` — see §14 for the ratified compatibility policy and the v0.2 rename plan.
+> **Naming note.** The protocol-level term is **Civic Activity**, aligned with the vocabulary of ActivityStreams 2.0 and ActivityPub, which the ecosystem bridges to in a later phase, and with the Civic Activity Feed layer that consumes these objects. For v0.1, the wire-format field name is `event_type` and the transport endpoint is `GET /events` — see §14 for the compatibility policy and the v0.2 wire-rename plan.
 
 ## Purpose
 

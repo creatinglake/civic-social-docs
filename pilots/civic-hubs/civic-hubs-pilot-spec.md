@@ -1017,7 +1017,7 @@ This glossary defines terms used throughout the document in plain language for r
 
 **[ActivityStreams](https://www.w3.org/TR/activitystreams-core/).** The data format ActivityPub uses to describe actions (someone posting, voting, joining a group). Civic Activities are designed to be translatable into ActivityStreams.
 
-**Civic Activity.** A standardized record of something that happened in a hub — a process was created, a vote was submitted, a result was published. Activities are the common language that lets hubs, feeds, and dashboards share activity. (Formerly "Civic Event"; the v0.1 wire format keeps the `event_type` field and `GET /events` endpoint.)
+**Civic Activity.** A standardized record of something that happened in a hub — a process was created, a vote was submitted, a result was published. Activities are the common language that lets hubs, feeds, and dashboards share activity. (The v0.1 wire format uses the `event_type` field and `GET /events` endpoint.)
 
 **Civic Hub.** A community-operated digital civic space. A hub hosts civic processes, manages participation, and emits events to the rest of the ecosystem. Each hub is independently operated by a community, organization, or government.
 

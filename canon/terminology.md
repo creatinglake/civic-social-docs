@@ -29,25 +29,25 @@ The individual-scoped Civic Space: a personal civic interface where citizens acc
 The entity-scoped Civic Space: the neutral, public-facing surface for elected officials, candidates, and institutional bodies that hold governance authority. Entities control their voice; they do not control the accountability data displayed alongside it.
 
 **Civic Process**
-A structured, stateful civic interaction that enables participation (e.g., advisory voting, citizen assemblies, participatory budgeting, petitions, public consultations). Formerly referred to as "Civic Capability" in earlier documents. This is the canonical term.
+A structured, stateful civic interaction that enables participation (e.g., advisory voting, citizen assemblies, participatory budgeting, petitions, public consultations).
 
 **Civic Plugin**
 The general packaging and trust unit of the ecosystem: a manifest, a declared trust tier, and a capability declaration, installable into any conformant host environment. What a plugin *provides* determines its **kind**. The first specified kind is the Civic Process Plugin; future kinds — for example, display/lens plugins such as a calendar view that listens to activities and renders a UI surface without providing any process type — reuse the same manifest, trust tiers, and capability schema. Defined in the Civic Plugin Architecture.
 
 **Civic Process Plugin**
-The first specified kind of Civic Plugin: a modular implementation of a Civic Process that can be installed and run across multiple civic spaces (hubs, dashboards, representative spaces, external websites). Plugins are universal by default and integrate with their host only through the identity and activity seams. Formerly "Civic Capability Plugin."
+The first specified kind of Civic Plugin: a modular implementation of a Civic Process that can be installed and run across multiple civic spaces (hubs, dashboards, representative spaces, external websites). Plugins are universal by default and integrate with their host only through the identity and activity seams.
 
 **Civic Activity**
-A standardized data object representing an action or lifecycle transition within the ecosystem. Activities are the distribution layer — the single shared stream that all feeds, notifications, and federation surfaces are built from. Formerly "Civic Event"; the protocol-level term is now Civic Activity, aligned with the vocabulary of ActivityStreams 2.0. (For v0.1 backward compatibility, the wire-format field remains `event_type` and the transport endpoint remains `GET /events`; see the Civic Activity Specification.)
+A standardized data object representing an action or lifecycle transition within the ecosystem. Activities are the distribution layer — the single shared stream that all feeds, notifications, and federation surfaces are built from. The term is aligned with the vocabulary of ActivityStreams 2.0. (For v0.1, the wire-format field is `event_type` and the transport endpoint is `GET /events`; see the Civic Activity Specification.)
 
 **Civic Activity Feed**
-The aggregation and distribution layer that surfaces civic activities to citizens — one shared stream refracted into many lenses (inbox, notifications, discovery, space view, embed). Formerly referred to as "Civic Feed," "Civic News Feed," or "Event Feed" in earlier documents.
+The aggregation and distribution layer that surfaces civic activities to citizens — one shared stream refracted into many lenses (inbox, notifications, discovery, space view, embed).
 
 **Civic Identity**
 Decentralized identity infrastructure based on DIDs and Verifiable Credentials enabling trusted participation across the ecosystem. Defined normatively in the Civic Identity Specification.
 
 **Civic Credentialing**
-The system for issuing, displaying, and verifying civic credentials (badges). Badges are a publicly-displayed type of credential. Formerly "Civic Badging" in some documents.
+The system for issuing, displaying, and verifying civic credentials (badges). Badges are a publicly-displayed type of credential.
 
 **Civic Process Descriptor**
 A machine-readable description of how a process integrates with the ecosystem (actions, required credentials, endpoints).

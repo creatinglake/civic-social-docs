@@ -9,7 +9,7 @@ version: 0.2
 
 ## Draft v0.2
 
-> **Lineage note.** This specification was previously titled the **Interoperable Civic Hub Specification (ICHS), Draft v0.1**. It has been generalized from the community-scoped Civic Hub to the **Civic Space** — the scoped host primitive that every space type in the ecosystem conforms to. The Civic Hub remains the canonical *community-scoped* space type; portability, identity integration, plugin hosting, and discovery are now defined at the Space level. This revision also folds in the concrete **Space API Profile** (formerly the standalone minimal Civic Hub API spec) so that the interoperability contract and the implementable API live in one document.
+> **Scope note.** The **Civic Space** is the scoped host primitive that every space type in the ecosystem conforms to. The Civic Hub is the canonical *community-scoped* space type; portability, identity integration, plugin hosting, and discovery are defined at the Space level. This document also includes the concrete **Space API Profile**, so the interoperability contract and the implementable API live in one document.
 
 ## Executive Summary
 

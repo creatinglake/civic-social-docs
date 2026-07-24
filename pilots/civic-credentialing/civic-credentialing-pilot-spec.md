@@ -11,7 +11,7 @@ Civic.Social Infrastructure Program
 
 > **Status and governance.** This specification is a **working draft published for community discussion** — not a final standard. The credential schemas, the mutual-consent protocol, and the issuer requirements defined here are contributed by Civic.Social as starting points, with the expectation that they evolve in the open alongside the W3C Verifiable Credentials community and adjacent credentialing efforts (Open Badges 3.0 and the broader 1EdTech/W3C convergence among them). Breaking changes between pre-1.0 versions are expected and welcomed.
 
-> **Terminology.** **Civic Credentialing** is the canonical name for this layer; "Civic Badging," used in earlier documents, is deprecated (see the [Terminology Glossary](../../canon/terminology.md)). A **badge** is the publicly-displayed type of credential — every badge is a verifiable credential, but not every credential a citizen holds is displayed as a badge.
+> **Terminology.** **Civic Credentialing** is the canonical name for this layer (see the [Terminology Glossary](../../canon/terminology.md)). A **badge** is the publicly-displayed type of credential — every badge is a verifiable credential, but not every credential a citizen holds is displayed as a badge.
 
 ---
 
