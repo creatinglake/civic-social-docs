@@ -98,7 +98,7 @@ The layer of participant-owned identity and data beneath every interface: the Ci
 
 The Civic.Social architecture is organized into five canonical layers, read bottom → top:
 
-1. **Open Web Standards** — the bedrock, adopted not invented: DIDs, Verifiable Credentials, OpenID4VCI/OpenID4VP/SIOPv2, ActivityPub/ActivityStreams, AT Protocol, JSON-LD, OAuth 2.0/OIDC. This list is not comprehensive — the ecosystem adopts additional open standards as needs emerge.
+1. **Open Web Standards** — the bedrock, adopted not invented: DIDs, Verifiable Credentials, OpenID4VCI/OpenID4VP/SIOPv2, ActivityPub/ActivityStreams, AT Protocol (under evaluation), JSON-LD, OAuth 2.0/OIDC. This list is not comprehensive — the ecosystem adopts additional open standards as needs emerge.
 2. **Civic Specifications** — Civic.Social's open specs, which extend the web standards: Civic Space · Civic Process · Civic Activity · Civic Identity (+ companions)
 3. **Sovereign Foundation** — identity and data owned by the participant, labeled by holder: person / entity / community
 4. **Components** — the layer that answers *what is the stuff interfaces are made of*: reusable building blocks, each implementing a slice of the specifications, each built once and assembled into every interface that needs it — one engine, many lenses: Activity Feed engine, Process runtime, Citizen Console, PDS, Identity Adapter, Access Control. Two components (Activity Feed, Processes) are shippable as standalone embeds on any web page.

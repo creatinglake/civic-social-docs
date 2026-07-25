@@ -292,7 +292,7 @@ The bedrock, adopted rather than invented:
 - Verifiable Credentials (VCs)
 - OpenID4VCI / OpenID4VP / SIOPv2
 - ActivityPub / ActivityStreams
-- AT Protocol
+- AT Protocol (under evaluation)
 - JSON-LD, OAuth 2.0 / OIDC
 
 This list is not comprehensive — the ecosystem adopts additional open standards as needs emerge.
