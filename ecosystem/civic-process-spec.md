@@ -171,7 +171,7 @@ Regardless of profile, every process type MUST:
 
 ### 4.4 State Transitions
 
-Transitions follow the declared profile and are irreversible under normal operation. Each transition MUST emit the corresponding lifecycle activity (Section 7).
+Transitions follow the declared profile and are irreversible under normal operation. Each transition MUST emit the corresponding lifecycle activity (Section 7). (Suspension of an in-flight process is an open question — see Section 16.)
 
 The phase model in Sections 5–6 describes the **`deliberative` profile** in full; other profiles execute the subset of phases their states support (e.g., a `publish` profile performs Initiation, Framing, Activation, and Publication only).
 
@@ -872,6 +872,7 @@ The following are intentionally excluded:
 - Advanced credential logic
 - Multi-stage processes
 - Cross-process composition
+- **Suspension semantics (open question).** The canonical vocabulary has no `suspended` state and transitions are irreversible under normal operation, so a process halted mid-stream by external authority — a court order, a discovered eligibility defect — must today either remain `active` behind an internal flag or close and spawn a linked follow-up instance. Neither is specified. Pilot experience should determine whether suspension warrants a canonical state with the ecosystem's only reversible transition (`suspended` ⇄ `active`), or a documented pattern over the existing vocabulary.
 
 ---
 
