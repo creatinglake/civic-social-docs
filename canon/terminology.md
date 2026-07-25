@@ -17,16 +17,16 @@ The mandatory type parameter of every Civic Space, drawn from the Sovereign Foun
 - **`community`** — held by a community → the **Civic Hub**
 - **`individual`** — held by a person → the **Citizen Dashboard**
 - **`entity`** — held by an accountable public role (elected official, candidate, institutional body, or other accountable-leadership role) → the **Representative Space**
-The set is open: future scopes may be registered without redesigning the primitive.
+The set is open: future scopes may be registered without redesigning the primitive. Scope is mandatory because it determines the space's sovereign anchor, membership model, and portability profile — none of which can be inferred from protocol conformance alone; see the Civic Space Specification §1.4 for the design rationale.
 
 **Civic Hub**
-The community-scoped Civic Space: a digital civic space operated by a community, jurisdiction, or organization. Hubs host civic processes, enable community participation, and publish civic activities. Each hub is independently operated while interoperating through shared identity and federation protocols. "Civic Hub" names the space *type*; the host contract it conforms to is defined at the Civic Space level.
+A community-scoped Civic Space: a digital civic space operated by a community, jurisdiction, or organization. Hubs host civic processes, enable community participation, and publish civic activities. Each hub is independently operated while interoperating through shared identity and federation protocols. "Civic Hub" names the space *type*; the host contract it conforms to is defined at the Civic Space level.
 
 **Citizen Dashboard**
-The individual-scoped Civic Space: a personal civic interface where citizens access tools, view their activity feed, manage space subscriptions, and discover civic opportunities. It holds *personal* data (via the Citizen Node and Personal Data Store), not community data.
+An individual-scoped Civic Space: a personal civic interface where citizens access tools, view their activity feed, manage space subscriptions, and discover civic opportunities. It holds *personal* data (via the Citizen Node and Personal Data Store), not community data.
 
 **Representative Space**
-The entity-scoped Civic Space: the neutral, public-facing surface for elected officials, candidates, and institutional bodies that hold governance authority. Entities control their voice; they do not control the accountability data displayed alongside it.
+An entity-scoped Civic Space: the neutral, public-facing surface for elected officials, candidates, and institutional bodies that hold governance authority. Entities control their voice; they do not control the accountability data displayed alongside it.
 
 **Civic Process**
 A structured, stateful civic interaction that enables participation (e.g., advisory voting, citizen assemblies, participatory budgeting, petitions, public consultations).
