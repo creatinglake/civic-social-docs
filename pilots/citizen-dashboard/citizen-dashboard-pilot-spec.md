@@ -146,7 +146,7 @@ There is also a defensive reason this pilot matters. If the ecosystem does not d
 <a id="5-what-is-the-citizen-dashboard"></a>
 ## 5. What is the Citizen Dashboard
 
-The **Citizen Dashboard** is the individual-scoped Civic Space: a personal civic interface where a citizen sees cross-space civic activity, manages what they follow, discovers spaces and processes, understands their civic context, and takes civic action — all with one identity.
+The **Citizen Dashboard** is an individual-scoped Civic Space: a personal civic interface where a citizen sees cross-space civic activity, manages what they follow, discovers spaces and processes, understands their civic context, and takes civic action — all with one identity.
 
 The framing that has guided its design from the earliest architecture work: the dashboard is **the citizen's ecosystem browser**. A web browser does not host websites; it renders them, remembers the ones you visit, and gives you one place from which to reach everything. The dashboard stands in the same relation to the civic ecosystem. It does not host communities, moderate discussions, or run governance — those belong to community-scoped hubs. It renders the ecosystem *from one person's point of view*: their subscriptions, their jurisdictions, their pending participation opportunities, their history.
 
@@ -423,7 +423,7 @@ The pilot succeeds when all of the following are demonstrated and recorded in th
 <a id="22-expected-deliverables"></a>
 ## 22. Expected Deliverables
 
-1. **The reference Citizen Dashboard application** — open source; the individual-scoped Civic Space, conformant to the Space API Profile per the individual-scope compliance profile; assembled from the shared components (feed engine lenses, process runtime, Citizen Console, PDS surface, identity adapter, access control).
+1. **The reference Citizen Dashboard application** — open source; an individual-scoped Civic Space, conformant to the Space API Profile per the individual-scope compliance profile; assembled from the shared components (feed engine lenses, process runtime, Citizen Console, PDS surface, identity adapter, access control).
 2. **The individual-scope compliance profile of the Civic Space Specification** (v0.1) — the per-endpoint applicability and client-side conformance definition of section 11; the pilot's primary specification artifact.
 3. **The minimal PDS profile** (v0.1) — subscriptions + preferences + participation pointers; record shapes, access API, export/import format; **co-owned deliverable with the Civic Identity Pilot**, implemented on both sides.
 4. **Subscription management via the minimal PDS** — follow/unfollow, notification preferences, export/import, with the interim local-storage scaffold retired.

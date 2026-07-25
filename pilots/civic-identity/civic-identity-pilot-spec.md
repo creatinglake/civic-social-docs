@@ -247,7 +247,7 @@ The Civic.Social identity system is guided by the following principles.
 
 ### Self-Sovereign Identity
 
-Individuals control their own identifiers and credentials rather than relying on platform-controlled accounts.
+Holders — persons, entities, and communities alike — control their own identifiers and credentials rather than relying on platform-controlled accounts.
 
 ### Decentralization
 
@@ -299,7 +299,7 @@ The Civic.Social architecture is organized around **four canonical open specific
 
 **Civic Identity Specification.** Decentralized identifiers (DIDs) and verifiable credentials (VCs) enable trusted authentication and participation across the network. This pilot's ecosystem-level identity content is promoted into this spec.
 
-**Civic Space Specification.** Standardizes the scoped space contract so any compliant space is interchangeable — communities can switch software without losing data, members, or history. The Civic Hub is the community-scoped Civic Space type.
+**Civic Space Specification.** Standardizes the scoped space contract so any compliant space is interchangeable — communities can switch software without losing data, members, or history. The Civic Hub is a community-scoped Civic Space type.
 
 **Civic Process Specification.** Plugin contract for democratic processes — votes, deliberations, proposals. Anyone can author a new process; any compliant hub or dashboard can host it.
 

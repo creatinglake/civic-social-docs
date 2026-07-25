@@ -122,7 +122,7 @@ The Civic Activity Feed & Discovery Pilot is one component of the broader Civic.
 
 **Civic Hubs Pilot** — Civic Hubs (community-scoped Civic Spaces) are the primary *publishers* into the activity layer: they emit Civic Activities through their single emission path and publish the discovery manifests the indexer ingests. This pilot is the primary consumer of what the Civic Hubs Pilot standardizes.
 
-**Citizen Dashboard** — the individual-scoped Civic Space is the primary *consuming interface* for the feed engine: the Inbox, Notifications, and Discovery lenses are the dashboard's core surfaces. The dashboard renders lenses; this pilot builds the engine behind them.
+**Citizen Dashboard** — an individual-scoped Civic Space and the primary *consuming interface* for the feed engine: the Inbox, Notifications, and Discovery lenses are the dashboard's core surfaces. The dashboard renders lenses; this pilot builds the engine behind them.
 
 **Civic Identity Pilot** — personalization (subscriptions, follows, read state, notification preferences) belongs in the citizen's Personal Data Store, defined by the Civic Identity Specification. This pilot defines the PDS-shaped seam and ships an interim store behind it (section 14). The PDS itself is not yet built — this is a named coordination risk (section 27).
 

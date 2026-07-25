@@ -41,7 +41,7 @@ The pilot will deploy working Civic Hubs with 1–3 real communities and demonst
 - Multiple independent hubs can discover each other and share civic activity, proving the federation model works
 - When Civic Identity integration is available, citizens can authenticate using decentralized identity, enabling participation across hubs without creating new accounts
 
-This end-to-end demonstration will produce working hub deployments, the community-scope compliance profile of the Civic Space Specification (defining what it means to be a compliant hub — the Civic Hub is the community-scoped Civic Space type), a hub operator guide, and a pilot report with findings, recommendations, and a production roadmap.
+This end-to-end demonstration will produce working hub deployments, the community-scope compliance profile of the Civic Space Specification (defining what it means to be a compliant hub — the Civic Hub is a community-scoped Civic Space type), a hub operator guide, and a pilot report with findings, recommendations, and a production roadmap.
 
 The full list of deliverables and success criteria is detailed in the full Civic Hubs Pilot specification, available upon request.
 

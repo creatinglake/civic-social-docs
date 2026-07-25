@@ -101,7 +101,7 @@ This pilot demonstrates how an ecosystem of civic processes can operate across m
 
 Develop the activity aggregation and discovery layer of the system—an "Inbox for Civic Life" paired with the indexing and search infrastructure that makes civic activity findable across the ecosystem.
 
-The civic activity feed aggregates civic activities emitted by civic hubs and processes—one shared feed engine refracted into many lenses (inbox, notifications, discovery, embeds)—while the discovery layer provides a reference indexer of hubs and processes so citizens can locate relevant civic opportunities wherever they occur.
+The civic activity feed aggregates civic activities emitted by civic hubs and processes—one shared feed engine refracted into many lenses (inbox, notifications, discovery, space view, embeds)—while the discovery layer provides a reference indexer of hubs and processes so citizens can locate relevant civic opportunities wherever they occur.
 
 Example feed items may include:
 
@@ -122,7 +122,7 @@ This pilot demonstrates how civic events and civic metadata can flow across the 
 
 ### 4. Citizen Dashboard Pilot
 
-Create the reference citizen interface that helps individuals navigate civic life. The Citizen Dashboard is the individual-scoped Civic Space—a unified civic view and a browser onto the wider ecosystem, built on the citizen's own identity and data rather than any community's.
+Create the reference citizen interface that helps individuals navigate civic life. The Citizen Dashboard is an individual-scoped Civic Space—a unified civic view and a browser onto the wider ecosystem, built on the citizen's own identity and data rather than any community's.
 
 The dashboard allows citizens to:
 

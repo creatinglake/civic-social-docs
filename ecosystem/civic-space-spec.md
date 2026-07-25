@@ -220,7 +220,7 @@ Keeping these out of the Space taxonomy keeps the primitive crisp and keeps thei
 
 ## 1.6 The Civic Hub (Community-Scoped Space)
 
-A Civic Hub is the community-scoped Civic Space: a digitally hosted community space that
+A Civic Hub is a community-scoped Civic Space: a digitally hosted community space that
 
 - Represents a jurisdiction, institution, or civic community
 - Hosts deliberation, proposals, voting, assemblies, or other civic processes
@@ -243,7 +243,7 @@ All compliant hubs must satisfy the autonomy and portability guarantees defined 
 
 ## 2.1 Design Principles
 
-- Individuals control their own digital identity through decentralized identity standards (DIDs and Verifiable Credentials), rather than identities being owned by any single platform.
+- Participants — persons, entities, and communities alike — control their own digital identity through decentralized identity standards (DIDs and Verifiable Credentials), rather than identities being owned by any single platform.
 - Communities, individuals, and entities retain control over their own data and history, at their scope.
 - Open standards over proprietary APIs.
 - Integration without dependency.
