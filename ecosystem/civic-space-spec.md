@@ -207,12 +207,14 @@ Everything else — identity integration, activity emission, process hosting, di
 
 ## 1.5 Infrastructure Roles (Not Spaces)
 
-Two ecosystem participants serve the foundation rather than hosting processes at a scope. They are **service providers governed by the Civic Identity Specification**, not Civic Spaces:
+Infrastructure roles are ecosystem participants that serve the foundation rather than hosting processes at a scope. They are **service providers, not Civic Spaces**. The current specifications define contracts for two, both governed by the Civic Identity Specification:
 
 - **Citizen Account Provider** — hosts a citizen's foundation (Citizen Node and Personal Data Store) on the citizen's behalf; federated, like an email provider for civic identity. Citizens can migrate between providers without losing credentials or relationships.
 - **Badge / Credential Issuer** — a third-party organization issuing verifiable credentials into the ecosystem (pledges, endorsements, attestations of office, participation records).
 
-Keeping these out of the Space taxonomy keeps the primitive crisp and keeps their obligations where they belong: in the identity layer's provider and issuer requirements.
+**The role set is open.** Further infrastructure roles are expected as the ecosystem grows — for example, a **Space Hosting Provider** that operates Civic Spaces on behalf of their holders (the managed-hosting model described in the Assisted Creation and Managed Hosting concept document; the Section 9 portability contract is what keeps a hosted holder sovereign, because migration away is always available), or a **Discovery Index Operator** that runs a discovery index over space manifests (the Discovery Layer's reference indexer is the first instance; anyone may operate one, and no index has exclusive claim to the ecosystem's map). Plugin registry operators and hosting certifiers (Civic Plugin Architecture) follow the same pattern. A new role enters the taxonomy by defining its service contract in the relevant specification, exactly as the provider and issuer contracts live in the identity layer.
+
+Keeping these out of the Space taxonomy keeps the primitive crisp and keeps their obligations where they belong: in the service contracts of the layer each role serves.
 
 ---
 

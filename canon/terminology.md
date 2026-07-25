@@ -53,9 +53,13 @@ The system for issuing, displaying, and verifying civic credentials (badges). Ba
 A machine-readable description of how a process integrates with the ecosystem (actions, required credentials, endpoints).
 
 **Infrastructure Roles**
-Ecosystem participants that serve the foundation rather than hosting processes at a scope — they are service providers, **not Civic Spaces**:
+Ecosystem participants that serve the foundation rather than hosting processes at a scope — they are service providers, **not Civic Spaces**. The set of roles is open; two have defined contracts in the current specifications:
 - **Citizen Account Provider** — hosts a citizen's foundation (Citizen Node and Personal Data Store) on their behalf; federated, like an email provider for civic identity. Citizens can migrate between providers.
 - **Badge / Credential Issuer** — a third-party organization issuing verifiable credentials into the ecosystem (pledges, endorsements, attestations of office).
+
+Further roles are anticipated as the ecosystem grows — for example:
+- **Space Hosting Provider** — operates Civic Spaces on behalf of their holders (e.g., a managed hub for a community without a technical team). The portability contract is what keeps holders sovereign over hosted spaces: a community can always migrate away.
+- **Discovery Index Operator** — runs a discovery index that ingests space manifests and serves search and browse. Anyone may operate one; no index has exclusive claim to the ecosystem's map.
 
 ## The Four Canonical Specifications
 
