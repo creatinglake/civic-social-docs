@@ -1,6 +1,6 @@
 ---
 status: stable
-last-reviewed: 2026-07-24
+last-reviewed: 2026-07-25
 owners: [adam]
 version: 0.2
 ---
@@ -63,7 +63,7 @@ Further roles are anticipated as the ecosystem grows — for example:
 
 ## The Four Canonical Specifications
 
-The ecosystem is anchored by four open specifications, which extend underlying open web standards (W3C DIDs and Verifiable Credentials, OpenID4VCI/OpenID4VP/SIOPv2, ActivityPub/ActivityStreams, JSON-LD):
+The ecosystem is anchored by four open specifications, which extend underlying open web standards (W3C DIDs and Verifiable Credentials, OpenID4VCI/OpenID4VP/SIOPv2, ActivityPub/ActivityStreams, JSON-LD, among others):
 
 1. **Civic Space Specification** — the scoped host contract every space conforms to (portability, identity integration, plugin hosting, discovery, the Space API Profile)
 2. **Civic Process Specification** — the interactive unit (lifecycle profiles, actions, descriptors)
@@ -98,7 +98,7 @@ The layer of participant-owned identity and data beneath every interface: the Ci
 
 The Civic.Social architecture is organized into five canonical layers, read bottom → top:
 
-1. **Open Web Standards** — the bedrock, adopted not invented: DIDs, Verifiable Credentials, OpenID4VCI/OpenID4VP/SIOPv2, ActivityPub/ActivityStreams, JSON-LD, OAuth 2.0/OIDC
+1. **Open Web Standards** — the bedrock, adopted not invented: DIDs, Verifiable Credentials, OpenID4VCI/OpenID4VP/SIOPv2, ActivityPub/ActivityStreams, AT Protocol, JSON-LD, OAuth 2.0/OIDC. This list is not comprehensive — the ecosystem adopts additional open standards as needs emerge.
 2. **Civic Specifications** — Civic.Social's open specs, which extend the web standards: Civic Space · Civic Process · Civic Activity · Civic Identity (+ companions)
 3. **Sovereign Foundation** — identity and data owned by the participant, labeled by holder: person / entity / community
 4. **Components** — the layer that answers *what is the stuff interfaces are made of*: reusable building blocks, each implementing a slice of the specifications, each built once and assembled into every interface that needs it — one engine, many lenses: Activity Feed engine, Process runtime, Citizen Console, PDS, Identity Adapter, Access Control. Two components (Activity Feed, Processes) are shippable as standalone embeds on any web page.
@@ -108,6 +108,6 @@ Federation is a capability of the Civic Activity Specification and the Discovery
 
 ---
 
-**Last updated:** July 24, 2026
+**Last updated:** July 25, 2026
 **Status:** Canonical terminology reference for all Civic.Social documents
 **Contact:** contact@civic.social
