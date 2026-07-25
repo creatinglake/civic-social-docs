@@ -9,7 +9,7 @@ version: 0.1
 
 *A concept for making ecosystem development radically accessible*
 
-Once the four canonical specifications are hardened, the ecosystem has a precise, machine-checkable definition of what it means to be a Civic Space, a Civic Process, a Civic Activity, and a civic identity. This document describes what that precision makes possible: a system where anyone, not just software teams, can describe the civic tool their community needs, have an AI produce a spec-compliant implementation of it, and have that implementation hosted for them, live and interoperable with the entire ecosystem.
+Once the four canonical specifications are hardened, the ecosystem has a precise, machine-checkable definition of what it means to be a Civic Space, a Civic Process, a Civic Activity, and a Civic Identity. This document describes what that precision makes possible: a system where anyone, not just software teams, can describe the civic tool their community needs, have an AI produce a spec-compliant implementation of it, and have that implementation hosted for them, live and interoperable with the entire ecosystem.
 
 This is a concept document, not a pilot specification. It names a destination the existing architecture is already pointed toward, collects the pieces of it that are already designed, and identifies the preconditions and open questions that stand between here and there.
 
