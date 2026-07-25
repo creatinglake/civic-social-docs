@@ -101,26 +101,10 @@ The Civic.Social architecture is organized into five canonical layers, read bott
 1. **Open Web Standards** — the bedrock, adopted not invented: DIDs, Verifiable Credentials, OpenID4VCI/OpenID4VP/SIOPv2, ActivityPub/ActivityStreams, JSON-LD, OAuth 2.0/OIDC
 2. **Civic Specifications** — Civic.Social's open specs, which extend the web standards: Civic Space · Civic Process · Civic Activity · Civic Identity (+ companions)
 3. **Sovereign Foundation** — identity and data owned by the participant, labeled by holder: person / entity / community
-4. **Components** — reusable building blocks, one engine many lenses: Activity Feed engine, Process runtime, Citizen Console, PDS, Identity Adapter, Access Control. Two components (Activity Feed, Processes) are shippable as standalone embeds on any web page.
+4. **Components** — the layer that answers *what is the stuff interfaces are made of*: reusable building blocks, each implementing a slice of the specifications, each built once and assembled into every interface that needs it — one engine, many lenses: Activity Feed engine, Process runtime, Citizen Console, PDS, Identity Adapter, Access Control. Two components (Activity Feed, Processes) are shippable as standalone embeds on any web page.
 5. **Interfaces** — the distinct pieces of software people use: Civic Spaces by scope (Civic Hub, Citizen Dashboard, Representative Space, + your space here) and infrastructure roles (Citizen Account Provider, Badge/Credential Issuer)
 
 Federation is a capability of the Civic Activity Specification and the Discovery Layer (cross-cutting, not a layer). Portability is a contract of the Civic Space Specification over the Sovereign Foundation (a property, not a layer).
-
-## Deprecated Terms (Do Not Use)
-
-| Deprecated Term | Replacement |
-|---|---|
-| "Civic Capability" | "Civic Process" |
-| "Civic Capability Plugin" | "Civic Process Plugin" |
-| "Civic Capability Plugin Framework" | "Civic Process Plugin Framework" |
-| "Elements" (as architecture term) | "Civic Processes" |
-| "Civic Badging" | "Civic Credentialing" |
-| "Civic Feed" / "Civic News Feed" / "Event Feed" | "Civic Activity Feed" |
-| "Civic Event" (as protocol object / spec name) | "Civic Activity" / "Civic Activity Specification" |
-| "Civic Hub Specification" / "Interoperable Civic Hub Specification (ICHS)" / "Civic Hub Compliance Specification" | "Civic Space Specification" (Civic Hub remains the name of the community-scoped space type) |
-| "host environment" (as undefined term) | "Civic Space" (or "embed context" for in-page process embeds) |
-| "office-scoped" / "public-office-scoped" | "entity-scoped" |
-| 6-layer / 7-layer architecture enumerations | The five canonical layers above |
 
 ---
 

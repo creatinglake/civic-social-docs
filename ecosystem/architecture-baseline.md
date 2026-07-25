@@ -311,7 +311,7 @@ Responsibilities:
 
 ## Layer 4 — Components
 
-Reusable building blocks — one engine, many lenses. Two components (the Activity Feed and Civic Processes) are shippable as standalone embeds on any web page.
+The layer that answers *what is the stuff interfaces are made of*: reusable building blocks, each implementing a slice of the specifications, each built once and assembled into every interface that needs it — one engine, many lenses. Two components (the Activity Feed and Civic Processes) are shippable as standalone embeds on any web page.
 
 ### Plugin Framework and Process Runtime
 
