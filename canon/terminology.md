@@ -68,7 +68,7 @@ The ecosystem is anchored by four open specifications, which extend underlying o
 1. **Civic Space Specification** — the scoped host contract every space conforms to (portability, identity integration, plugin hosting, discovery, the Space API Profile)
 2. **Civic Process Specification** — the interactive unit (lifecycle profiles, actions, descriptors)
 3. **Civic Activity Specification** — the shared activity object and stream (schema, type registry, visibility, the ActivityStreams bridge roadmap)
-4. **Civic Identity Specification** — the portable citizen-owned key (Citizen Node, Personal Data Store, credential types, identity policy)
+4. **Civic Identity Specification** — the portable, participant-owned key: sovereign identity nodes for every holder (person, entity, community) plus Space DIDs, with the Citizen Node and Personal Data Store as the most fully elaborated case (credential types, identity policy)
 
 Companion documents: the Civic Plugin Architecture, the Discovery Layer Specification, and the Authorization Model Note.
 

@@ -19,7 +19,7 @@ Like the other canonical specifications, this document defines the *target state
 
 ## 1.1 Purpose
 
-Civic Identity is the portable, citizen-owned key to the Civic.Social ecosystem — the identity thread that connects every Civic Space, Civic Process, and civic interface. It enables a citizen to authenticate once and participate across independent civic environments, carrying their credentials and relationships with them, without any platform owning their identity.
+Civic Identity is the portable, participant-owned key to the Civic.Social ecosystem — the identity thread that connects every Civic Space, Civic Process, and civic interface. Every holder — person, entity, or community — anchors to a sovereign identity node of the same shape (Section 5), and Civic Spaces themselves hold DIDs (Section 5.1). The specification elaborates the **citizen case** in the greatest depth, because individual identity carries the hardest requirements (personhood verification, privacy, provider custody): it enables a citizen to authenticate once and participate across independent civic environments, carrying their credentials and relationships with them, without any platform owning their identity. Entity and community identity reuse the same primitives with role and collective credentials respectively.
 
 This specification defines:
 
@@ -42,11 +42,11 @@ This specification does NOT:
 
 ## 1.2 Design Principles
 
-- **Self-sovereign identity.** Individuals control their own identifiers and credentials rather than relying on platform-controlled accounts.
+- **Self-sovereign identity.** Holders — persons, entities, and communities alike — control their own identifiers and credentials rather than relying on platform-controlled accounts.
 - **Decentralization.** Identity MUST NOT depend on a central authority or database for verification.
 - **Interoperability.** Credentials MUST work across civic spaces, civic processes, and external civic applications.
 - **Privacy by design.** Citizens SHOULD disclose only the minimum information required to participate.
-- **Portability.** Individuals MUST be able to migrate their identity and credentials between providers and wallets.
+- **Portability.** Holders MUST be able to migrate their identity and credentials between providers and wallets.
 - **Open standards.** The identity layer is built on widely adopted open standards, not proprietary identity solutions.
 
 ---
