@@ -817,7 +817,7 @@ The Civic Hubs Pilot has dependencies and integration points with every other pi
 
 **Relationship:** The Civic Activity Feed Pilot defines how civic activities are aggregated and distributed across the ecosystem. Hubs are the primary source of activities that the feed aggregates.
 
-**Integration:** Hubs emit Civic Activities through their activity feed endpoint (section 14). The Civic Activity Feed layer pulls from hub activity feeds to build aggregated civic activity streams for citizens.
+**Integration:** Hubs emit Civic Activities through their activity feed endpoint (section 14). The Civic Activity Feed layer pulls from hub activity feeds to build aggregated civic activity streams for any subscriber — citizens, spaces, and third-party surfaces alike.
 
 **Sequencing:** Hubs emit activities from the outset. Integration with the Civic Activity Feed layer occurs when that infrastructure is available.
 

@@ -41,7 +41,7 @@ The first specified kind of Civic Plugin: a modular implementation of a Civic Pr
 A standardized data object representing an action or lifecycle transition within the ecosystem. Activities are the distribution layer — the single shared stream that all feeds, notifications, and federation surfaces are built from. The term is aligned with the vocabulary of ActivityStreams 2.0. (For v0.1, the wire-format field is `event_type` and the transport endpoint is `GET /events`; see the Civic Activity Specification.)
 
 **Civic Activity Feed**
-The aggregation and distribution layer that surfaces civic activities to citizens — one shared stream refracted into many lenses (inbox, notifications, discovery, space view, embed).
+The aggregation and distribution layer for civic activities — one shared stream refracted into many lenses (inbox, notifications, discovery, space view, embed). Feeds are not scoped to any one audience or interface: every space publishes a feed of its own activity (a hub's space view is its feed), and any conformant consumer — a citizen's dashboard, a community hub, an organization, or a third-party page via embed — can assemble and render feeds from the streams it follows.
 
 **Civic Identity**
 Decentralized identity infrastructure based on DIDs and Verifiable Credentials enabling trusted participation across the ecosystem. Defined normatively in the Civic Identity Specification.
