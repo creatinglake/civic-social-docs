@@ -1556,7 +1556,7 @@ Every companion document this specification cites normatively is listed below wi
 | **Civic Process Specification** (v0.2) | The process model, and the request/response contracts behind 7.2.1–7.2.3 (its §12) | Published |
 | **Civic Activity Specification** (v0.1) | The activity envelope and required fields, the type registry, the visibility model, and the `GET /events` transport (5.2, 7.2.4, 10.3) | Published |
 | **Civic Identity Specification** (v0.1) | DIDs and credentials (Section 3), the challenge-response session model (its §6.2, used by 7.2), the Identity Policy Object and the assurance-level vocabulary (its §8) | Published |
-| **Civic.Social Terminology Glossary** (v2.0) | Canonical ecosystem vocabulary, including the five-layer model (2.2) | Published |
+| **Civic.Social Terminology Glossary** (v0.2) | Canonical ecosystem vocabulary, including the five-layer model (2.2) | Published |
 | **Civic Plugin Architecture** | Plugin packaging, trust tiers, manifests, capability declarations, and the opt-in host-requirements mechanism (1.4, 6.1, 6.2) | Companion document; status not pinned by this release — verify before relying on it |
 | **Discovery Layer Specification** | Manifest ingestion and index behaviour (1.3, 7.2.0), and the `moved` tombstone and re-binding protocol (9.9) | Companion document; status not pinned by this release — verify before relying on it |
 | **Authorization Model Note** | The single authorization seam and the role-to-capability evolution path (4.7) | Companion note; status not pinned by this release — verify before relying on it |

@@ -5,7 +5,7 @@ owners: [adam]
 version: 0.2
 ---
 
-# Civic.Social Terminology Glossary — Canonical Reference (v2.0)
+# Civic.Social Terminology Glossary — Canonical Reference (v0.2)
 
 ## Usage note: "citizen"
 
