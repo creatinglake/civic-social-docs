@@ -1,6 +1,6 @@
 ---
 status: review
-last-reviewed: 2026-07-03
+last-reviewed: 2026-07-26
 owners: [adam]
 version: 0.2
 ---
@@ -24,6 +24,44 @@ A core goal of the specification is **portability of civic spaces across engines
 Another key objective is to support **multiple interoperable space engines**. Existing community platform projects — such as Bonfire Networks, Social Roots, Roundabout, and other civic or community software — could implement this specification so that communities using different platforms can still interoperate and migrate between them. By enabling multiple compatible implementations, the ecosystem avoids vendor lock-in while encouraging innovation among providers.
 
 This draft (v0.2) focuses on defining the foundational architecture, the canonical data models, and the minimal API profile needed for interoperability. It is intended as a working document to solicit feedback from civic technologists, governance researchers, standards bodies, and software developers.
+
+---
+
+## Notation and Conformance Language
+
+**Notation.** The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL in this document are to be interpreted as described in RFC 2119 and RFC 8174 when, and only when, they appear in all capitals. The same words in lower case carry their ordinary English meaning and impose no requirement.
+
+---
+
+# 0. Conformance at a Glance
+
+Conformance here is not a single grade. A civic space can be excellent at one thing and not yet doing another, and collapsing that into one pass/fail would either lock out early implementations or let weak ones claim too much. So this document measures three separate things: whether the space speaks the shared interface, how much of itself it can hand back to its holder if they decide to leave, and how strongly it checks who its participants are. A space states where it stands on each. All three are expected to reach the target state — the axes exist to show progress honestly, not to make any of them permanently optional.
+
+This document defines conformance along **three orthogonal axes**, not one ladder. A space can be strong on one axis and weak on another: a space with excellent portability may still authenticate nobody, and a space with full DID identity may export nothing. Read this table first — the rest of the document fills it in.
+
+| Axis | Values | What it measures | Defined in |
+|---|---|---|---|
+| **API Profile** | *compliant* / *not compliant* | Whether the space serves the minimal implementable interface: the discovery manifest, the process endpoints, the action endpoint, and the activity feed — with every activity emitted through a single emission path | Section 7; the checklist is 7.6 |
+| **Portability Level** | **A** — Archival · **B** — Continuity · **C** — Live-state | How much of a space survives migration to an independent engine: a verifiable archive (A), plus identity re-binding and closed-process integrity (B), plus live process state (C) | Section 9.1; validated by the round-trip test in 9.10 |
+| **Identity Assurance** | the assurance level the space declares in its identity policy — `none`, email verification, `proof_of_personhood`, residency credentials, role credentials | How strongly the space verifies who a participant is. A stub identity adapter at a declared low level is conformant during this phase; full DID and credential verification is the target state | Sections 3.1 and 7.3; the value vocabulary is the Identity Policy Object, Civic Identity Specification §8 |
+
+**How to state a claim.** A conformance claim MUST name a value on each of the three axes — for example, *"API Profile compliant, Portability Level A, assurance `proof_of_personhood`."* A claim that names only one axis says nothing about the other two and MUST NOT be read as implying them.
+
+**What "conformant" alone means.** Where this document, or an implementer, says **"conformant Civic Space"** with no qualifier, it means **API Profile compliant at Portability Level A**. That is the floor: a space that speaks the interface, and that can hand its holder a complete, verifiable, importable copy of everything it stewards. Everything above the floor — Portability Level B or C, full DID identity, federation — is either named explicitly or is not being claimed.
+
+**Target state versus today.** These requirements describe the target state. Reference implementations converge on it incrementally through the pilot program; the axes exist so that convergence can be stated as a fact rather than a mood (see Specification Status, below).
+
+---
+
+# How to Read This Specification
+
+- **Implementing a space?** Read **Section 0** (what you will be claiming), then **Section 7** — the Space API Profile, which is the shortest complete statement of what you must build — then **Section 9.3** for what your export must contain at the level you are targeting. Sections 4 and 5 tell you what goes inside the payloads.
+- **Evaluating adoption?** The Executive Summary, **Section 0**, and **Section 9**. Portability is the guarantee that makes leaving possible, and is therefore the guarantee worth checking first.
+- **Building a new space type?** **Section 1.4** (how a scope and type register — a conformant new type requires no change to this document), then **Section 9.4** for the portability profile your scope owes.
+- **Looking for rationale?** Section 1.4 on why scope is mandatory, Section 1.5 on infrastructure roles, and Section 2.2 on the layered architecture. Passages marked *rationale, not requirement* explain why the design is shaped as it is and impose no obligations.
+- **Looking for a term you have not met yet?** The box after Section 1.2 defines the foundation nouns this document uses; the Civic.Social Terminology Glossary is the canonical reference for the ecosystem's vocabulary.
+
+---
 
 # Specification Status
 
@@ -58,7 +96,7 @@ Future versions may refine or expand:
 
 The long-term goal is to support an **ecosystem of interoperable civic platforms** rather than a single centralized application.
 
-**A note on conformance phasing.** Specifications in this ecosystem define the *target state*. Reference implementations converge on them incrementally through the pilot program; each pilot brings the running software up to a further slice of this contract. Non-conformance of an early implementation is a sequencing fact, not a specification failure — the conformance ladder in Section 8 and the compliance profiles in Section 7 exist precisely to make that convergence measurable.
+**A note on conformance phasing.** Specifications in this ecosystem define the *target state*. Reference implementations converge on them incrementally through the pilot program; each pilot brings the running software up to a further slice of this contract. Non-conformance of an early implementation is a sequencing fact, not a specification failure — the portability conformance ladder (Section 9.1) and the API Profile requirements (Section 7.6) exist precisely to make that convergence measurable. Section 0 shows how the two, together with declared identity assurance, compose into a single conformance claim.
 
 Feedback from implementers, civic organizations, and standards bodies is strongly encouraged.
 
@@ -66,47 +104,79 @@ Feedback from implementers, civic organizations, and standards bodies is strongl
 
 # Table of Contents
 
-1. Specification Status
-2. Purpose & Scope
-   - 1.1 Purpose
-   - 1.2 Scope
-   - 1.3 Definition of Civic Space
-   - 1.4 Space Scopes and Space Types
-   - 1.5 Infrastructure Roles (Not Spaces)
-   - 1.6 The Civic Hub (Community-Scoped Space)
-3. Architectural Overview
-   - 2.1 Design Principles
-   - 2.2 Position in the Layered Architecture
-4. Identity Layer Specification
-   - 3.0 Identity Architecture Model
-   - 3.1 Core Requirements
-   - 3.2 Authentication
-   - 3.3 Credential Types
-   - 3.4 Identity Portability
-   - 3.5 Space Identity (Space DIDs)
-5. Canonical Civic Object Model
-   - 4.1 Canonical Civic Primitives
-   - 4.2 Person
-   - 4.3 Organization
-   - 4.4 CivicSpace
-   - 4.5 Membership
-   - 4.6 Subscription / Following
-   - 4.7 Access Control Model
-   - 4.8 Post / DeliberationThread
-   - 4.9 Proposal
-   - 4.10 Vote
-   - 4.11 Delegation
-   - 4.12 CivicProcess
-   - 4.13 Badge / Credential Object
-   - 4.14 Immutability & Versioning
-   - 4.15 Object Integrity Requirements
-6. Federation & Interoperability Layer
-7. Plugin Architecture Requirements
-8. Space API Profile (v0.1)
-9. Portability & Migration Specification
-10. Public vs Private Space Requirements
-11. Specification Stewardship & Versioning
-12. Open Design Questions
+- **Executive Summary**
+- Notation and Conformance Language
+- **0. Conformance at a Glance**
+- How to Read This Specification
+- Specification Status
+- **1. Purpose & Scope**
+  - 1.1 Purpose
+  - 1.2 Scope
+  - Terms Used in This Document
+  - 1.3 Definition of Civic Space
+  - 1.4 Space Scopes and Space Types
+  - 1.5 Infrastructure Roles (Not Spaces)
+  - 1.6 The Civic Hub (Community-Scoped Space)
+- **2. Architectural Overview**
+  - 2.1 Design Principles
+  - 2.2 Position in the Layered Architecture
+- **3. Identity Layer Specification**
+  - 3.0 Identity Architecture Model
+  - 3.1 Core Requirements
+  - 3.2 Authentication
+  - 3.3 Credential Types (Initial Registry)
+  - 3.4 Identity Portability
+  - 3.5 Space Identity (Space DIDs)
+- **4. Canonical Civic Object Model**
+  - 4.1 Canonical Civic Primitives
+  - 4.2 Person
+  - 4.3 Organization
+  - 4.4 CivicSpace
+  - 4.5 Membership
+  - 4.6 Subscription / Following
+  - 4.7 Access Control Model
+  - 4.8 Post / DeliberationThread
+  - 4.9 Proposal
+  - 4.10 Vote
+  - 4.11 Delegation
+  - 4.12 CivicProcess
+  - 4.13 Badge / Credential Object
+  - 4.14 Immutability & Versioning
+  - 4.15 Object Integrity Requirements
+- **5. Federation & Interoperability Layer**
+  - 5.1 Federation Protocol
+  - 5.2 Activity Schema
+  - 5.3 Cross-Space Subscriptions
+- **6. Plugin Architecture Requirements**
+  - 6.1 Modular Design
+  - 6.2 Constraints
+- **7. Space API Profile**
+  - 7.1 Responsibilities
+  - 7.2 Required API Endpoints (authentication; manifest; process; action; feed)
+  - 7.3 Identity Integration
+  - 7.4 Process Support
+  - 7.5 Data Storage
+  - 7.6 API Profile Minimal Compliance
+- **9. Portability & Migration Specification**
+  - 9.1 Migration Conformance Ladder
+  - 9.2 Migration Scope Definition
+  - 9.3 Full Space Export
+  - 9.4 Per-Scope Portability Profiles
+  - 9.5 Active State Preservation (Level C)
+  - 9.6 Identity & Social Graph Rebinding
+  - 9.7 Non-Loss Guarantee
+  - 9.8 Migration Windows & Operational Constraints
+  - 9.9 Identity & Discovery Continuity Across Migration
+  - 9.10 Portability Conformance
+- **10. Public vs Private Space Requirements**
+  - 10.1 Public Civic Space
+  - 10.2 Private Civic Space
+  - 10.3 Feed Exposure in Private Spaces
+- **11. Specification Stewardship & Versioning**
+- **12. Open Design Questions**
+- **References**
+
+*Section 8 is deliberately not used. Earlier drafts reserved it for discovery requirements, which are specified in 7.2.0 (the discovery manifest) and in the Discovery Layer Specification. Sections 9 through 12 keep their existing numbers so that citations made against Draft v0.2 remain valid.*
 
 ---
 
@@ -121,7 +191,7 @@ This specification exists to ensure that:
 - Civic communities govern their own spaces (local, jurisdictional, or issue-based).
 - Individuals and accountable public entities have spaces at their own scope on the same protocol.
 - No software vendor can trap a community, an individual, or an entity through technical lock-in.
-- Individuals can use a decentralized Civic ID to access any compliant space.
+- Individuals can use a decentralized Civic Identity to access any compliant space.
 - Communities can migrate between space engines without loss of structure, history, or legitimacy.
 - Independent space engines can interoperate through open protocols.
 
@@ -160,6 +230,22 @@ This is a protocol-layer and data-layer specification — not a product definiti
 
 ---
 
+## Terms Used in This Document
+
+Seven foundation nouns appear below before they are fully defined, and one of them — assurance level — carries a requirement. One line each; the normative definition is where noted. The Civic.Social Terminology Glossary is the canonical reference for the rest of the ecosystem's vocabulary.
+
+| Term | Meaning here |
+|---|---|
+| **Community Node** | The sovereign identity anchor of a community: a collective DID plus its credentials. Normative: Civic Identity Specification §5. |
+| **Citizen Node** | The sovereign identity anchor of a person: a DID plus verifiable credentials held in a wallet. Normative: Civic Identity Specification §2. |
+| **Entity Node** | The sovereign identity anchor of an accountable public role — an elected official, a candidate, an institutional body: a DID plus role credentials. Normative: Civic Identity Specification §5. |
+| **Community / Personal / Entity Data Store** | The data store paired with each Node, holding the relationships, memberships, preferences, and participation references its holder owns — separate from identity, and separate from any application. The Personal Data Store (PDS) is specified in Civic Identity Specification §3; the community and entity stores are the same shape at their scope. |
+| **Single emission path** | One chokepoint inside a space through which every Civic Activity flows and is validated, so that no observable state change can happen silently or bypass the feed. Normative: Civic Activity Specification §10. |
+| **Identity adapter** | The replaceable component through which a space obtains the authenticated participant's identifier. Keeping it replaceable is what lets a space start on stub identity and upgrade to full DID authentication without being rebuilt (3.1, 7.3). |
+| **Assurance level** | How strongly a participant's identity has been verified. The value vocabulary is the `assurance_requirements` dimension of the **Identity Policy Object** (Civic Identity Specification §8), which runs `none` → email verification → `proof_of_personhood` → residency credentials such as `resident.city` → role credentials. Where this document requires a space to *declare its assurance level*, it means: publish a value from that vocabulary in the space's identity policy. A space that verifies nothing declares `none` rather than omitting the declaration. |
+
+---
+
 ## 1.3 Definition of Civic Space
 
 A **Civic Space** is a scoped host environment in the Civic.Social ecosystem: a network-addressable application that
@@ -167,7 +253,7 @@ A **Civic Space** is a scoped host environment in the Civic.Social ecosystem: a 
 - (a) is anchored to a **sovereign identity-and-data foundation** appropriate to its scope (see 1.4),
 - (b) **hosts Civic Processes** through the plugin contract defined by the Civic Process Specification and the Civic Plugin Architecture,
 - (c) **emits and consumes Civic Activities** through a single emission path, per the Civic Activity Specification,
-- (d) **publishes a discovery manifest** (see Section 8 and the Discovery Layer Specification),
+- (d) **publishes a discovery manifest** (see Section 7.2.0 and the Discovery Layer Specification),
 - (e) **mediates all participation** through the identity adapter and a single authorization seam, and
 - (f) **satisfies the portability contract** (Section 9) for the data it stewards.
 
@@ -197,7 +283,9 @@ Every Civic Space declares exactly one **scope**, drawn from the Sovereign Found
 
 Everything else — identity integration, activity emission, process hosting, discovery, the authorization seam — is inherited from this specification unchanged. A conformant new space type requires **no changes** to this specification.
 
-**Why scope is mandatory (design rationale).** Conformance establishes that a space speaks the protocol; scope establishes **who holds it** — and three contracts are undecidable without that answer. First, the sovereign anchor: every space binds to a holder's Node and Data Store, and the binding cannot be inferred from behavior. Second, the membership and relationship model (4.5–4.6). Third, and most consequentially, the portability profile (9.4): a community export is a full tenant migration; an individual export contains pointers into other spaces rather than copies (copying would exfiltrate other participants' contributions through a personal export); an entity export must preserve third-party accountability data with provenance intact (so a record cannot be laundered by migration). An exporter facing an unscoped space could not know which obligation applies, and either wrong guess causes real harm. Scope also protects the open type set: because consumers will encounter space types they have never seen, behavior must key off a coarse classifier rather than the type itself — a feed, indexer, or migration tool that has never met a new community-scoped type still handles it correctly the moment it reads `scope: community`. (This is the same mechanism that lets ActivityPub consumers handle unfamiliar actors via the actor type.) The cost is a single required field. Note the distinction between software and instance: a space *engine* may be scope-generic, but a deployed *instance* has an actual holder and actual data, and therefore declares exactly one scope.
+**Exporter obligations follow scope.** Because a space's portability profile is determined by its scope (9.4), an exporter MUST read the space's declared scope before producing an export and MUST apply that scope's profile. A community export is a full tenant migration. An individual export carries **pointers into other spaces, not copies of their content** — copying would exfiltrate other participants' contributions through a personal export. An entity export MUST preserve third-party accountability data with its provenance intact, so that a record cannot be laundered by migration. An exporter facing an unscoped space cannot know which obligation applies, and either wrong guess causes real harm.
+
+*Rationale, not requirement.* **Why scope is mandatory (design rationale).** Conformance establishes that a space speaks the protocol; scope establishes **who holds it** — and three contracts are undecidable without that answer. First, the sovereign anchor: every space binds to a holder's Node and Data Store, and the binding cannot be inferred from behavior. Second, the membership and relationship model (4.5–4.6). Third, and most consequentially, the portability profile (9.4), whose exporter obligations are stated normatively just above. Scope also protects the open type set: because consumers will encounter space types they have never seen, behavior must key off a coarse classifier rather than the type itself — a feed, indexer, or migration tool that has never met a new community-scoped type still handles it correctly the moment it reads `scope: community`. (This is the same mechanism that lets ActivityPub consumers handle unfamiliar actors via the actor type.) The cost is a single required field. Note the distinction between software and instance: a space *engine* may be scope-generic, but a deployed *instance* has an actual holder and actual data, and therefore declares exactly one scope.
 
 **Scope stability and type transitions.** A space's scope is stable for its lifetime. A space's *type within a scope* MAY transition where the type's own specification defines it (for example, a candidate's entity-scoped space transitioning after an election). Type-transition semantics are an open design area (Section 12) and are defined by space-type specifications, not here.
 
@@ -214,7 +302,7 @@ Infrastructure roles are ecosystem participants that serve the foundation rather
 
 **The role set is open.** Further infrastructure roles are expected as the ecosystem grows — for example, a **Space Hosting Provider** that operates Civic Spaces on behalf of their holders (the managed-hosting model described in the Assisted Creation and Managed Hosting concept document; the Section 9 portability contract is what keeps a hosted holder sovereign, because migration away is always available), or a **Discovery Index Operator** that runs a discovery index over space manifests (the Discovery Layer's reference indexer is the first instance; anyone may operate one, and no index has exclusive claim to the ecosystem's map). Plugin registry operators and hosting certifiers (Civic Plugin Architecture) follow the same pattern. A new role enters the taxonomy by defining its service contract in the relevant specification, exactly as the provider and issuer contracts live in the identity layer.
 
-Keeping these out of the Space taxonomy keeps the primitive crisp and keeps their obligations where they belong: in the service contracts of the layer each role serves.
+*This passage is rationale, not requirement.* Keeping these out of the Space taxonomy keeps the primitive crisp and keeps their obligations where they belong: in the service contracts of the layer each role serves.
 
 ---
 
@@ -235,7 +323,7 @@ A Civic Hub may be:
 - Issue-based (climate coalition, housing task force)
 - Private but credential-gated
 
-All compliant hubs must satisfy the autonomy and portability guarantees defined in this document.
+All compliant hubs MUST satisfy the autonomy and portability guarantees defined in this document.
 
 ---
 
@@ -278,7 +366,7 @@ Key principles:
 
 - Identity is based on Decentralized Identifiers (DIDs).
 - Verifiable Credentials (VCs) are portable across spaces.
-- Identity must not be permanently bound to any single space engine.
+- Identity MUST NOT be permanently bound to any single space engine.
 
 However:
 
@@ -338,8 +426,8 @@ This transitional model balances:
 This means:
 
 - Relationship data (follows, memberships, delegations, endorsements, reputation signals) is logically tied to the user's identity record within the Civic Identity service layer.
-- Space engines may cache or index relationship data for performance, but they must not treat relationship data as proprietary or exclusive.
-- Users must be able to export their full social graph in structured form.
+- Space engines MAY cache or index relationship data for performance, but they MUST NOT treat relationship data as proprietary or exclusive.
+- Users MUST be able to export their full social graph in structured form.
 - If a space engine is replaced, the user's relationships remain intact and re-bind to the new space instance.
 
 Operationally, the Civic Identity service layer MUST:
@@ -360,7 +448,7 @@ This preserves:
 
 ## 3.1 Core Requirements
 
-A compliant Civic Space (target state) must:
+A compliant Civic Space (target state) MUST:
 
 - Support Decentralized Identifiers (DIDs)
 - Support Verifiable Credentials (VCs)
@@ -368,7 +456,7 @@ A compliant Civic Space (target state) must:
 - Support credential revocation checks
 - Not bind user identity to a server-based account model
 
-The Space API Profile (Section 8) permits **stub identity at a declared assurance level** during early phases: a space may accept opaque user identifiers through the identity adapter seam, provided the adapter is replaceable and the space declares its assurance level in its identity policy. Upgrading from stub identity to full Civic Identity must not require rebuilding the space.
+The Space API Profile (Section 7) permits **stub identity at a declared assurance level** during early phases: a space MAY accept opaque user identifiers through the identity adapter seam, provided the adapter is replaceable and the space declares its assurance level in its identity policy (see the assurance-level entry in *Terms Used in This Document*). Upgrading from stub identity to full Civic Identity MUST NOT require rebuilding the space.
 
 ## 3.2 Authentication
 
@@ -391,27 +479,29 @@ The full credential registry and schema publication requirements are defined in 
 
 ## 3.4 Identity Portability
 
-Users must retain:
+Users MUST retain:
 
 - Their DID
 - Their credentials
 - Their attestations
 
-Space engines may store role mappings locally but must not control identity issuance. Role and authority bindings SHOULD be keyed to the participant's identifier (DID or portable id), not to provider-specific attributes such as email addresses, so that identity-provider migration does not strand the authorization layer.
+Space engines MAY store role mappings locally but MUST NOT control identity issuance. Role and authority bindings SHOULD be keyed to the participant's identifier (DID or portable id), not to provider-specific attributes such as email addresses, so that identity-provider migration does not strand the authorization layer.
 
 ## 3.5 Space Identity (Space DIDs)
 
 Every Civic Space MUST hold a **stable decentralized identifier — the space DID** — distinct from its serving URL. The space DID is the sovereign anchor of its scope (Community Node, Citizen Node, or Entity Node) or a DID controlled by it.
 
 - The space's serving URL is a **current binding**, resolvable via the space DID's document (service endpoint).
-- Activities emitted by the space carry the space DID in `source.space_id` (Civic Activity Specification §2); `source.hub_id`/`hub_url` remain the v0.1 compatibility serialization.
+- Activities emitted by the space carry the space DID in `source.space_id` (Civic Activity Specification §2); `source.hub_id`/`hub_url` remain the v0.1 compatibility serialization. Holding a space DID is required now; *transmitting* it on every activity is SHOULD in v0.1 and becomes MUST in v0.2, per that specification's field table. A space that holds a DID but omits it from emissions is conformant with this section in v0.1 and will not be in v0.2, so emitters SHOULD populate it from the start.
 - Cross-space references, subscriptions, and provenance SHOULD be keyed to the space DID, because it survives migration to a new URL or engine (Section 9.9).
 
-DID method guidance: `did:web` is acceptable for spaces expected to remain on a stable domain; spaces that anticipate domain or provider migration SHOULD prefer a method with verifiable history and controller continuity (e.g., `did:tdw`). Method selection criteria are consolidated in the Civic Identity Specification.
+DID method guidance: `did:web` is acceptable for spaces expected to remain on a stable domain; spaces that anticipate domain or provider migration SHOULD prefer a method with verifiable history and controller continuity (e.g., `did:webvh`, formerly named `did:tdw`). Method selection criteria are consolidated in the Civic Identity Specification.
 
 ---
 
 # 4. Canonical Civic Object Model
+
+> **Read this before implementing Section 4.** The field lists throughout this section name the *concepts* every conformant object carries. They are **informative as to spelling and type, not normative**: this section does not yet fix JSON key names or value types, so two implementations can both satisfy it and still fail to interoperate — one emitting `spaceId`, another `space_id`, another `space`. Normative property names and types arrive with the civic JSON-LD context at `https://civicsocial.org/ns/civic`, which is **not yet published** (see the note at the end of this introduction). Until it publishes, implementers should follow the two subsections that already show the intended serialization concretely — **4.9 (Proposal)** and **4.12 (CivicProcess)**, each with a worked JSON-LD example. Those examples are the model: JSON-LD with a `civic:` `@type`, camelCase property names, DIDs as identifier values, RFC 3339 timestamps. Where this section and the published context eventually disagree, the context governs.
 
 The Civic Object Model defines the canonical data primitives used across interoperable Civic Spaces.
 
@@ -485,17 +575,15 @@ Plugins MAY introduce additional specialized objects but MUST declare schema ext
 
 Reuse: `schema:Person`
 
-Additional civic properties MAY include:
-
-- DID identifier
-- civic credentials
-- jurisdiction membership
-
 Required fields:
 
-- DID
+- **participant identifier** — the person's DID where they have one, or the space's opaque identifier for them where the space is running on a stub identity adapter (3.1, 7.3). A DID is the target state and the only form that is portable across spaces; an opaque identifier is scoped to this space and MUST NOT be treated as denoting the same person anywhere else.
 - display name
 - credential references
+
+Additional civic properties MAY include:
+
+- jurisdiction membership
 
 ---
 
@@ -883,10 +971,10 @@ The normative process model — lifecycle profiles, actions, descriptors, events
   "id": "process:athens-budget-2026",
   "processType": "participatory_budgeting",
   "space": "did:web:hub.athens.example",
-  "startTime": "2026-05-01",
-  "endTime": "2026-06-01",
+  "startTime": "2026-05-01T00:00:00Z",
+  "endTime": "2026-06-01T00:00:00Z",
   "voteMethod": "approval",
-  "quorum": "0.2"
+  "quorum": 0.2
 }
 ```
 
@@ -921,7 +1009,7 @@ Rules:
 
 ## 4.15 Object Integrity Requirements
 
-All canonical civic objects must be:
+All canonical civic objects MUST be:
 
 - Versioned
 - Timestamped
@@ -937,22 +1025,24 @@ Cryptographic verification SHOULD be used where civic legitimacy requires it.
 
 ## 5.1 Federation Protocol
 
-Compliant spaces must support at least one open federation protocol:
+**Federation is OPTIONAL in v0.1.** A space that never federates can still be a conformant Civic Space (Section 0): pull-based consumption of the activity feed endpoint (7.2.4) satisfies early interoperability, and nothing in the API Profile (Section 7) requires an inbox, an outbox, or push delivery.
 
-- ActivityPub
-- Or a Civic Federation Protocol compliant with this spec
+A space that **does** federate MUST do so over one of:
 
-Federation is optional in the v0.1 API profile (Section 8); pull-based feed consumption satisfies early interoperability.
+- **ActivityPub**, or
+- a **Civic Federation Protocol** compliant with this specification.
+
+The requirement is not that a space federate, but that it not invent a private protocol when it does — an open protocol on the wire is what keeps the choice to federate from becoming a choice of vendor. Whether federation becomes mandatory in a later version is an open question (12.4).
 
 ## 5.2 Activity Schema
 
-Spaces must emit standardized **Civic Activities** for process lifecycle transitions and participation actions — votes, assemblies, town halls, participatory budgeting, petitions, badge issuance, legislative proposals.
+Spaces MUST emit standardized **Civic Activities** for process lifecycle transitions and participation actions — votes, assemblies, town halls, participatory budgeting, petitions, badge issuance, legislative proposals.
 
 The activity envelope, required fields, type registry, extension namespace, and visibility/disclosure rules are defined normatively by the **Civic Activity Specification**; this document does not define a separate event field set. Activity signing (signature by the emitting space's DID) is planned in the Civic Activity Specification's v0.2+ extensions and is required before migrated or federated history can be independently verified (see 9.9).
 
 ## 5.3 Cross-Space Subscriptions
 
-Spaces must allow:
+A space that implements federation MUST allow:
 
 - Subscription to other spaces
 - Verification of remote provenance (by space DID once activity signing lands; by source URL in v0.1)
@@ -962,9 +1052,11 @@ Spaces must allow:
 
 # 6. Plugin Architecture Requirements
 
+Civic Plugins are the ecosystem's general packaging unit; this section states the requirements for hosting the first specified kind, the Civic Process Plugin. Future kinds — display and lens plugins in particular — reuse the same manifest and trust tiers (Civic Plugin Architecture).
+
 ## 6.1 Modular Design
 
-Space engines must support modular civic process plugins.
+Space engines MUST support modular civic process plugins.
 
 Examples:
 
@@ -978,7 +1070,7 @@ The packaging, trust-tier, manifest, and capability model for plugins is defined
 
 ## 6.2 Constraints
 
-Plugins must:
+Plugins MUST:
 
 - Use canonical civic objects
 - Not redefine identity primitives
@@ -988,9 +1080,11 @@ Plugins must:
 
 ---
 
-# 7. Space API Profile (v0.1)
+# 7. Space API Profile
 
-> Folded in from the standalone minimal Civic Hub API specification. This profile is the **minimal implementable interface** of a Civic Space — deliberately small, designed for rapid implementation, and the surface the reference implementation ships today. It applies to every scope; a space type MAY extend it. Conformance to this profile is **API Profile compliance**; the full target-state contract (DID identity, portability Level B+, federation) layers on top per the conformance phasing note in the Specification Status section.
+> Folded in from the standalone minimal Civic Hub API specification. This profile is the **minimal implementable interface** of a Civic Space — deliberately small, designed for rapid implementation, and the surface the reference implementation ships today. It applies to every scope; a space type MAY extend it. Conformance to this profile is **API Profile compliance** (Section 0, first axis); the full target-state contract (DID identity, portability Level B or C, federation) layers on top per the conformance phasing note in the Specification Status section.
+>
+> **Versioning.** This profile carries the version of this document — currently **v0.2**. Earlier drafts numbered it independently as "v0.1", which is why older references speak of the "v0.1 API profile"; they mean this profile. It is not a separately versioned artifact.
 
 ## 7.1 Responsibilities
 
@@ -999,10 +1093,29 @@ A Civic Space MUST:
 - Host Civic Processes
 - Accept user actions on processes
 - Emit Civic Activities for all process activity
-- Expose an activity feed endpoint
-- Provide basic identity integration (a stub identity adapter is allowed in v0.1, at a declared assurance level)
+- Expose an activity feed endpoint — always, including in private spaces, with the response filtered to what the caller may see (10.3)
+- Provide basic identity integration (a stub identity adapter is allowed in this profile, at a declared assurance level)
 
 ## 7.2 Required API Endpoints
+
+### Authentication and sessions (applies to every endpoint below)
+
+The endpoints in this section repeatedly say that the actor is "taken from the authenticated context." This subsection says how a client gets one.
+
+**This profile does not define its own session model.** The normative model is the cryptographic challenge-response flow of the **Civic Identity Specification §6.2**: the participant proves control of their DID by signing a challenge, the space verifies that control, the space requests any credentials the action requires, and the result is a session. The full flow typically runs once per session. A space using a stub identity adapter (7.3) runs the same shape with an opaque identifier in place of the DID, at its declared assurance level.
+
+The **v0.1 default transport for the resulting session is a bearer token in the HTTP `Authorization` header**:
+
+```
+Authorization: Bearer <session-token>
+```
+
+Token format, lifetime, and refresh are implementation choices; this profile fixes only the header, so that an independently written client can talk to an independently written space. Rules:
+
+- `GET /.well-known/civic.json` and `GET /health` MUST be servable without authentication.
+- `POST /process/:id/action` MUST require an authenticated session. The actor recorded on the resulting activities is the authenticated identity; a space MUST reject an actor identifier supplied in the request body or query string rather than honouring it.
+- `POST /process` and the read endpoints MAY require authentication, per the space's access control policy (4.7).
+- A request that requires authentication and carries no valid session receives `401`. An authenticated request that fails an eligibility or credential check receives `403`. This matches the error model in Civic Process Specification §12.2, and error bodies take the same shape: `{ "status": "error", "code": "string", "message": "string" }`.
 
 ### 7.2.0 Discovery Manifest
 
@@ -1029,11 +1142,24 @@ Response:
 }
 ```
 
-Notes:
+Served with `Content-Type: application/json`, without authentication.
 
-- `feeds` MUST include the space's activity feed endpoint.
-- `processes` SHOULD list enabled process types (may be empty in v0.1).
-- `space.id` is the space DID (3.5). Implementations predating space DIDs serve `"type": "hub"` at the top level; consumers SHOULD accept both forms for the life of v0.1.
+Field requirements:
+
+| Field | Requirement | Notes |
+|---|---|---|
+| `space.id` | MUST | The space DID (3.5) — the stable key consumers re-bind on across migration |
+| `space.scope` | MUST | `community` \| `individual` \| `entity` \| a registered scope (1.4). Consumers key behaviour off this field, so it cannot be omitted |
+| `space.type` | MUST | The space type identifier, e.g. `civic.hub`, `civic.dashboard`, `civic.representative_space` |
+| `feeds` | MUST | Array of absolute URLs; MUST include the space's activity feed endpoint (7.2.4) |
+| `name` | SHOULD | Human-readable name of the space |
+| `jurisdictions` | SHOULD | Array of jurisdiction strings in the form defined by Civic Activity Specification §3.1. A space with no meaningful jurisdiction omits the field rather than sending an empty label. This is deliberately the opposite convention from an activity's singular `jurisdiction`, which is a required scalar and therefore uses the literal `"none"`: an optional array can be absent and mean "not stated", while a required scalar cannot, and a filtering consumer needs an explicit answer from it |
+| `processes` | SHOULD | Enabled process types; MAY be an empty array while none are enabled |
+| `contact` | MAY | Contact address for the space operator |
+
+Consumers MUST ignore fields they do not recognise rather than rejecting the manifest, so that later versions can add fields without breaking existing indexers.
+
+**Canonical form, and the deprecated alternative.** The nested `space` object shown above is **canonical**: producers MUST emit it. Implementations predating space DIDs instead serve a flat `"type": "hub"` at the top level of the manifest; that form is **accepted for back-compatibility and is deprecated**. Consumers MUST accept both for the life of v0.1 and MUST prefer `space.type` where both appear. The flat form is scheduled for removal in the version that makes `source.space_id` required on activities (Civic Activity Specification §13).
 
 ### 7.2.1 Create Process
 
@@ -1075,14 +1201,38 @@ Behavior:
 GET /events
 ```
 
-Output: list of Civic Activities, ordered by timestamp (descending). Supports filtering by `process_id` and activity type. (`GET /activities` alias planned; see Civic Activity Specification §14.)
+Returns the Civic Activities this space has emitted, ordered by `timestamp` descending. Served with `Content-Type: application/json`. (`GET /activities` is a planned alias; see Civic Activity Specification §14.)
+
+Query parameters, all OPTIONAL:
+
+| Parameter | Type | Meaning |
+|---|---|---|
+| `process_id` | string | Return only activities carrying this `process_id` |
+| `type` | string | Return only activities whose `event_type` matches exactly, e.g. `civic.process.vote_submitted` |
+| `since` | RFC 3339 timestamp | Return only activities whose `timestamp` is strictly later than this value |
+| `limit` | integer | Maximum items in the response. Default 50, maximum 200. A space MAY cap lower, and MUST NOT return more items than `limit` |
+| `cursor` | opaque string | Resume from a previous response's `next_cursor` |
+
+Response envelope:
+
+```json
+{
+  "items": [],
+  "next_cursor": null
+}
+```
+
+- `items` is an array of Civic Activities in the envelope defined normatively by the Civic Activity Specification §2–§3. This document does not restate the activity fields.
+- `next_cursor` is an opaque string to send back as `cursor` to retrieve the next page, or `null` when the caller has reached the end of the feed. It MUST always be present, so that a client never has to distinguish "no more pages" from "field omitted".
+
+Visibility filtering is normative: the response MUST carry only the activities the caller is authorised to see, per each activity's `meta.visibility` and the rule in 10.3.
 
 ### 7.2.5 Recommended Read Endpoints
 
 - `GET /process` — list processes (UI read layer)
 - `GET /health` — health check
 
-## 7.3 Identity Integration (v0.1)
+## 7.3 Identity Integration
 
 Minimal requirements:
 
@@ -1092,30 +1242,24 @@ Minimal requirements:
 
 Target state: full DID authentication and verifiable credential checks per Section 3 and the Civic Identity Specification. The adapter seam exists so this upgrade does not require rebuilding the space.
 
-## 7.4 Process Support (v0.1)
+## 7.4 Process Support
 
 The space MUST support at least one process type (recommended: `civic.vote`), registered through a modular, replaceable process interface (registry/handler pattern per the Civic Process Specification and Civic Plugin Architecture). Avoid tight coupling between the space core and specific process implementations.
 
-## 7.5 Data Storage (v0.1)
+## 7.5 Data Storage
 
 Allowed implementations: in-memory store, simple database, or managed Postgres. The API profile imposes no scalability or persistence requirements; the portability contract (Section 9) and the immutability rules (4.14) impose the durability obligations that matter.
 
 ## 7.6 API Profile Minimal Compliance
 
-To be API Profile compliant, a Civic Space must:
+To be API Profile compliant, a Civic Space MUST:
 
-- Implement the required endpoints (7.2.0–7.2.4)
+- Implement the required endpoints (7.2.0–7.2.4), and authenticate clients per the authentication subsection of 7.2
 - Support at least one process type
 - Emit valid Civic Activities through a single emission path
-- Expose the activity feed
+- Expose the activity feed, filtered per 10.3
 
 Out of scope for the API profile (target-state requirements defined elsewhere in this document): UI, messaging, moderation systems, ranking, full ActivityPub inbox/outbox, real-time delivery.
-
----
-
-# 8. (Reserved)
-
-Section intentionally reserved to keep major numbering stable across drafts; discovery requirements live in the Discovery Layer Specification and Section 7.2.0.
 
 ---
 
@@ -1133,7 +1277,12 @@ Migration completeness is a **named conformance ladder**, not a single bar:
 - **Level B — Continuity.** Level A, plus identity re-binding (DIDs intact, memberships and roles reconstructed, subscriptions re-pointed via the identity layer) and closed-process integrity (tallies, outcomes, and delegation records reconstructed and verifiable).
 - **Level C — Live-state.** Level B, plus active process state (open voting windows, live tallies, delegation chains, plugin runtime state), with the plugin-unavailable fallback of 9.5.
 
-Conformance claims MUST name their level. **The pilot-phase target is Level B**, with migration normally scheduled once active processes reach a terminal state (9.8); Level C is the v1.0 objective, gated on the plugin-state export contract. Emergency restoration from the most recent verified snapshot satisfies Level A semantics (9.8.3).
+Conformance claims MUST name their level, alongside a value on the other two conformance axes (Section 0). **The pilot-phase target is Level B**, with migration normally scheduled once active processes reach a terminal state (9.8); Level C is the v1.0 objective, gated on the plugin-state export contract. Emergency restoration from the most recent verified snapshot satisfies Level A semantics (9.8.3). What an export must actually *contain* at each level is the table in 9.3 — that table and this ladder are one artifact, not two.
+
+**How levels are validated until canonicalization publishes.** Level A calls for a *deterministic* export, and 9.3 asks that two exports of identical state be byte-identical. That test cannot be run yet: it depends on the canonicalization profile and on the civic JSON-LD context, and neither is published (see the banner opening Section 4 and the deliverables note in 9.3). Read literally, no space could claim any level today, which would make the ladder decorative rather than strict. So, as an interim rule:
+
+- Until both the canonicalization profile and the civic JSON-LD context are published, a claim at **any** level is validated by **semantic round-trip equality only** (9.10): export, import into an independent engine, re-export, and compare the two exports as data — same objects, same identifiers, same relationships, same values — rather than as bytes.
+- **Byte equality becomes normative** in the version that publishes the canonicalization profile. Claims made under the interim rule remain valid as historical claims, but MUST be re-validated against the byte test to be carried forward.
 
 ## 9.2 Migration Scope Definition
 
@@ -1146,25 +1295,36 @@ A complete migration (Level C; Levels A/B per their definitions above) preserves
 5. Plugin configuration and state
 6. Badge status and credential references
 
-Migration must not reduce a live civic system to a static archive (beyond Level A claims).
+Migration MUST NOT reduce a live civic system to a static archive (beyond Level A claims).
 
 ## 9.3 Full Space Export
 
-Each space MUST provide deterministic export functionality including:
+Every space MUST provide export functionality. **What the export must contain depends on the level being claimed** (9.1): the table below is the single authoritative contents list, and it governs over any reading of the ladder that would put live process state or plugin runtime state into a Level A export.
 
-- Space metadata (including the space DID and scope)
-- Identity references (**DIDs only; never private keys** — key material lives in wallets and identity providers, and MUST NOT appear in any space export)
-- Membership lists
-- Social graph edges
-- Role mappings
-- All civic objects (posts, proposals, votes, delegations, badges)
-- Active process state (open voting windows, thresholds, quorum rules) — Level C
-- Plugin configuration and plugin state
-- Moderation configuration (rules, roles, policies — but not necessarily sanctions portability)
+| Export item | Level A | Level B | Level C |
+|---|---|---|---|
+| Space metadata (space DID, scope, space type) | MUST | MUST | MUST |
+| Identity references (**DIDs, or the space's opaque participant identifiers where it runs a stub identity adapter; never private keys**) | MUST | MUST | MUST |
+| All civic objects (posts, proposals, votes, delegations, badges) | MUST | MUST | MUST |
+| Activity history | MUST | MUST | MUST |
+| Membership lists | MUST | MUST | MUST |
+| Role mappings | MUST | MUST | MUST |
+| Social graph edges | MUST | MUST | MUST |
+| Access and moderation configuration (rules, roles, policies — sanctions portability not required) | MUST | MUST | MUST |
+| Plugin configuration (which plugins, at which versions, configured how) | MUST | MUST | MUST |
+| Badge status and credential references | MUST | MUST | MUST |
+| Identity re-binding on import: DIDs intact, memberships and roles reconstructed, subscriptions re-pointed via the identity layer (9.6) | — | MUST | MUST |
+| Closed-process integrity: tallies, outcomes, and delegation records reconstructed and independently verifiable | — | MUST | MUST |
+| Active process state (open voting windows, thresholds, quorum rules, live tallies) — see 9.5 | — | — | MUST |
+| Plugin runtime state, with the plugin-unavailable fallback of 9.5 | — | — | MUST |
+
+A dash means the item is not required at that level. A space MAY export more than its level requires; it MUST NOT claim a level whose rows it does not satisfy.
+
+**Key material, at every level.** Private keys live in wallets and identity providers. They MUST NOT appear in any space export at any level (Civic Identity Specification §11.2). A space export carries identity *references* only.
 
 Export Format Requirements:
 
-- JSON-LD or compatible structured format, against the published civic context (see 4.0 note)
+- JSON-LD or compatible structured format, against the published civic context (see the banner opening Section 4 — the context is not yet published, and 9.1 states the interim validation rule)
 - Canonical deterministic ordering — the export format specification MUST name its canonicalization algorithm (e.g., RDF dataset canonicalization or a defined key-ordering profile) so that two exports of identical state are byte-identical
 - Explicit schema version tag
 - Hash-signed archive
@@ -1176,7 +1336,7 @@ Export Format Requirements:
 
 The contract shape above is universal; **what the export contains differs by scope**:
 
-- **Community profile (Civic Hub).** The full tenant-migration case: 9.2's list in its entirety. Media and attachments are exported by reference with retrieval manifests (inline where size permits).
+- **Community profile (Civic Hub).** The full tenant-migration case: at Level C, 9.2's list in its entirety; at Levels A and B, the rows those levels require in 9.3. Media and attachments are exported by reference with retrieval manifests (inline where size permits).
 - **Individual profile (Citizen Dashboard).** The citizen's own foundation: identity and credential export happens at the wallet/identity-provider layer (never through a space export); the Personal Data Store contents (social graph, subscriptions, preferences, participation references); and **pointers into community and entity spaces, not copies of their content** — the substance of participation belongs to the process that hosted it. Individual portability is continuous by design: the foundation is always portable, so the snapshot machinery of 9.8 applies only weakly to this scope.
 - **Entity profile (Representative Space).** Predominantly public record. Entity-voice content exports under the entity's control; third-party accountability data (badge issuances, outcome deliveries, responsiveness records including non-response records) exports **with provenance intact**, so that the record cannot be laundered by migration. This profile depends on activity signing (5.2) for full verifiability.
 
@@ -1274,7 +1434,7 @@ Snapshot migration moves *state*; the space DID preserves *identity*. The two to
 
 ## 9.10 Portability Conformance
 
-A portability conformance claim is validated by **round-trip testing**: export from engine 1 → import into an independent engine (or independent instance) → re-export → semantic equality with the original export (byte equality under the canonicalization profile). Export-only validation does not establish conformance. The round-trip test at Level B, executed between two live engine instances with a real community's data, is the pilot-phase acceptance bar.
+A portability conformance claim is validated by **round-trip testing**: export from engine 1 → import into an independent engine (or independent instance) → re-export → compare against the original export. The comparison is **semantic equality** — same objects, identifiers, relationships, and values — and becomes byte equality once the canonicalization profile is published; 9.1 states that interim rule and when it lapses. Export-only validation does not establish conformance. The round-trip test at Level B, executed between two live engine instances with a real community's data, is the pilot-phase acceptance bar.
 
 ---
 
@@ -1291,9 +1451,23 @@ A portability conformance claim is validated by **round-trip testing**: export f
 
 - Credential-gated access
 - Optional encrypted data layer
-- Optional suppression of public feed publication
+- Optional suppression of public feed publication (see 10.3 for exactly what this does and does not permit)
 
-Both must comply with identity, object, and portability requirements.
+Both MUST comply with identity, object, and portability requirements.
+
+## 10.3 Feed Exposure in Private Spaces
+
+Section 7.1 requires every space to expose an activity feed endpoint; 10.2 permits a private space to suppress public feed publication. Those two statements resolve as follows, and this rule is normative.
+
+- A space MUST serve the feed endpoint (7.2.4). Being private is not grounds for omitting it: a missing endpoint is an API Profile conformance failure regardless of the space's privacy posture.
+- The response MUST be filtered to exactly the activities the calling identity is authorised to see. Authorisation is decided by each activity's `meta.visibility` — `public` or `restricted`, per Civic Activity Specification §7 — and, for `restricted` activities, by the space's single authorization seam (4.7). Process-level visibility (`public`, `participants-only`, `jurisdiction-only`) maps down onto the wire value per that same section; the finer distinction between the two restricted policies is enforced at the seam, not carried on the wire.
+- An unauthenticated caller to a fully private space therefore receives `200` with an empty `items` array — **not** `401`, `403`, or `404`. An unauthorised caller and a caller for whom no activities exist MUST be indistinguishable in the response.
+
+The reason the failure mode is an empty list rather than an error is disclosure: signalling "there is something here you may not see" is itself a disclosure, and in civic contexts the mere existence of a restricted process can reveal that a jurisdiction is deliberating something sensitive.
+
+Accordingly, "suppression of public feed publication" in 10.2 means exactly two things: this filtering, and not pushing the feed outward to federation peers or indexers. It never means declining to serve the endpoint.
+
+**What the manifest reveals.** A private space's discovery manifest discloses that the space exists, its scope, its type, and where its feed lives. It discloses nothing about the space's membership, its content, its processes, or its activity — a private space MAY omit the optional `name`, `jurisdictions`, and `processes` fields entirely, and its feed endpoint MAY return an empty list to unauthorized callers (10.2). The endpoint is mandatory because of re-binding: a space that cannot be resolved cannot be migrated to, and portability is what keeps a community's space its own. A community that wants no public presence at all is choosing not to be discoverable in the ecosystem, which is its right — it is then not a conformant Civic Space, and it is better to say so here than to let it be discovered at audit.
 
 ---
 
@@ -1311,21 +1485,21 @@ However:
 
 - The specification MUST remain implementation-agnostic.
 - No clause may require dependency on a specific organization.
-- All interfaces must be standards-based and publicly documented.
+- All interfaces MUST be standards-based and publicly documented.
 
 ## 11.2 Versioning
 
-- The specification must follow semantic versioning.
-- Breaking changes must be clearly documented.
-- Export/import formats must be version-stamped.
-- Backward compatibility guarantees should be explicitly defined in future versions.
+- The specification MUST follow semantic versioning.
+- Breaking changes MUST be clearly documented.
+- Export/import formats MUST be version-stamped.
+- Backward compatibility guarantees SHOULD be explicitly defined in future versions.
 
 ## 11.3 Extensibility
 
-- Extensions must not break canonical civic primitives.
+- Extensions MUST NOT break canonical civic primitives.
 - New space types register per 1.4 without modifying this specification.
-- Plugins must declare schema extensions.
-- Future identity, federation, or portability revisions must remain backward compatible wherever feasible.
+- Plugins MUST declare schema extensions.
+- Future identity, federation, or portability revisions SHOULD remain backward compatible; where a break is unavoidable it MUST be documented as a breaking change.
 
 ## 11.4 Conformance Suite
 
@@ -1357,8 +1531,8 @@ A **Space Conformance Suite** — machine-runnable tests covering manifest valid
 
 ## 12.4 Federation Model
 
-- Is federation mandatory or optional for compliance? (v0.1 answer: optional; pull-based feeds suffice.)
-- Should ActivityPub be required, or is a Civic Federation Protocol sufficient?
+- Is federation mandatory or optional for compliance? **The v0.1 answer is settled: OPTIONAL** (5.1) — pull-based feeds suffice, and a space that does federate MUST use ActivityPub or a compliant Civic Federation Protocol. What remains open is whether a later version raises federation to a requirement, and on what schedule.
+- Should ActivityPub specifically be required, or does a Civic Federation Protocol remain a permanent alternative? (v0.1 accepts either.)
 
 ## 12.5 Space Type Transitions
 
@@ -1368,6 +1542,28 @@ A **Space Conformance Suite** — machine-runnable tests covering manifest valid
 
 - Should this align formally with existing standards bodies (e.g., W3C)?
 - Should a Civic Standards Working Group be formed under nonprofit governance?
+
+---
+
+# References
+
+Every companion document this specification cites normatively is listed below with its status as of this release. **Published** means the document exists in the form cited and can be implemented against. **Planned** means this specification defers a requirement to it, but it has not been published — an implementer should treat anything deferred to a planned document as unsettled, and should not assume the shape it will take.
+
+| Document | Cited by this specification for | Status |
+|---|---|---|
+| **Civic Process Specification** (v0.2) | The process model, and the request/response contracts behind 7.2.1–7.2.3 (its §12) | Published |
+| **Civic Activity Specification** (v0.1) | The activity envelope and required fields, the type registry, the visibility model, and the `GET /events` transport (5.2, 7.2.4, 10.3) | Published |
+| **Civic Identity Specification** (v0.1) | DIDs and credentials (Section 3), the challenge-response session model (its §6.2, used by 7.2), the Identity Policy Object and the assurance-level vocabulary (its §8) | Published |
+| **Civic.Social Terminology Glossary** (v2.0) | Canonical ecosystem vocabulary, including the five-layer model (2.2) | Published |
+| **Civic Plugin Architecture** | Plugin packaging, trust tiers, manifests, capability declarations, and the opt-in host-requirements mechanism (1.4, 6.1, 6.2) | Companion document; status not pinned by this release — verify before relying on it |
+| **Discovery Layer Specification** | Manifest ingestion and index behaviour (1.3, 7.2.0), and the `moved` tombstone and re-binding protocol (9.9) | Companion document; status not pinned by this release — verify before relying on it |
+| **Authorization Model Note** | The single authorization seam and the role-to-capability evolution path (4.7) | Companion note; status not pinned by this release — verify before relying on it |
+| **Assisted Creation and Managed Hosting** | The managed-hosting model behind the Space Hosting Provider role (1.5) | Concept document, non-normative |
+| **Civic extension JSON-LD context** (`https://civicsocial.org/ns/civic`) | Normative property names and types for canonical civic objects (Section 4) and for the export format (9.3) | **Planned — not yet published.** Section 4 is informative as to field names until it does |
+| **Export schema and canonicalization profile** | Byte-deterministic export ordering and machine validation (9.3) | **Planned** — a Civic Hubs pilot deliverable; 9.1 states the interim validation rule |
+| **Space Conformance Suite** | Machine-runnable conformance tests for this document (11.4) | **Planned** |
+
+External standards referenced: W3C Decentralized Identifiers, W3C Verifiable Credentials Data Model, JSON-LD 1.1, ActivityStreams 2.0 and ActivityPub, OpenID4VCI / OpenID4VP / SIOPv2, Schema.org, RFC 2119, RFC 8174, and RFC 3339.
 
 ---
 
