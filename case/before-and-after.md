@@ -1,13 +1,26 @@
 ---
 status: review
-last-reviewed: 2026-04-29
+last-reviewed: 2026-07-26
 owners: [adam]
 version: 0.1
 ---
 
 # Before & After: The Civic.Social Difference
 
+> **How to read this document.** Both halves are written in the present
+> tense, but they are not the same kind of statement. **Before** describes
+> what civic participation is like today — every constraint in it can be
+> verified this afternoon. **After** describes where Civic.Social is
+> headed. It is written in the present tense because that is how anyone
+> pictures a place they are trying to reach, but none of it is finished,
+> and some of it depends on decisions still being worked out in the open.
+> For how much exists now, what the pilot programs are scoped to build,
+> and what remains direction rather than schedule, see
+> **[Civic.Social Horizons](../canon/phasing.md)**.
+
 ## Before — The Fragmented Civic Landscape
+
+*This is today.*
 
 ### For the citizen
 
@@ -26,6 +39,10 @@ A city council member in Athens wants to know where her constituents actually st
 Hundreds of civic tools, organizations, and reform movements are active across the country. Each operates largely in isolation. Organizations can share each other's work through social media posts or mailing lists, but there is no connective tissue underneath — no low-friction way for a citizen engaged in one process to discover another, no way for organizations to share participants or build on each other's infrastructure, no way for the collective energy of the movement to become visible as something larger than the sum of its parts. Network effects never materialize. The ecosystem appears fragmented and marginal — not because the energy isn't there, but because there's nowhere for it to compound.
 
 ## After — A Connected Civic Ecosystem
+
+*This is the destination. It is what the specifications are being written
+toward and what the pilot programs are being built to test — not a
+description of software you can log into now.*
 
 ### For the citizen
 
