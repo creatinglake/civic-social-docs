@@ -93,6 +93,8 @@ This table is the single authoritative required-fields list for v0.1. A complian
 
 > The canonical type identifiers are noun-based (`civic.process.created`) for v0.1. A future revision may introduce verb-based aliases (`Create`, `Update`, `Announce`, etc.) to align more closely with the ActivityStreams 2.0 vocabulary as part of the AS2 bridge work (see §13).
 
+**How to read this registry.** The registry is tiered by how much lifecycle a process opts into. Section 4.1 is the base vocabulary every process emits regardless of lifecycle profile; 4.2 is what participants do inside one. Section 4.3 applies **only** to process types that implement the full deliberative lifecycle — simpler processes never emit those types. Section 4.4 is the vocabulary of spaces themselves. Section 4.5 is the extension convention, and it is why this registry does not have to anticipate everything: the canonical types pin the shared grammar that lets strangers interoperate, while new vocabulary can always be minted without changing this specification.
+
 ### 4.1 Lifecycle Activities
 
 - `civic.process.created`
@@ -110,6 +112,8 @@ This table is the single authoritative required-fields list for v0.1. A complian
 
 ### 4.3 Full-Lifecycle Activities
 
+> **Provisional pending pilot validation.** These types encode the deliberative phase model — the least field-tested part of this registry; no external implementation has exercised them yet. Build confidently against 4.1 and 4.2; expect 4.3 to be refined by pilot experience.
+
 Defined by the Civic Process Specification for process types that implement the full lifecycle model:
 
 - `civic.process.framed`
@@ -120,7 +124,7 @@ Defined by the Civic Process Specification for process types that implement the 
 
 ### 4.4 Space Lifecycle Activities
 
-- `civic.space.migrated` — the final activity a space emits from its old location upon migration, carrying the new binding (see the Civic Space Specification's portability contract and the Discovery Layer's re-binding protocol)
+- `civic.space.migrated` — the final activity a space emits from its old location upon migration, carrying the new binding so feeds and indexers can re-bind to the space's new location automatically: the forwarding address that makes the portability promise mechanical (see the Civic Space Specification's portability contract and the Discovery Layer's re-binding protocol)
 
 ### 4.5 Extension Namespace Convention
 
