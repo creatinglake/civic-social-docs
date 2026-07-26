@@ -580,7 +580,7 @@ Example:
 
 ### 7.6 Lifecycle Phase → Event Mapping
 
-Each lifecycle phase MUST emit at least one event. The following table defines the minimum event emissions per phase:
+The table below maps the **`deliberative`** profile — the full eight-phase model of Sections 5–6 — to the activities each phase emits. Every phase a process *actually runs* MUST emit at least one activity; there are no silent phases.
 
 | Lifecycle Phase | Required Activity/Activities |
 |---|---|
@@ -593,7 +593,7 @@ Each lifecycle phase MUST emit at least one event. The following table defines t
 | 6. Publication | `civic.process.result_published` |
 | 7. Feedback / Continuity | `civic.process.feedback_received` (per submission) and/or `civic.process.updated` (for outcome status changes) |
 
-Profiles other than `deliberative` emit the activities for the phases they execute; every profile emits `civic.process.created` and a terminal-transition activity (`civic.process.ended`, per Section 4.3).
+**Profiles other than `deliberative`.** Only the `deliberative` profile runs all eight phases. A process on any other profile (Section 4.2 — `continuous`, `publish`, `ephemeral`) emits activities only for the phases it actually runs: an announcement on the `publish` profile has no Aggregation or Feedback phase, so it never emits `civic.process.aggregation_completed`. Two emissions are common to every profile regardless of shape: `civic.process.created` when the instance comes into being, and a lifecycle activity on the terminal transition (`civic.process.ended` or its profile-specific equivalent, per Section 4.3). Those two are what let any consumer track any process from birth to end without knowing its profile in advance.
 
 ### 7.7 Distribution
 
