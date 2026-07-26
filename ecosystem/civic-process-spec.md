@@ -21,6 +21,8 @@ This specification defines:
 
 **Relationship to plugins.** A Civic Process *type* is implemented and distributed as a **Civic Process Plugin**: a handler registered with the host space's process registry, packaged and trusted per the **Civic Plugin Architecture**. This specification defines the process contract a plugin implements; the plugin architecture defines how it is packaged, scoped, and installed. The two documents are companions and cross-reference each other.
 
+> **Which horizon is this?** This document specifies what can be built and verified **today**; where it defers a capability, limits a guarantee, or declines to require something the wider Civic.Social material describes, that is a schedule, not a retreat. **[Civic.Social Horizons](../canon/phasing.md)** maps each of those deferrals to the pilot that closes it and to the destination it is headed toward.
+
 ---
 
 ## Notation and Conformance Language

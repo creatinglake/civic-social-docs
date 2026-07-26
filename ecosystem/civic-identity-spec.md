@@ -13,6 +13,8 @@ This specification is promoted from the **Civic Identity Pilot** specification (
 
 Conformance — what a conformant implementation is at each role, and how the reference implementation phases toward it — is defined in Section 12.
 
+> **Which horizon is this?** This document specifies what can be built and verified **today**, and it is deliberately candid about what v0.1 does not yet deliver — cross-context unlinkability (§7.4) and an identity layer not concentrated in one steward (§10) are both named as real gaps rather than glossed. **[Civic.Social Horizons](../canon/phasing.md)** maps those gaps to the pilot work that narrows them and to the destination they are headed toward.
+
 ---
 
 # Notation and Conformance Language

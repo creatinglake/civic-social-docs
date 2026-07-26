@@ -25,6 +25,8 @@ Another key objective is to support **multiple interoperable space engines**. Ex
 
 This draft (v0.2) focuses on defining the foundational architecture, the canonical data models, and the minimal API profile needed for interoperability. It is intended as a working document to solicit feedback from civic technologists, governance researchers, standards bodies, and software developers.
 
+> **Which horizon is this?** This document specifies what can be built and verified **today**; where it defers a capability, limits a guarantee, or declines to require something the wider Civic.Social material describes — federation, live-state portability, machine-checkable conformance — that is a schedule, not a retreat. **[Civic.Social Horizons](../canon/phasing.md)** maps each of those deferrals to the pilot that closes it and to the destination it is headed toward.
+
 ---
 
 ## Notation and Conformance Language

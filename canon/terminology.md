@@ -1,11 +1,44 @@
 ---
 status: stable
-last-reviewed: 2026-07-25
+last-reviewed: 2026-07-26
 owners: [adam]
 version: 0.2
 ---
 
 # Civic.Social Terminology Glossary — Canonical Reference (v2.0)
+
+## Usage note: "citizen"
+
+Civic.Social documents use **citizen** throughout — Citizen Node, Citizen
+Dashboard, Citizen Account Provider — and in every case the word names **the
+person participating**, not a legal status. It is a role in the architecture,
+in the same way "holder," "member," and "operator" are roles.
+
+This matters because most systems built on these specifications will serve
+**residents**, and residency is what civic participation usually turns on.
+School board meetings, participatory budgeting, town halls, public comment,
+neighborhood associations, and the great majority of local civic processes are
+open to people who live in a jurisdiction regardless of citizenship status. A
+Civic Hub that restricted participation to legal citizens by default would be
+wrong about its own community.
+
+Nothing in the architecture encodes citizenship. Eligibility for any given
+process is set by that process's own rules and checked against credentials the
+holder presents — a residency credential, a district credential, an age
+credential, a membership credential. Where a process genuinely does require
+legal citizenship (a binding election, say), that is one eligibility rule among
+many, expressed the same way as any other. It is not a property of the
+identity layer and not a precondition for holding a Civic Identity.
+
+**On the naming itself.** Whether to rename these terms — Resident Dashboard,
+Participant Node, Person Node — is an open question and has not been decided.
+"Citizen" is the more legible word to a general audience and carries the civic
+connotation the project wants; it is also the word most likely to be read as
+exclusionary by exactly the people these systems should serve. Until that is
+settled, the terms below stand as written, and **authors should not treat the
+word as a statement about who may participate.** Participant-facing text —
+interfaces, onboarding, anything a member of the public reads — SHOULD prefer
+"resident" or "participant" where the architectural term is not required.
 
 ## Core Architecture Terms
 
@@ -108,6 +141,6 @@ Federation is a capability of the Civic Activity Specification and the Discovery
 
 ---
 
-**Last updated:** July 25, 2026
+**Last updated:** July 26, 2026
 **Status:** Canonical terminology reference for all Civic.Social documents
 **Contact:** contact@civic.social

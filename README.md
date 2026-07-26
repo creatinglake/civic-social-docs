@@ -11,7 +11,12 @@ the work:
 
 - **`canon/`** — foundational reference material (terminology, shared
   definitions). Other documents in this repo refer to these definitions
-  rather than restating them.
+  rather than restating them. Includes
+  **[Civic.Social Horizons](canon/phasing.md)** — the single place that
+  says which of these documents describe what exists today, what the
+  pilots build, and where the project is headed. Worth reading before
+  anything else if you have found a specification that seems to promise
+  less than the case material does.
 
 - **`case/`** — the case for Civic.Social: narrative and positioning
   material describing what Civic.Social is and why it matters. New readers
@@ -67,6 +72,13 @@ For funders, partners, and anyone new to the project:
 - **[Civic.Social Deck (Feb 2026)](case/civic-social-deck-2026-02-26.pdf)** —
   15-slide visual overview. Useful as a quick walkthrough for first
   conversations. PDF renders inline on GitHub.
+
+These documents describe the destination. **[Civic.Social
+Horizons](canon/phasing.md)** is the companion that says how much of it
+exists today, what the pilots are scoped to build, and what remains
+direction rather than schedule. Read it alongside the case material — and
+before the specifications, which are written to the near horizon and will
+otherwise read as though they promise less.
 
 ## Document status
 

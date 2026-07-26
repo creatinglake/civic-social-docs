@@ -22,6 +22,8 @@ This spec defines:
 - Visibility and disclosure rules
 - Mapping to ActivityStreams (forward compatibility)
 
+> **Which horizon is this?** This document specifies what can be built and verified **today** — the activity envelope two independent implementations must agree on. Everything beyond it, including the ActivityPub bridge, activity signing, and cross-space propagation, is deferred by design; **[Civic.Social Horizons](../canon/phasing.md)** maps each deferral to the pilot that closes it and to the destination it is headed toward.
+
 ---
 
 ## Notation and Conformance Language
