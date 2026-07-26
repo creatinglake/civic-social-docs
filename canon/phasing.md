@@ -116,17 +116,15 @@ what makes the transitional model transitional, which is why the specification
 asks for provider migration to be *demonstrated* during the pilot rather than
 merely offered.
 
-## Two things this document does not resolve
+## What this document does not resolve
 
-**"Phase 3" is used for two different things.** Several specifications refer to
-"the Phase 3 federation work" — an *ecosystem-wide* horizon covering the
-ActivityPub bridge, push delivery, and the published JSON-LD context.
-Separately, most pilot specs number their own internal phases, and each has a
-"Phase 3" of its own that means something entirely different and shorter. These
-two numbering systems have never been reconciled, and the ecosystem-wide
-Phase 3 has no definition anywhere in this repository. Until that is settled,
-read "the Phase 3 federation work" as *the federation horizon in this table*,
-and read any "Phase 3" inside a pilot spec as internal to that pilot.
+**Numbered phases are local, and that is fine.** Several documents number
+their own phases — the Civic Process Specification's lifecycle Phases 0–7,
+each pilot's internal Phase 1 through Phase 4, the roadmap sections of the
+discovery layer and AI agent documents. These are separate numbering systems
+and they are not meant to line up; each is internal to the document that
+defines it. Where a document refers to work on the federation horizon, it now
+says so by name rather than by borrowing a number from somewhere else.
 
 **The pilot horizon is not a single timeline.** The seven pilots have
 dependencies on each other — hubs need identity, the dashboard needs the hub

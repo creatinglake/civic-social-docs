@@ -321,7 +321,7 @@ Activities can be delivered via:
 
 The transport endpoint is `GET /events` in v0.1 (see §14); a `GET /activities` alias may be introduced in a later revision. Feed responses are ordered by descending timestamp.
 
-ActivityPub support is optional in v0.1 and is the target of the Phase 3 federation bridge.
+ActivityPub support is optional in v0.1 and is the target of the later federation bridge work.
 
 ### 8.1 Feed response format
 
@@ -417,7 +417,7 @@ Mapping Rules:
 - `process_id` → object.context (future extension)
 - `source.space_id` / `source.hub_url` → attributedTo (future mapping)
 
-A complete AS2 bridge specification — including verb mapping, collection semantics, and the published JSON-LD context document at `https://civicsocial.org/ns/civic` (a prerequisite for both the bridge and the JSON-LD export format in the Civic Space Specification) — is deferred to the Phase 3 federation work.
+A complete AS2 bridge specification — including verb mapping, collection semantics, and the published JSON-LD context document at `https://civicsocial.org/ns/civic` (a prerequisite for both the bridge and the JSON-LD export format in the Civic Space Specification) — is deferred to the federation work.
 
 ---
 
@@ -474,7 +474,7 @@ The reason is forward compatibility. The type registry in §4 will grow, and ext
 
 - Wire-format field rename `event_type` → `activity_type` and the `GET /activities` endpoint alias (see §14)
 - `source.space_id` becomes required
-- ActivityPub native support (Phase 3 bridge) and ActivityStreams 2.0 verb-based type aliases
+- ActivityPub native support (the federation bridge) and ActivityStreams 2.0 verb-based type aliases
 - Activity signatures (signed by the emitting space's DID)
 - Credential-scoped visibility
 - Cross-space activity propagation

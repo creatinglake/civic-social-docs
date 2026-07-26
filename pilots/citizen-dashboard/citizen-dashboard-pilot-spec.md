@@ -500,7 +500,7 @@ Estimated budget range, consistent with program-level estimates for this pilot:
 - **Full external civic-data integration suite.** Ballotpedia/VoteSmart/OpenStates/FEC-class integrations beyond the single pilot integration (section 16).
 - **Hosting community content or deliberation.** The dashboard is not a discussion environment; moderation-bearing surfaces remain in hubs by design.
 - **Citizen Account Provider implementation.** The provider is an infrastructure role governed by the Civic Identity Specification; this pilot consumes its services and builds none of it.
-- **Federation push delivery.** Pull-based feed consumption satisfies v0.1 (Civic Space Specification §5.1); webhooks and ActivityPub delivery arrive with the Phase 3 federation work.
+- **Federation push delivery.** Pull-based feed consumption satisfies v0.1 (Civic Space Specification §5.1); webhooks and ActivityPub delivery arrive with the federation work.
 
 ---
 
