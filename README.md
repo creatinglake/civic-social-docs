@@ -9,6 +9,15 @@ This repository contains the authoritative specifications and reference
 materials for Civic.Social. It's organized to reflect the structure of
 the work:
 
+- **`specs/`** — **the four canonical Civic.Social specifications**:
+  **[Civic Space](specs/civic-space-spec.md)** ·
+  **[Civic Process](specs/civic-process-spec.md)** ·
+  **[Civic Activity](specs/civic-activity-spec.md)** ·
+  **[Civic Identity](specs/civic-identity-spec.md)**.
+  These are the foundation everything else builds on; where any other
+  document conflicts with them, the specifications govern. Start with the
+  **[specs index](specs/README.md)**.
+
 - **`canon/`** — foundational reference material (terminology, shared
   definitions). Other documents in this repo refer to these definitions
   rather than restating them.
@@ -18,10 +27,10 @@ the work:
   should start here; **[Before & After](case/before-and-after.md)** is the
   recommended entry point.
 
-- **`ecosystem/`** — specifications describing the conceptual substrate of
-  Civic.Social: the design process, the civic event model, hub architecture,
-  identity and personal data approach. These are the ideas everything else
-  builds on.
+- **`ecosystem/`** — supporting architecture and design documents: the
+  conceptual baseline, the plugin architecture, the discovery layer, and
+  related design notes. These elaborate on the canonical specs without
+  superseding them.
 
 - **`pilots/`** — specifications for specific pilot programs. Current
   pilot specs include the **[Civic Identity Pilot](pilots/civic-identity/civic-identity-pilot-spec.md)**,

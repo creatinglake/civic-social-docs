@@ -13,7 +13,7 @@ version: 0.2
 
 ## Purpose
 
-The [Civic Process Specification](civic-process-spec.md) defines **what a Civic Process is** — its lifecycle profiles, identity requirements, activities, and action contracts. This document defines the layer *above* that: **how processes get packaged, trusted, scoped, and installed as plugins** across host environments in the Civic.Social ecosystem.
+The [Civic Process Specification](../specs/civic-process-spec.md) defines **what a Civic Process is** — its lifecycle profiles, identity requirements, activities, and action contracts. This document defines the layer *above* that: **how processes get packaged, trusted, scoped, and installed as plugins** across host environments in the Civic.Social ecosystem.
 
 A **host environment** is a defined term: **any conformant Civic Space (of any scope — Civic Hub, Representative Space, Citizen Dashboard, or a future space type), or an embed context** (a process surfaced standalone on a third-party web page, per the embeddable-components model). Wherever this document says "host," it means a host environment in this sense.
 
