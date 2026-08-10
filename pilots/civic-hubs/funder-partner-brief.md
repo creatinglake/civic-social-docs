@@ -41,7 +41,7 @@ The pilot will deploy working Civic Hubs with 1–3 real communities and demonst
 - Multiple independent hubs can discover each other and share civic activity, proving the federation model works
 - When Civic Identity integration is available, citizens can authenticate using decentralized identity, enabling participation across hubs without creating new accounts
 
-This end-to-end demonstration will produce working hub deployments, a Civic Hub Compliance Specification defining what it means to be a compliant hub, a hub operator guide, and a pilot report with findings, recommendations, and a production roadmap.
+This end-to-end demonstration will produce working hub deployments, the community-scope compliance profile of the Civic Space Specification (defining what it means to be a compliant hub — the Civic Hub is a community-scoped Civic Space type), a hub operator guide, and a pilot report with findings, recommendations, and a production roadmap.
 
 The full list of deliverables and success criteria is detailed in the full Civic Hubs Pilot specification, available upon request.
 
@@ -49,7 +49,7 @@ The full list of deliverables and success criteria is detailed in the full Civic
 
 ## The Civic Hub
 
-At the architectural level, a Civic Hub is the primary organizational unit of the Civic.Social ecosystem. It hosts civic processes, accepts citizen actions, emits standardized Civic Events for distribution across the ecosystem, and exposes a discovery manifest that allows other systems to find and interact with it.
+At the architectural level, a Civic Hub is the primary organizational unit of the Civic.Social ecosystem. It hosts civic processes, accepts citizen actions, emits standardized Civic Activities for distribution across the ecosystem, and exposes a discovery manifest that allows other systems to find and interact with it.
 
 At the community level, a Civic Hub is a shared digital civic space — a place where residents can follow what's happening, participate in decisions, and engage with their civic community. Different communities configure their hubs differently: a municipal hub hosts consultations and advisory votes, a neighborhood hub coordinates local projects and discussions, a civic organization hub supports policy deliberation and campaign coordination.
 
@@ -75,7 +75,7 @@ The hub model is designed for diversity. Anyone can create a hub. Communities go
 
 The pilot produces working reference infrastructure and validated architecture. This establishes the operational foundation for a network of community-operated civic spaces connected through open standards.
 
-The sequence is: this pilot validates the hub architecture and produces the Civic Hub Compliance Specification and hub operator guide → communities adopt hub software using these artifacts and reference implementations → hubs integrate with Civic Identity and Civic Processes as those pilots mature → the ecosystem grows as additional communities launch hubs and new hub engine implementations emerge → civic participation becomes continuous and connected rather than fragmented and episodic.
+The sequence is: this pilot validates the hub architecture and produces the community-scope compliance profile of the Civic Space Specification and hub operator guide → communities adopt hub software using these artifacts and reference implementations → hubs integrate with Civic Identity and Civic Processes as those pilots mature → the ecosystem grows as additional communities launch hubs and new hub engine implementations emerge → civic participation becomes continuous and connected rather than fragmented and episodic.
 
 The pilot is designed to demonstrate feasibility with real communities, reduce adoption risk for future hub operators, and produce the artifacts needed to move toward production infrastructure.
 
@@ -85,7 +85,7 @@ The pilot is designed to demonstrate feasibility with real communities, reduce a
 
 **Estimated duration: 10–13 months**
 
-**Phase 1 — Architecture Hardening and Pilot Preparation (2–3 months).** The hub architecture and a working reference implementation already exist. This phase focuses on hardening the existing architecture, drafting the Civic Hub Compliance Specification, adding persistent storage and real authentication, building the admin panel, and preparing for community deployment.
+**Phase 1 — Architecture Hardening and Pilot Preparation (2–3 months).** The hub architecture and a working reference implementation already exist. This phase focuses on hardening the existing architecture, drafting the community-scope compliance profile of the Civic Space Specification, adding persistent storage and real authentication, building the admin panel, and preparing for community deployment.
 
 **Phase 2 — Hub Infrastructure Development (3–4 months).** Extend the hub engine for production readiness: moderation tools, community onboarding flows, discovery manifest, cross-hub event distribution, and identity adapter upgrades.
 
@@ -103,7 +103,7 @@ The Civic Hubs Pilot builds on active relationships and infrastructure already i
 
 **Civic.Social Hub Engine.** Civic.Social is developing its own hub engine — the Civic.Social Hub Engine — as the primary implementation for the pilot. Early development is underway, with the founding team building core infrastructure including process hosting, event emission, API endpoints, and a community interface. The pilot will use this engine for reference deployments with real communities.
 
-**Hub engine and integration partners.** Civic.Social is in conversation with civic technology organizations — including Bonfire Networks, Decidim, and Roundabout (New Public) — as potential integration partners. The Civic Hub Compliance Specification will define what it means to be a compliant hub, opening the door for existing platforms to interoperate with the ecosystem.
+**Hub engine and integration partners.** Civic.Social is in conversation with civic technology organizations — including Bonfire Networks, Decidim, and Roundabout (New Public) — as potential integration partners. The Civic Space Specification's community-scope compliance profile will define what it means to be a compliant hub, opening the door for existing platforms to interoperate with the ecosystem.
 
 **Broader Civic.Social program.** The hub pilot is one component of a broader infrastructure program that also includes pilots for Civic Identity, Civic Processes, the Civic Activity Feed, Civic Credentialing, and the Citizen Dashboard. The hub pilot provides the execution layer where citizens actually participate — making it the proving ground for the entire ecosystem. Joint funding of the hub and identity pilots accelerates both and demonstrates the end-to-end civic participation experience.
 
@@ -111,7 +111,7 @@ The Civic Hubs Pilot builds on active relationships and infrastructure already i
 
 ## What Comes Next
 
-The pilot is designed to produce artifacts that support a clear transition to production. Phase 4 deliverables include a live demonstration environment, a pilot report with operational findings and a production roadmap, a hub operator guide, and the Civic Hub Compliance Specification.
+The pilot is designed to produce artifacts that support a clear transition to production. Phase 4 deliverables include a live demonstration environment, a pilot report with operational findings and a production roadmap, a hub operator guide, and the community-scope compliance profile of the Civic Space Specification.
 
 After the pilot, the path forward includes hardening reference hub software for production use, onboarding additional communities as hub operators, expanding the hub engine ecosystem (additional platforms implementing the hub specification), integrating advanced civic processes through the plugin framework, and enabling full ActivityPub federation for real-time cross-hub communication. The open-standards foundation ensures that the infrastructure built during this pilot remains viable and extensible regardless of which organizations operate it long-term.
 
@@ -141,7 +141,7 @@ Civic technology platforms, civic organizations, hub operators, and community gr
 
 **As a pilot community** — operate a Civic Hub for your community using the Civic.Social Hub Engine and contribute operational learnings to the hub operator guide.
 
-**As a hub engine partner** — adapt your platform to implement the Civic Hub Compliance Specification, ensuring your community software can interoperate with the Civic.Social ecosystem.
+**As a hub engine partner** — adapt your platform to implement the Civic Space Specification's community-scope compliance profile, ensuring your community software can interoperate with the Civic.Social ecosystem.
 
 **As a civic process provider** — integrate your civic participation tools (deliberation, voting, budgeting) into the hub environment through the Civic Process Plugin Framework.
 

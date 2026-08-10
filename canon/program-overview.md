@@ -1,6 +1,6 @@
 ---
 status: stable
-last-reviewed: 2026-04-19
+last-reviewed: 2026-07-03
 owners: [adam]
 version: 0.1
 ---
@@ -24,7 +24,7 @@ Each pilot focuses on a specific layer of the system while remaining compatible 
 Civic.Social separates three elements that are often bundled together in traditional civic platforms:
 
 **Civic Spaces**
-Community-operated digital spaces where discussion, collaboration, and civic participation occur. These are implemented as *Civic Hubs*.
+Scoped digital environments where discussion, collaboration, and civic participation occur. The Civic Space is the ecosystem's host primitive, typed by scope — community, individual, or entity, an open set. The community-scoped space is the *Civic Hub*; the individual-scoped space is the *Citizen Dashboard*; the entity-scoped space is the *Representative Space*.
 
 **Civic Processes**
 Modular capabilities that enable civic activity—such as citizen assemblies, advisory voting, petitions, messaging tools, or civic data services. These capabilities are implemented as *plugins*.
@@ -47,7 +47,7 @@ The Civic.Social architecture emphasizes several design principles:
 
 - **Modular civic processes** that can be installed and reused across hubs
 
-- **Event-based civic information flows** that surface participation opportunities
+- **Activity-based civic information flows** that surface participation opportunities
 
 - **Citizen-controlled identity credentials** enabling trusted participation
 
@@ -99,9 +99,9 @@ This pilot demonstrates how an ecosystem of civic processes can operate across m
 
 ### 3. Civic Activity Feed & Discovery Pilot
 
-Develop the event aggregation and discovery layer of the system—an "Inbox for Civic Life" paired with the indexing and search infrastructure that makes civic activity findable across the ecosystem.
+Develop the activity aggregation and discovery layer of the system—an "Inbox for Civic Life" paired with the indexing and search infrastructure that makes civic activity findable across the ecosystem.
 
-The civic activity feed aggregates civic events emitted by civic hubs and processes, while the discovery layer indexes hubs and processes so citizens can locate relevant civic opportunities wherever they occur.
+The civic activity feed aggregates civic activities emitted by civic hubs and processes—one shared feed engine refracted into many lenses (inbox, notifications, discovery, space view, embeds)—while the discovery layer provides a reference indexer of hubs and processes so citizens can locate relevant civic opportunities wherever they occur.
 
 Example feed items may include:
 
@@ -122,7 +122,7 @@ This pilot demonstrates how civic events and civic metadata can flow across the 
 
 ### 4. Citizen Dashboard Pilot
 
-Create the reference citizen interface that helps individuals navigate civic life.
+Create the reference citizen interface that helps individuals navigate civic life. The Citizen Dashboard is an individual-scoped Civic Space—a unified civic view and a browser onto the wider ecosystem, built on the citizen's own identity and data rather than any community's.
 
 The dashboard allows citizens to:
 
@@ -171,7 +171,27 @@ This pilot explores:
 
 - publicly-displayable civic badges and credential profiles
 
-These credentials allow civic processes to verify participation eligibility and convey trusted civic identity in context, while building on the identity infrastructure developed in the Civic Identity Pilot.
+Badges are verifiable credentials displayed publicly by mutual consent—the holder chooses to display them, and the issuer stands behind the claim. The pilot builds on the identity infrastructure developed in the Civic Identity Pilot and exercises the Badge/Credential Issuer role defined in the Civic Identity Specification, allowing civic processes to verify participation eligibility and convey trusted civic identity in context.
+
+---
+
+### 7. Civic.Social Governance Pilot
+
+Design and stress-test the governance layer of the ecosystem: how the civic specifications, registries, and conformance machinery are changed, who decides, and how the commons is funded without being captured.
+
+This pilot explores:
+
+- the incentive structures that keep an open standard aligned with the common good—and the ones that have historically corrupted standards bodies
+
+- standing, consensus, formal objection, and appeal, in a body with no purchasable membership
+
+- registry and conformance governance, including the trust-registry gatekeeping power the other pilots defer
+
+- the economics of a commons: how enough funding returns to sustain the infrastructure without creating a claim on its decisions
+
+- the relationship to upstream standards bodies (W3C, DIF, IETF, 1EdTech) and adjacent civic-layer efforts, and a repeatable test for what Civic.Social should author, profile, adopt, or hand off
+
+Each of the six preceding pilots defers its governance questions on the grounds that they need broader ecosystem input than any single pilot can convene. This is the pilot that convenes it.
 
 ---
 
@@ -204,11 +224,11 @@ Together they create a system in which civic participation becomes continuous, v
 
 The Civic.Social Infrastructure Program seeks to demonstrate that a modular civic ecosystem—rather than a single centralized platform—can provide a stronger foundation for democratic participation.
 
-Through a coordinated set of six pilots, the program will explore how civic hubs, modular processes, civic activity feeds and discovery, citizen dashboards, decentralized civic identity, and civic credentials can work together to support a healthier civic environment.
+Through a coordinated set of seven pilots, the program will explore how civic hubs, modular processes, civic activity feeds and discovery, citizen dashboards, decentralized civic identity, and civic credentials can work together to support a healthier civic environment—and how the shared standards beneath them should be governed.
 
 These pilots collectively form the foundation for a new generation of interoperable civic infrastructure.
 
 ---
 
-*Last updated: April 17, 2026*
+*Last updated: July 3, 2026*
 *Civic.Social — civic.social | contact@civic.social*

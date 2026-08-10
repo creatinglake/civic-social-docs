@@ -1,6 +1,6 @@
 ---
 status: draft
-last-reviewed: 2026-04-19
+last-reviewed: 2026-07-03
 owners: [adam]
 version: 0.1
 ---
@@ -8,7 +8,7 @@ version: 0.1
 # Civic.Social Authorization Model Note
 
 **Status:** Thinking document — draft for discussion
-**Last updated:** 2026-04-14
+**Last updated:** 2026-07-03
 **Scope:** Cross-cutting guidance on how authority is modeled, delegated, and enforced across the Civic.Social ecosystem. Covers the near-term role-based approach, the long-term capability-based direction, and the architectural discipline required today to keep the future open.
 
 ---
@@ -39,15 +39,15 @@ Representative democracy is, at its core, capability delegation. A citizen grant
 
 Capability-based authorization also addresses several problems that are specific to federated civic infrastructure:
 
-**Cross-hub action.** When a citizen authenticated in one hub needs to take an action in another — endorse a proposal, sign a petition, participate in a regional vote — role-based systems require synchronizing identity and permissions across hubs. Capability-based systems simply require verifying a signed capability presented by the citizen.
+**Cross-space action.** When a citizen authenticated in one space needs to take an action in another — endorse a proposal, sign a petition, participate in a regional vote — role-based systems require synchronizing identity and permissions across spaces. Capability-based systems simply require verifying a signed capability presented by the citizen.
 
-**Scoped and time-bounded authority.** A citizen may authorize a civic group to act on their behalf for one specific campaign, for one week, on one hub. Expressing this cleanly in roles requires inventing disposable roles; capabilities handle it natively.
+**Scoped and time-bounded authority.** A citizen may authorize a civic group to act on their behalf for one specific campaign, for one week, in one space. Expressing this cleanly in roles requires inventing disposable roles; capabilities handle it natively.
 
 **Credential-gated delegation.** Only a verified resident should be able to delegate their voting authority within a municipal process. Capability issuance can be conditioned on verifiable credentials, linking identity verification and authorization delegation in a single cryptographic flow.
 
 **Audit and transparency.** A delegation chain captured as a sequence of signed capabilities produces a tamper-evident record of who granted what to whom, when, and under what scope. This is important for civic legitimacy — citizens and observers need to be able to see and verify the provenance of authority.
 
-**Revocation without coordination.** A citizen who delegated a capability can revoke it without asking the target hub's administrator to remove a role. Revocation is a first-class part of the capability model.
+**Revocation without coordination.** A citizen who delegated a capability can revoke it without asking the target space's administrator to remove a role. Revocation is a first-class part of the capability model.
 
 ---
 
@@ -71,17 +71,30 @@ The following use cases illustrate where capability-based authorization concrete
 
 ## Where It Fits in the Ecosystem
 
-By layer:
+### Who decides what: the authorization map
+
+Authorization spans four documents, and the division of labor is easy to lose when reading them in sequence. The one-sentence version: **authorization is *decided* at the space, *declared* at the process, *evidenced* at the identity layer, and only its *outcome* travels on activities.**
+
+| Layer | Role in authorization | Defined in |
+|---|---|---|
+| **Space** | The enforcement point. Every decision — read or write, feed or action — flows through the single authorization seam (`canActor(actor, action, resource)`). Space administrators configure the space-surface policy: who may read content, post, join, moderate. | Civic Space Specification §4.7; this note |
+| **Process** | The declaration point. A process publishes its own rules in its descriptor — `eligibility_requirements` (who may act), `participation_mode`, `visibility` (who may read its record), `disclosure_policy` (what the record reveals) — and declares the authorities its actions require. It declares; the space enforces. | Civic Process Specification §2.3, §3, §12.1 |
+| **Identity** | The vocabulary and the evidence. The Identity Policy Object gives spaces and processes a machine-readable way to state requirements; credentials are the proof a participant presents against them. Capabilities — this note's long-term direction — are signed grants issued and verified through this same layer. | Civic Identity Specification §8 |
+| **Activity** | No authorization at all — only its residue. The wire carries the two-value visibility class (`public` / `restricted`), the outcome of a decision already made; rules never travel on activities, and the emitting space's seam decides which callers receive `restricted` items. | Civic Activity Specification §7 |
+
+One request, walked through the map: a participant tries to vote → the space authenticates them (identity adapter, session) → the seam checks the process's declared eligibility, using the identity layer's credential vocabulary → the handler validates the action → the activity emits with `meta.visibility` derived from the process's visibility policy → the feed serves it, with the space's seam filtering who may fetch it. Four documents, one decision path, one enforcement point.
+
+The remainder of this section describes where the **capability model** specifically fits, layer by layer:
 
 **Identity.** Capabilities are signed using the same cryptographic primitives as verifiable credentials. The identity layer provides the keys, the signing infrastructure, and the verification services. Capabilities are issued, held, and presented through the identity system.
 
-**Citizen Dashboard.** The citizen's dashboard is the natural place to hold capabilities, display the capabilities the citizen has granted to others, and provide the interface for revocation. Capabilities held on-device alongside DIDs and credentials are part of the "civic wallet" pattern described in the Client Architecture Note.
+**Citizen Dashboard.** The citizen's dashboard is the natural place to hold capabilities, display the capabilities the citizen has granted to others, and provide the interface for revocation. Capabilities held on-device alongside DIDs and credentials are part of the "civic wallet" pattern (a client architecture note describing this pattern is planned but not yet written).
 
-**Hub.** The hub is where most enforcement happens. When a participant takes an action, the hub verifies either a role (near term) or a capability (long term) before executing. The hub must be designed with a single, replaceable authorization seam so this evolution is possible.
+**Space.** The space is where most enforcement happens. When a participant takes an action, the hosting space — hub, dashboard, or representative space — verifies either a role (near term) or a capability (long term) before executing. Every space must be designed with a single, replaceable authorization seam so this evolution is possible.
 
 **Process.** Processes define what authorities exist — "who can submit a vote," "who can moderate comments," "who can finalize results." These authorities must be expressible as capabilities, not only as roles, so that delegation and scoped grants work naturally.
 
-**Feed and Discovery.** The activity feed and discovery layer respect capability-scoped visibility — some events may be visible only to holders of specific capabilities, not just to members of a role.
+**Feed and Discovery.** In the capability-native future, the activity feed and discovery layer would respect capability-scoped visibility — some activities visible only to holders of specific capabilities, not just to members of a role. This is a long-horizon consideration (see Phasing, and the Relationship section below): the v0.1 wire carries only the two-value visibility class (Civic Activity Specification §7), with credential-scoped visibility named among its future extensions.
 
 ---
 
@@ -89,15 +102,24 @@ By layer:
 
 The pilot will not implement ZCAPs. But the pilot must not paint the ecosystem into a corner that makes ZCAPs impossible or expensive to add later. The discipline required today:
 
-**A single authorization seam.** Every authorization check in the hub and process layer should route through a single abstraction — `canActor(actor, action, resource)` or equivalent. Not scattered `if user.role === 'admin'` checks throughout the codebase. When the authorization check is a single seam, it can evolve from "look up role" to "verify capability" without touching the rest of the system.
+**A single authorization seam.** Every authorization check in the space and process layer should route through a single abstraction — `canActor(actor, action, resource)` or equivalent. Not scattered `if user.role === 'admin'` checks throughout the codebase. When the authorization check is a single seam, it can evolve from "look up role" to "verify capability" without touching the rest of the system.
 
 **Authority as resolvable claims, not baked-in role strings.** Instead of storing permissions as hardcoded role enums, represent them as structured claims that can be resolved against either a role table (today) or a capability verifier (tomorrow). This is a data modeling choice made early.
 
-**Process-defined authorities, not hub-defined roles.** Each civic process type should declare the authorities it recognizes (`civic.vote.submit`, `civic.proposal.finalize`, `civic.process.moderate`). Today those authorities map to hub roles. Tomorrow they map to capabilities. The process plugin framework should treat authorities as first-class objects that can be bound to either model.
+**Process-defined authorities, not space-defined roles.** Each civic process type should declare the authorities it recognizes (`civic.vote.submit`, `civic.proposal.finalize`, `civic.process.moderate`). Today those authorities map to space roles. Tomorrow they map to capabilities. The process plugin framework should treat authorities as first-class objects that can be bound to either model.
 
-**Replaceable identity adapter.** As already specified in the hub architecture, the identity adapter must be modular. Capability verification is an identity-layer concern — it belongs in the same adapter as DID authentication and credential verification.
+**Replaceable identity adapter.** As already specified in the space architecture, the identity adapter must be modular. Capability verification is an identity-layer concern — it belongs in the same adapter as DID authentication and credential verification.
 
 **Audit log compatibility.** Authorization decisions should be loggable in a form that extends naturally from "action X taken by user Y with role Z" to "action X taken by user Y presenting capability C, chained from grant G, issued by Z." The audit format should anticipate the capability model.
+
+### Plugin capability × actor authority — the join
+
+Authorization in this ecosystem has two independent axes, and an action proceeds only when **both** pass:
+
+1. **The acting participant's authority** — role today, capability tomorrow; the subject of this note. Enforced at the space's single authorization seam.
+2. **The plugin code's own grant** — the capabilities the plugin declared in its manifest (Civic Plugin Architecture, §4.1 capability declaration schema), enforced along the staged path (§5a) at the activity-emission and identity-adapter seams.
+
+A plugin action executes only within the **intersection** of the two. This join prevents two symmetric failure modes: a legitimately-authorized participant acting through an over-reaching plugin (the actor check passes, the plugin grant does not), and a legitimate plugin exercised by an unauthorized actor (the plugin grant passes, the actor check does not). The two checks live at different seams and must remain independent — neither can substitute for the other. See the Civic Plugin Architecture for the plugin-side half of this join.
 
 ---
 
@@ -107,7 +129,7 @@ The pilot will not implement ZCAPs. But the pilot must not paint the ecosystem i
 
 **Phase 2 (Post-pilot, with mature Civic Identity).** Introduce capability issuance and verification for a small set of high-value use cases — most likely moderation delegation and process creation delegation — while keeping role-based access control as the default. Hybrid period.
 
-**Phase 3 (Capability-native).** Core authorization model is capability-based. Roles become one of several ways to express authorities, implemented as pre-issued capability bundles. Vote delegation, cross-hub action, and liquid-democracy experiments become possible.
+**Phase 3 (Capability-native).** Core authorization model is capability-based. Roles become one of several ways to express authorities, implemented as pre-issued capability bundles. Vote delegation, cross-space action, and liquid-democracy experiments become possible.
 
 The pilot document should commit only to Phase 1 but name the trajectory.
 
@@ -141,7 +163,7 @@ This note informs several pilot documents:
 
 **Civic Process Pilot.** Process specifications should declare authorities as named, structured objects that can bind to either roles (today) or capabilities (tomorrow).
 
-**Civic Feed and Discovery Pilot.** Capability-scoped event visibility is a long-horizon consideration for the feed architecture.
+**Civic Feed and Discovery Pilot.** Capability-scoped activity visibility is a long-horizon consideration for the feed architecture.
 
 ---
 
@@ -150,7 +172,7 @@ This note informs several pilot documents:
 - What is the minimum capability framework the pilot architecture needs to anticipate? (Strict ZCAP-LD? A simpler internal abstraction that can be upgraded to ZCAP-LD?)
 - How does the authorization model handle anonymous or pseudonymous participation, where the actor's identity may be unknown but their authority must still be verifiable?
 - How do capabilities interact with credentialed eligibility? (Is "resident of Portland" a credential, a capability, or both?)
-- What is the revocation propagation model across federated hubs?
+- What is the revocation propagation model across federated spaces?
 - Should the ecosystem adopt ZCAP-LD as written, or define a civic-specific capability profile?
 
 ---

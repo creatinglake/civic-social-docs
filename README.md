@@ -20,7 +20,12 @@ the work:
 
 - **`canon/`** — foundational reference material (terminology, shared
   definitions). Other documents in this repo refer to these definitions
-  rather than restating them.
+  rather than restating them. Includes
+  **[Civic.Social Horizons](canon/phasing.md)** — the single place that
+  says which of these documents describe what exists today, what the
+  pilots build, and where the project is headed. Worth reading before
+  anything else if you have found a specification that seems to promise
+  less than the case material does.
 
 - **`case/`** — the case for Civic.Social: narrative and positioning
   material describing what Civic.Social is and why it matters. New readers
@@ -32,11 +37,17 @@ the work:
   related design notes. These elaborate on the canonical specs without
   superseding them.
 
-- **`pilots/`** — specifications for specific pilot programs. Current
-  pilot specs include the **[Civic Identity Pilot](pilots/civic-identity/civic-identity-pilot-spec.md)**,
+- **`pilots/`** — specifications for the seven pilot programs. Three are
+  fully specified: the **[Civic Identity Pilot](pilots/civic-identity/civic-identity-pilot-spec.md)**,
   the **[Civic Hubs Pilot](pilots/civic-hubs/civic-hubs-pilot-spec.md)**,
   and the **[Civic Process Plugin Pilot](pilots/civic-process/civic-process-pilot-spec.md)**.
-  Additional pilot specs will be added as they reach publishable state.
+  Three more are newly drafted: the
+  **[Civic Activity Feed & Discovery Pilot](pilots/civic-activity-feed-discovery/civic-activity-feed-discovery-pilot-spec.md)**,
+  the **[Citizen Dashboard Pilot](pilots/citizen-dashboard/citizen-dashboard-pilot-spec.md)**,
+  and the **[Civic Credentialing Pilot](pilots/civic-credentialing/civic-credentialing-pilot-spec.md)**. The seventh, the
+  **Civic.Social Governance Pilot** (in final review; publishing shortly),
+  addresses how the specifications themselves are governed — the question
+  the other six pilots each defer.
 
 - **`positions/`** — public statements of where Civic.Social stands on
   questions of principle, setting out our commitments and the values that
@@ -63,6 +74,13 @@ For funders, partners, and anyone new to the project:
 - **[Civic.Social Deck (Feb 2026)](case/civic-social-deck-2026-02-26.pdf)** —
   15-slide visual overview. Useful as a quick walkthrough for first
   conversations. PDF renders inline on GitHub.
+
+These documents describe the destination. **[Civic.Social
+Horizons](canon/phasing.md)** is the companion that says how much of it
+exists today, what the pilots are scoped to build, and what remains
+direction rather than schedule. Read it alongside the case material — and
+before the specifications, which are written to the near horizon and will
+otherwise read as though they promise less.
 
 ## Document status
 

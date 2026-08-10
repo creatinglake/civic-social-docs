@@ -1,6 +1,6 @@
 ---
 status: draft
-last-reviewed: 2026-04-19
+last-reviewed: 2026-07-03
 owners: [adam]
 version: 0.1
 ---
@@ -19,7 +19,7 @@ It is not a centralized censorship system. Instead, it enables:
 - scalable moderation
 - local governance control
 
-Each Civic Hub can:
+Each Civic Space (e.g., a Civic Hub) can:
 - define its own moderation policies
 - select or swap AI moderation agents
 - escalate to human moderators when needed
@@ -39,10 +39,10 @@ This ensures:
 
 ## 3. Architectural Position
 
-AI moderation lives in the:
+AI moderation lives in:
 
-- Civic Hub layer
-- Civic Process layer (e.g., comments, deliberation, submissions)
+- the hosting Civic Space (e.g., a Civic Hub)
+- Civic Processes (e.g., comments, deliberation, submissions)
 
 It operates as:
 
@@ -119,7 +119,7 @@ AI moderation is interactive, not silent:
 - hard blocking based on rules
 - clear explanation required
 
-Each hub or process can configure its own mode.
+Each space or process can configure its own mode.
 
 ---
 
@@ -148,7 +148,9 @@ Civic.Social supports:
 - interchangeable implementations
 - local customization
 
-Hub admins can:
+Moderation agents follow the same manifest and capability-declaration discipline as process plugins (see the Civic Plugin Architecture, §4.1).
+
+Space administrators can:
 - choose a moderation agent
 - configure rules and thresholds
 - swap agents over time
@@ -239,7 +241,7 @@ NOT:
 AI moderation enables:
 
 - higher-quality discourse
-- scalable moderation across hubs
+- scalable moderation across spaces
 - improved user experience
 - resilience against misinformation and toxicity
 

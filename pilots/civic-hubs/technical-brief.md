@@ -17,7 +17,7 @@ Democratic participation increasingly depends on digital infrastructure, yet com
 
 Civic Hubs address this gap. A Civic Hub is a community-operated digital civic space where citizens gather, participate in structured civic processes — advisory votes, deliberations, participatory budgets, public consultations — and interact within their local civic context. Each hub is independently operated by a community, jurisdiction, or organization, while interoperating with other hubs through shared identity, federation protocols, and open standards. Hubs are the central interaction environment of the Civic.Social ecosystem: the spaces where civic participation actually happens.
 
-The Civic Hubs Pilot will design, deploy, and test Civic Hubs with real communities. It will produce a Civic Hub Compliance Specification defining what it means to be a compliant hub, deploy reference hubs using the Civic.Social Hub Engine, host real civic processes with real participants, and demonstrate that independent hubs can discover and interoperate with each other. The pilot is one component of the broader Civic.Social Infrastructure Program, which includes complementary pilots for Civic Identity, Civic Processes, the Civic Activity Feed, Civic Credentialing, and the Citizen Dashboard.
+The Civic Hubs Pilot will design, deploy, and test Civic Hubs with real communities. It will produce the community-scope compliance profile of the Civic Space Specification (the Civic Hub is a community-scoped Civic Space type), defining what it means to be a compliant hub, deploy reference hubs using the Civic.Social Hub Engine, host real civic processes with real participants, and demonstrate that independent hubs can discover and interoperate with each other. The pilot is one component of the broader Civic.Social Infrastructure Program, which includes complementary pilots for Civic Identity, Civic Processes, the Civic Activity Feed, Civic Credentialing, and the Citizen Dashboard.
 
 ---
 
@@ -41,8 +41,8 @@ The pilot will demonstrate a complete end-to-end civic hub experience:
 2. Citizens create accounts and join the hub (initially using conventional authentication, with a path to Civic Identity).
 3. The hub hosts at least one structured civic process (e.g., an advisory vote or consultation).
 4. Citizens participate and receive results.
-5. The hub publishes Civic Events conforming to the Civic Event Specification.
-6. A second hub discovers the first hub and reads its event feed, demonstrating basic federation.
+5. The hub publishes Civic Activities conforming to the Civic Activity Specification.
+6. A second hub discovers the first hub and reads its activity feed, demonstrating basic federation.
 7. When Civic Identity integration is available, citizens authenticate using decentralized identity (DIDs) and present Verifiable Credentials for participation.
 
 This loop demonstrates the core value proposition: community-operated civic spaces that host real participation and interoperate through open standards.
@@ -51,13 +51,13 @@ This loop demonstrates the core value proposition: community-operated civic spac
 
 ## Architecture Overview
 
-A Civic Hub is the primary organizational unit of the Civic.Social ecosystem — the community-operated space where groups gather, civic processes are hosted, and participation becomes visible. At the protocol level, a hub hosts Civic Processes, accepts user actions, emits and aggregates standardized Civic Events, and exposes a discovery manifest for federation.
+A Civic Hub is the primary organizational unit of the Civic.Social ecosystem — the community-operated space where groups gather, civic processes are hosted, and participation becomes visible. At the protocol level, a hub hosts Civic Processes, accepts user actions, emits and aggregates standardized Civic Activities, and exposes a discovery manifest for federation.
 
 The hub sits within an ecosystem of six core components: Identity (DIDs, Verifiable Credentials, authentication), Civic Hubs (community-operated spaces — this pilot), Civic Processes (modular civic participation tools), Civic Activity Feed (event aggregation and distribution), Discovery (hub and process indexing), and the Citizen Dashboard (personal civic interfaces).
 
 Hubs integrate with Identity for authentication, host Civic Processes, publish events into the Activity Feed, and appear in Discovery. Importantly, hubs function as independent civic spaces even without the broader ecosystem — they can launch standalone and integrate incrementally.
 
-The hub architecture follows an event-first, plugin-based, API-first design. Every action emits a standardized Civic Event — no silent state changes. Civic processes integrate through the Civic Process Plugin Framework, where each process type is a self-contained plugin registered with the hub. The hub exposes a REST API that powers both its own web interface and external clients such as citizen dashboards. Identity integration is modular and phased: hubs launch with conventional authentication (email, OAuth), add DID-based authentication when Civic Identity infrastructure is available, and support Verifiable Credential verification for gated processes. The identity adapter is designed as a replaceable module so upgrading never requires rebuilding the hub.
+The hub architecture follows an event-first, plugin-based, API-first design. Every action emits a standardized Civic Activity — no silent state changes. Civic processes integrate through the Civic Process Plugin Framework, where each process type is a self-contained plugin registered with the hub. The hub exposes a REST API that powers both its own web interface and external clients such as citizen dashboards. Identity integration is modular and phased: hubs launch with conventional authentication (email, OAuth), add DID-based authentication when Civic Identity infrastructure is available, and support Verifiable Credential verification for gated processes. The identity adapter is designed as a replaceable module so upgrading never requires rebuilding the hub.
 
 The full Civic Hubs Pilot specification details nine required hub components, API endpoints, event types, and integration contracts.
 
@@ -65,9 +65,9 @@ The full Civic Hubs Pilot specification details nine required hub components, AP
 
 ## Pilot Scope
 
-The pilot will produce a Civic Hub Compliance Specification defining what it means to be a compliant hub in the ecosystem, reference hub deployments with 1–3 real communities using the Civic.Social Hub Engine as the primary implementation (with a potential second hub engine from a partner platform), at least one civic process demonstrating the full lifecycle, event emission conforming to the Civic Event Specification, identity integration (standalone authentication at minimum, with Civic Identity contingent on the Civic Identity Pilot), a minimum viable admin panel, a cross-hub discovery and event distribution proof of concept, a hub operator guide, and a hub engine evaluation report.
+The pilot will produce the community-scope compliance profile of the Civic Space Specification defining what it means to be a compliant hub in the ecosystem, reference hub deployments with 1–3 real communities using the Civic.Social Hub Engine as the primary implementation (with a potential second hub engine from a partner platform), at least one civic process demonstrating the full lifecycle, activity emission conforming to the Civic Activity Specification, identity integration (standalone authentication at minimum, with Civic Identity contingent on the Civic Identity Pilot), a minimum viable admin panel, a cross-hub discovery and event distribution proof of concept, a hub operator guide, and a hub engine evaluation report.
 
-Explicitly out of scope: production-scale infrastructure, Personal Data Store implementation, advanced governance models (liquid democracy, delegative voting), real-time event delivery, and cross-hub process execution. ActivityPub federation is an open question — the Civic Event model is already designed with forward-compatible mapping to ActivityStreams, and basic ActivityPub implementation will be evaluated during Phase 1 for feasibility within the pilot timeline and budget.
+Explicitly out of scope: production-scale infrastructure, Personal Data Store implementation, advanced governance models (liquid democracy, delegative voting), real-time event delivery, and cross-hub process execution. ActivityPub federation is an open question — the Civic Activity model is already designed with forward-compatible mapping to ActivityStreams, and basic ActivityPub implementation will be evaluated during Phase 1 for feasibility within the pilot timeline and budget.
 
 The pilot produces working prototypes. Architectural decisions, API designs, and integration patterns are intended to serve as the foundation for production development.
 
@@ -77,7 +77,7 @@ The pilot produces working prototypes. Architectural decisions, API designs, and
 
 **Estimated duration: 10–13 months**
 
-**Phase 1 — Architecture Hardening and Pilot Preparation (2–3 months).** The hub architecture and a working reference implementation already exist. This phase focuses on hardening the existing architecture, drafting the Civic Hub Compliance Specification, adding persistent storage and real authentication, building the admin panel, and preparing for community deployment. Outreach to potential hub engine partners and technical collaborators is ongoing and may begin prior to Phase 1.
+**Phase 1 — Architecture Hardening and Pilot Preparation (2–3 months).** The hub architecture and a working reference implementation already exist. This phase focuses on hardening the existing architecture, drafting the community-scope compliance profile of the Civic Space Specification, adding persistent storage and real authentication, building the admin panel, and preparing for community deployment. Outreach to potential hub engine partners and technical collaborators is ongoing and may begin prior to Phase 1.
 
 **Phase 2 — Hub Infrastructure Development (3–4 months).** Extend the hub engine for production readiness: moderation tools, community onboarding flows, discovery manifest, cross-hub event distribution, and identity adapter upgrades. Evaluate ActivityPub federation feasibility.
 
@@ -103,7 +103,7 @@ The Civic.Social project team leads ecosystem architecture, community partnershi
 
 **Development Collaboration.** Engineers who can contribute directly to hub engine development, civic process integration, identity adapter implementation, or frontend development. The Civic.Social Hub Engine is built with Node.js, TypeScript, Express, and React.
 
-**Platform Integration Partners.** Existing civic technology platforms — such as Roundabout (New Public), Bonfire Networks, or Decidim — may collaborate on interoperability with the Civic.Social ecosystem. The Civic Hub Compliance Specification defines what it means to be a compliant hub, and the collaboration model involves exploring how existing platforms can interoperate with or adapt to the specification.
+**Platform Integration Partners.** Existing civic technology platforms — such as Roundabout (New Public), Bonfire Networks, or Decidim — may collaborate on interoperability with the Civic.Social ecosystem. The Civic Space Specification's community-scope compliance profile defines what it means to be a compliant hub, and the collaboration model involves exploring how existing platforms can interoperate with or adapt to the specification.
 
 Across all collaboration types, relevant experience includes community-facing web applications, event-driven architectures, ActivityPub or comparable federation protocols, decentralized identity (DIDs and Verifiable Credentials), data portability, and community deployment.
 

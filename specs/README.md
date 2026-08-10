@@ -10,11 +10,11 @@ them, these specifications govern.
 | **[Civic Space](civic-space-spec.md)** | The group primitive: community-governed civic spaces — hubs, representative spaces, dashboards — their scopes, governance, and interoperability contract. |
 | **[Civic Process](civic-process-spec.md)** | The interactive unit: structured civic processes (voting, budgeting, deliberation) with lifecycles, eligibility, and action contracts. |
 | **[Civic Activity](civic-activity-spec.md)** | The distribution layer: the standardized activity model every process and space emits, designed for ActivityStreams 2.0 representability. |
-| **[Civic Identity](civic-identity-spec.md)** | The identity layer: portable, privacy-preserving identity and credentials built on open standards (DIDs, Verifiable Credentials, OIDC). |
+| **[Civic Identity](civic-identity-spec.md)** | The identity layer: portable, participant-owned identity and credentials built on open standards (DIDs, Verifiable Credentials, the OpenID4VC family). |
 
 ## Status
 
-The specifications are working drafts (v0.2) under active development.
+The specifications are working drafts (v0.1–v0.2) under active development.
 They are refined through pilot implementations — see
 [`../pilots/`](../pilots/) — and the phasing of the broader program is
 described in [`../canon/phasing.md`](../canon/phasing.md).

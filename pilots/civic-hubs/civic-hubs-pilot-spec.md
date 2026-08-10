@@ -1,6 +1,6 @@
 ---
 status: stable
-last-reviewed: 2026-04-19
+last-reviewed: 2026-07-03
 owners: [adam]
 version: 0.1
 ---
@@ -90,7 +90,7 @@ Civic Hubs address this gap. Each hub is independently operated by a community, 
 
 The pilot will deploy 1–3 Civic Hubs — at least one with a real community — using the Civic.Social Hub Engine as the primary implementation. It will test governance and moderation models, integrate at least one civic process, and prove the hub architecture works in practice. The pilot will demonstrate two stages: standalone hubs that can launch immediately with conventional authentication, and (contingent on Civic Identity Pilot sequencing) integrated hubs connected to the broader Civic.Social architecture including Civic Identity, Civic Processes, and the Civic Activity Feed.
 
-Deliverables include a Civic Hub Compliance Specification defining what it means to be a compliant hub in the ecosystem, reference hub deployments, an operator guide, an interoperability proof of concept demonstrating that independent hubs can discover and consume each other's event feeds, and identity integration demonstrating at minimum standalone authentication with a path to Civic Identity.
+Deliverables include the community-scope compliance profile of the Civic Space Specification (defining what it means to be a compliant hub in the ecosystem) plus the Space Conformance Suite, reference hub deployments, an operator guide, an interoperability proof of concept demonstrating that independent hubs can discover and consume each other's activity feeds, and identity integration demonstrating at minimum standalone authentication with a path to Civic Identity.
 
 This pilot establishes Civic Hubs as shared digital infrastructure for democratic participation — civic spaces governed by communities, not platforms.
 
@@ -118,7 +118,7 @@ The Civic Hubs Pilot is one component of the broader Civic.Social Infrastructure
 
 **Civic Process Plugin Pilot** — defines how civic processes (advisory voting, citizen assemblies, participatory budgeting) integrate as modular plugins across hubs, dashboards, and external applications. Civic Hubs host and execute these processes.
 
-**Civic Activity Feed Pilot** — defines how civic participation opportunities and updates are distributed across the ecosystem. Civic Hubs publish events into the Civic Activity Feed and consume events from other hubs.
+**Civic Activity Feed Pilot** — defines how civic participation opportunities and updates are distributed across the ecosystem. Civic Hubs publish activities into the Civic Activity Feed and consume activities from other hubs.
 
 **Civic Credentialing & Profiles Pilot** — defines how civic badges are issued, displayed, and verified across the ecosystem. Badges are public credentials representing endorsements, achievements, or verified status that citizens and officials receive and can display on their public profiles.
 
@@ -148,7 +148,7 @@ A Civic Hub is a digital space operated by a community, jurisdiction, or organiz
 
 Civic Hubs are not centralized platforms. Each hub is independently operated, interoperable through shared identity and federation protocols. Communities moderate their own hubs according to their own norms and governance — not Civic.Social, not a technology company. A Civic Hub may represent a jurisdiction (a city, county, or state), an organization (a nonprofit, advocacy group, or coalition), a community group (a neighborhood association, mutual aid group, or volunteer network), or an issue network (a climate coalition, housing task force, or education reform community).
 
-At the protocol level, a Civic Hub is a **process host and event node**. It hosts Civic Processes, accepts user actions on those processes, emits standardized Civic Events for distribution across the ecosystem, and exposes a discovery manifest that allows other systems to find and interact with it. This functional definition — host processes, emit events, support discovery — is what makes a hub a hub, regardless of its community type or the specific software it runs. But the purpose behind that protocol is human: to give communities a shared space where participation leads to outcomes.
+At the protocol level, a Civic Hub is a **process host and activity node** — the community-scoped type of the Civic Space primitive, alongside the individual-scoped Citizen Dashboard and the entity-scoped Representative Space. It hosts Civic Processes, accepts user actions on those processes, emits standardized Civic Activities for distribution across the ecosystem, and exposes a discovery manifest that allows other systems to find and interact with it. This functional definition — host processes, emit activities, support discovery — is what makes a hub a hub, regardless of its community type or the specific software it runs. But the purpose behind that protocol is human: to give communities a shared space where participation leads to outcomes.
 
 The key architectural insight is that hubs are independently operated but interoperable. A citizen who participates in a municipal hub and a neighborhood hub and an organizational hub can do so with a single civic identity, and the events from all three hubs flow into the same Civic Activity Feed. This is what distinguishes the Civic Hub model from both centralized platforms (where a single operator controls the civic space) and isolated tools (where each tool is a disconnected silo).
 
@@ -156,11 +156,11 @@ The key architectural insight is that hubs are independently operated but intero
 
 ## 6. Architectural Role of Civic Hubs
 
-The Civic.Social architecture is organized around **four canonical open specifications** — the Civic Identity Spec, the Civic Hub Spec, the Civic Process Spec, and the Civic Activity Spec — each of which extends underlying open web standards (W3C DIDs and Verifiable Credentials, ActivityPub, ActivityStreams) into a civic-participation context. Together those four specs form the interoperability foundation that the rest of the ecosystem — citizen dashboards, activity feeds, discovery interfaces, representative spaces, and any number of third-party civic applications — builds on as interfaces and downstream tools, not as foundational components.
+The Civic.Social architecture is organized around **four canonical open specifications** — the Civic Space Specification, the Civic Process Specification, the Civic Activity Specification, and the Civic Identity Specification (the Civic Hub is a community-scoped Civic Space type defined by the Civic Space Specification) — each of which extends underlying open web standards (W3C DIDs and Verifiable Credentials, ActivityPub, ActivityStreams, among others) into a civic-participation context. Together those four specs form the interoperability foundation that the rest of the ecosystem — citizen dashboards, activity feeds, discovery interfaces, representative spaces, and any number of third-party civic applications — builds on as interfaces and downstream tools, not as foundational components.
 
-Civic Hubs operate at the **Civic Hub Spec** layer: they are the community-operated digital spaces where participation actually happens. This pilot focuses on defining what it means to be a compliant Civic Hub and demonstrating the model with real community deployments.
+Civic Hubs operate at the **Civic Space Specification** layer, as its community-scoped space type: they are the community-operated digital spaces where participation actually happens. This pilot focuses on defining what it means to be a compliant Civic Hub and demonstrating the model with real community deployments.
 
-Civic Hubs sit at the center of the architecture. They host civic processes (per the Civic Process Spec), authenticate citizens through the identity layer (per the Civic Identity Spec), and publish events into the shared activity layer (per the Civic Activity Spec). Hubs are the primary organizational node in the ecosystem — where existing groups, jurisdictions, and communities gain digital infrastructure they control. Hubs map to real-world social structures, giving them a persistent space to organize and participate.
+Civic Hubs sit at the center of the architecture. They host civic processes (per the Civic Process Specification), authenticate citizens through the identity layer (per the Civic Identity Specification), and publish activities into the shared activity layer (per the Civic Activity Specification). Hubs are the primary organizational node in the ecosystem — where existing groups, jurisdictions, and communities gain digital infrastructure they control. Hubs map to real-world social structures, giving them a persistent space to organize and participate.
 
 Importantly, Civic Hubs remain fully accessible without dashboards, feeds, or discovery interfaces. Those are downstream surfaces built on the four canonical specs, not gatekeepers. A citizen can visit a hub directly, authenticate, and participate without ever using a dashboard or activity feed. This ensures that hubs function as independent spaces even before the broader ecosystem infrastructure is fully deployed.
 
@@ -206,7 +206,7 @@ Structured participation formats and local moderation encourage constructive dia
 
 ### No Vendor Lock-In
 
-Communities operating hubs retain control of hosting, data, and governance. Because hubs rely on open standards, communities can migrate infrastructure without being dependent on a single technology provider. The Interoperable Civic Hub Specification defines portability requirements ensuring that a community's governance history, social relationships, and process data can move between hub software implementations.
+Communities operating hubs retain control of hosting, data, and governance. Because hubs rely on open standards, communities can migrate infrastructure without being dependent on a single technology provider. The Civic Space Specification defines portability requirements ensuring that a community's governance history, social relationships, and process data can move between hub software implementations.
 
 ### Community Ownership of Civic Spaces
 
@@ -272,13 +272,13 @@ The Civic Hubs Pilot does not mandate a single software platform for hub impleme
 
 ### Required Hub Engine Capabilities
 
-A compliant hub engine must support community-operated civic spaces with configurable governance, modular civic process integration through the Civic Process Plugin Framework, event emission conforming to the Civic Event Specification, identity integration with decentralized identity standards (with stub support acceptable in early phases), a discovery manifest at `/.well-known/civic.json`, community moderation tools (with AI-assisted moderation as an option), and data portability guaranteeing that communities can export their full governance history, social relationships, and process data.
+A compliant hub engine must support community-operated civic spaces with configurable governance, modular civic process integration through the Civic Process Plugin Framework, activity emission conforming to the Civic Activity Specification, identity integration with decentralized identity standards (with stub support acceptable in early phases), a discovery manifest at `/.well-known/civic.json`, community moderation tools (with AI-assisted moderation as an option), and data portability guaranteeing that communities can export their full governance history, social relationships, and process data.
 
 ### Potential Hub Engine Platforms
 
 Several existing software platforms may serve as foundations for Civic Hubs, either as starting points for adaptation or as reference implementations demonstrating specific capabilities.
 
-**[Civic.Social](https://civic.social) Hub Engine** is the hub engine being developed by Civic.Social as part of this pilot. It is purpose-built to implement the Civic Hub Specification, the Civic Process Plugin Framework, and the Civic Event Specification directly, rather than adapting an existing platform. It will serve as the reference implementation for the ecosystem and as the primary hub engine used in the pilot deployments.
+**[Civic.Social](https://civic.social) Hub Engine** is the hub engine being developed by Civic.Social as part of this pilot. It is purpose-built to implement the Civic Space Specification (at community scope), the Civic Process Plugin Framework, and the Civic Activity Specification directly, rather than adapting an existing platform. It will serve as the reference implementation for the ecosystem and as the primary hub engine used in the pilot deployments.
 
 **Bonfire Networks** is a modular, extensible social platform with ActivityPub federation support. Its modular architecture aligns well with the plugin model, and its federation capabilities provide a foundation for cross-hub interoperability. Bonfire is a candidate for adaptation as an alternative hub engine.
 
@@ -310,7 +310,7 @@ The hub must be capable of hosting at least one structured civic process. In the
 
 ### 3. Event Emitter
 
-Every process action and lifecycle transition must emit a standardized Civic Event. The event emitter is the single point of event creation within the hub. Events must conform to the Civic Event Specification and include source attribution (hub ID and URL), timestamps, process references, and jurisdiction scope.
+Every process action and lifecycle transition must emit a standardized Civic Activity. The event emitter is the single point of activity creation within the hub. Activities must conform to the Civic Activity Specification and include source attribution (hub ID and URL), timestamps, process references, and jurisdiction scope.
 
 ### 4. Event Store
 
@@ -355,13 +355,19 @@ Response structure:
 ```json
 {
   "name": "Example Civic Hub",
-  "type": "hub",
+  "space": {
+    "id": "did:web:hub.example",
+    "scope": "community",
+    "type": "civic.hub"
+  },
   "jurisdictions": ["us-va-floyd"],
   "feeds": ["https://hub.example/events"],
   "processes": [],
   "contact": "optional"
 }
 ```
+
+`space.id` is the space DID, and `scope`/`type` identify the hub as a community-scoped Civic Space (per the Civic Space Specification's manifest form). Implementations predating space DIDs serve the legacy top-level `"type": "hub"`; consumers should accept both forms for the life of v0.1.
 
 ### Create Process
 
@@ -393,7 +399,7 @@ Returns all processes hosted by the hub, providing a read layer for user interfa
 POST /process/:id/action
 ```
 
-Submits a participant action (e.g., a vote, comment, or proposal) to a process. Input includes the action name, action payload, and user identity. The hub validates the action against the process rules, updates process state if applicable, and emits one or more Civic Events.
+Submits a participant action (e.g., a vote, comment, or proposal) to a process. Input includes the action name, action payload, and user identity. The hub validates the action against the process rules, updates process state if applicable, and emits one or more Civic Activities.
 
 ### Process State
 
@@ -403,13 +409,13 @@ GET /process/:id/state
 
 Returns a UI-friendly read model of the process state, including current tallies and participation metrics. This endpoint supports real-time interfaces without requiring clients to reconstruct state from events.
 
-### Event Feed
+### Activity Feed
 
 ```
 GET /events
 ```
 
-Returns the hub's event feed — a list of all Civic Events emitted by the hub, ordered by timestamp (descending). This is the primary endpoint that the Civic Activity Feed layer consumes to aggregate civic activity across hubs.
+Returns the hub's activity feed — a list of all Civic Activities emitted by the hub, ordered by timestamp (descending). This is the primary endpoint that the Civic Activity Feed layer consumes to aggregate civic activity across hubs.
 
 ### Health Check
 
@@ -425,11 +431,11 @@ Returns hub operational status for monitoring and discovery.
 
 In plain terms: this section defines how hubs publish a standardized record of everything that happens in them, so the rest of the ecosystem — other hubs, activity feeds, citizen dashboards, indexers — can observe and respond to that activity. The specific fields and event types below are the technical contract that makes this possible.
 
-All civic activity within a hub must produce standardized Civic Events. Events are the distribution layer of the ecosystem — they communicate what is happening across processes, hubs, and interfaces.
+All civic activity within a hub must produce standardized Civic Activities. Activities are the distribution layer of the ecosystem — they communicate what is happening across processes, hubs, and interfaces. (The v0.1 wire format retains the field name `event_type` and the `GET /events` endpoint; the protocol-level term is Civic Activity.)
 
 ### Event Compliance
 
-All events emitted by a Civic Hub must conform to the Civic Event Specification v0.1. Every event must include a unique event identifier, a schema version identifier, a canonical event type, a timestamp, the associated process ID, an actor identifier (DID or user ID), jurisdiction scope, an action URL linking to the source, source attribution (hub ID and hub URL), an event-specific data payload, and visibility metadata. Events may also include an optional `dedupe_key` field for deduplication in distributed environments.
+All activities emitted by a Civic Hub must conform to the Civic Activity Specification v0.1. Every event must include a unique event identifier, a schema version identifier, a canonical event type, a timestamp, the associated process ID, an actor identifier (DID or user ID), jurisdiction scope, an action URL linking to the source, source attribution (hub ID and hub URL), an event-specific data payload, and visibility metadata. Events may also include an optional `dedupe_key` field for deduplication in distributed environments.
 
 ### Required Event Types
 
@@ -447,7 +453,7 @@ The hub operates on an event-first principle: every process action and every lif
 
 ### Forward Compatibility with ActivityPub
 
-The event model is designed with a forward-compatible mapping to ActivityStreams, enabling future federation through ActivityPub. Each Civic Event can be mapped to an ActivityStreams activity object, providing a clean upgrade path from simple REST-based event distribution to full ActivityPub federation.
+The activity model is designed with a forward-compatible mapping to ActivityStreams, enabling future federation through ActivityPub. Each Civic Activity can be mapped to an ActivityStreams activity object, providing a clean upgrade path from simple REST-based activity distribution to full ActivityPub federation.
 
 ---
 
@@ -531,7 +537,7 @@ Every hub exposes a discovery manifest at `GET /.well-known/civic.json`. This ma
 
 ### Cross-Hub Event Distribution
 
-Hubs publish Civic Events to their event feed endpoint. The Civic Activity Feed layer aggregates events from multiple hubs to create a unified activity stream. Citizens subscribing to multiple hubs receive a merged feed of activity across their communities.
+Hubs publish Civic Activities to their activity feed endpoint. The Civic Activity Feed layer aggregates activities from multiple hubs to create a unified activity stream. Citizens subscribing to multiple hubs receive a merged feed of activity across their communities.
 
 ### Federation Protocol
 
@@ -583,17 +589,17 @@ The AI moderation strategy is documented separately in the Civic Hub AI Moderati
 
 ## 21. Portability Requirements
 
-Portability is a first-class requirement of the Civic Hub architecture. Communities must be able to migrate their full community data, relationships, governance history, and operational configuration from one hub software implementation to another without losing structure, participation records, or social graph continuity.
+Portability is a first-class requirement of the Civic Hub architecture. Communities must be able to migrate their full community data, relationships, governance history, and operational configuration from one hub software implementation to another without losing structure, participation records, or social graph continuity. Migration conformance follows the Civic Space Specification §9.1 ladder — Level A (archival export), Level B (Level A plus identity and social-graph re-binding and closed-process integrity), and Level C (Level B plus active process state) — and **this pilot targets Level B**.
 
 ### Migration Scope
 
-A complete migration must preserve identity continuity (DID references remain intact), social graph continuity (relationships re-bind to the new hub), governance history (immutable records of proposals, votes, and deliberations), plugin configuration and state, and credential references and badge status. Migration is designed to occur once all processes have reached a finalized state. Migration of active process state (open proposals, live votes) is a long-term goal but is not guaranteed in the pilot.
+A complete migration must preserve identity continuity (DID references remain intact), social graph continuity (relationships re-bind to the new hub), governance history (immutable records of proposals, votes, and deliberations), plugin configuration and state, and credential references and badge status. Migration is normally scheduled once active processes reach a terminal state, during a planned migration window (Civic Space Specification §9.8). Migration of active process state (open proposals, live votes) is Level C of the conformance ladder — the post-pilot v1.0 objective.
 
 ### Export Requirements
 
-Each hub must provide deterministic export functionality including hub metadata, identity references, membership lists, social graph edges, role mappings, all civic objects (posts, proposals, votes, deliberations, badges), active process state, plugin configuration, and moderation configuration.
+Each hub must provide deterministic export functionality including hub metadata, identity references (DIDs and credential references only; **never private keys** — key material lives in wallets and identity providers), membership lists, social graph edges, role mappings, all civic objects (posts, proposals, votes, deliberations, badges), active process state, plugin configuration, and moderation configuration.
 
-Export data must be in a structured format (JSON-LD or compatible), with canonical ordering, explicit schema version tags, and integrity verification.
+Export data must be in a structured format (JSON-LD or compatible), with canonical deterministic ordering per the named canonicalization profile in the Civic Space Specification §9.3 (so that two exports of identical state are byte-identical), explicit schema version tags, and integrity verification.
 
 ### Non-Loss Guarantee
 
@@ -617,7 +623,7 @@ The pilot will demonstrate a complete end-to-end hub experience:
 2. Citizens create accounts and join the hub (initially using conventional authentication, with a path to Civic Identity).
 3. The hub hosts at least one structured civic process (e.g., an advisory vote or consultation).
 4. Citizens participate in the process and receive results.
-5. The hub publishes Civic Events to its event feed, demonstrating the event-first architecture.
+5. The hub publishes Civic Activities to its activity feed, demonstrating the activity-first architecture.
 6. A second hub discovers the first hub's existence and reads its event feed, demonstrating basic federation.
 7. When Civic Identity integration is available, citizens authenticate using decentralized identity and present credentials for participation.
 
@@ -627,13 +633,13 @@ This loop demonstrates the core value proposition: community-operated civic spac
 
 The pilot will produce:
 
-**Civic Hub Compliance Specification.** A formal specification defining what it means to be a compliant Civic Hub — the required components, APIs, event contracts, identity integration requirements, and portability guarantees that any hub engine must implement to participate in the Civic.Social ecosystem. This is a primary deliverable of the pilot: it establishes the standard that enables multiple independent hub engines to interoperate and ensures that communities can migrate between them with full continuity of their governance history, social relationships, and process data.
+**Community-scope compliance profile of the Civic Space Specification, plus the Space Conformance Suite (machine-runnable tests).** The compliance profile formally defines what it means to be a compliant Civic Hub — the required components, APIs, activity contracts, identity integration requirements, and portability guarantees that any hub engine must implement to participate in the Civic.Social ecosystem — as the community-scope profile of the Civic Space Specification. This is a primary deliverable of the pilot: it establishes the standard that enables multiple independent hub engines to interoperate and ensures that communities can migrate between them with full continuity of their governance history, social relationships, and process data.
 
 **Reference hub deployments** with 1–3 real communities (neighborhoods, cities, or civic organizations), using the Civic.Social Hub Engine as the primary implementation.
 
 **At least one civic process** hosted within a hub environment (e.g., advisory voting), demonstrating the full process lifecycle from creation through finalization.
 
-**Event emission and feed publication** conforming to the Civic Event Specification.
+**Activity emission and feed publication** conforming to the Civic Activity Specification.
 
 **Identity integration** demonstrating standalone authentication. Civic Identity (DID-based) authentication is a stretch goal, dependent on the sequencing of the Civic Identity Pilot — if the identity infrastructure is available, the pilot will demonstrate it; if not, the hub's identity adapter will be designed to support it in a subsequent phase.
 
@@ -733,7 +739,7 @@ The pilot will be considered successful upon production of:
 
 **Civic process integration** — at least one civic process type (advisory voting) hosted within a hub environment, demonstrating the full process lifecycle from creation through participation, aggregation, and result publication.
 
-**Event emission and feed compliance** — all hub activity emitting valid Civic Events conforming to the Civic Event Specification, consumable by the Civic Activity Feed layer.
+**Activity emission and feed compliance** — all hub activity emitting valid Civic Activities conforming to the Civic Activity Specification, consumable by the Civic Activity Feed layer.
 
 **Cross-hub interoperability** — at least two hubs demonstrating mutual discovery and event feed consumption, proving the federation model works at small scale.
 
@@ -745,9 +751,9 @@ The pilot will be considered successful upon production of:
 
 The pilot will validate the following through real community deployments:
 
-**Process lifecycle completion** — the full lifecycle of at least one civic process (draft, scheduled, active, closed, finalized) executes end to end within a hub environment, with each state transition emitting the corresponding Civic Event.
+**Process lifecycle completion** — the full lifecycle of at least one civic process (draft, scheduled, active, closed, finalized) executes end to end within a hub environment, with each state transition emitting the corresponding Civic Activity.
 
-**Event compliance** — all hub events conform to the Civic Event Specification and are consumable by external systems.
+**Activity compliance** — all hub activities conform to the Civic Activity Specification and are consumable by external systems.
 
 **API compliance** — all required API endpoints function correctly and return valid responses. For example, `GET /.well-known/civic.json` returns a valid discovery manifest, `POST /process/:id/action` accepts a vote submission and emits a `civic.process.vote_submitted` event, and `GET /events` returns the hub's full event history in the correct format.
 
@@ -755,7 +761,7 @@ The pilot will validate the following through real community deployments:
 
 **Identity adapter modularity** — the identity adapter can be upgraded from stub identity to Civic Identity integration without rebuilding the hub and without losing continuity of participant identity or verification status.
 
-**Portability validation** — hub data can be exported in structured format conforming to the portability specification.
+**Portability validation** — round-trip conformance testing: hub data is exported, imported into an independent engine instance, and re-exported, with the re-export semantically equal to the original (byte-identical under the canonicalization profile). This round-trip test at Level B of the Civic Space Specification §9.1 ladder — not export-only validation — is the pilot's acceptance bar.
 
 ### Future Usability Evaluation
 
@@ -809,11 +815,11 @@ The Civic Hubs Pilot has dependencies and integration points with every other pi
 
 ### Civic Activity Feed Pilot
 
-**Relationship:** The Civic Activity Feed Pilot defines how civic events are aggregated and distributed across the ecosystem. Hubs are the primary source of events that the feed aggregates.
+**Relationship:** The Civic Activity Feed Pilot defines how civic activities are aggregated and distributed across the ecosystem. Hubs are the primary source of activities that the feed aggregates.
 
-**Integration:** Hubs emit Civic Events through their event feed endpoint (section 14). The Civic Activity Feed layer pulls from hub event feeds to build aggregated civic activity streams for citizens.
+**Integration:** Hubs emit Civic Activities through their activity feed endpoint (section 14). The Civic Activity Feed layer pulls from hub activity feeds to build aggregated civic activity streams for any subscriber — citizens, spaces, and third-party surfaces alike.
 
-**Sequencing:** Hubs emit events from the outset. Integration with the Civic Activity Feed layer occurs when that infrastructure is available.
+**Sequencing:** Hubs emit activities from the outset. Integration with the Civic Activity Feed layer occurs when that infrastructure is available.
 
 ### Civic Credentialing & Profiles Pilot
 
@@ -971,7 +977,7 @@ Some cost categories — particularly hub engine adaptation and community deploy
 
 **Question:** How much effort is required to implement ActivityPub federation with the Civic.Social Hub Engine, and should the pilot attempt it?
 
-**Discussion:** ActivityPub provides a mature federation standard with existing ecosystem support, and the Civic Event model is already designed with forward-compatible mapping to ActivityStreams. The real question is the level of implementation complexity — full inbox/outbox federation involves subscription management, delivery guarantees, and content negotiation that go beyond simple event distribution. With current AI-assisted development tools, the implementation effort may be more manageable than it would have been previously, but the scope still needs careful assessment. The pilot should evaluate during Phase 1 whether a basic ActivityPub implementation is achievable within the timeline or whether pull-based event distribution is sufficient for the pilot period.
+**Discussion:** ActivityPub provides a mature federation standard with existing ecosystem support, and the Civic Activity model is already designed with forward-compatible mapping to ActivityStreams. The real question is the level of implementation complexity — full inbox/outbox federation involves subscription management, delivery guarantees, and content negotiation that go beyond simple event distribution. With current AI-assisted development tools, the implementation effort may be more manageable than it would have been previously, but the scope still needs careful assessment. The pilot should evaluate during Phase 1 whether a basic ActivityPub implementation is achievable within the timeline or whether pull-based event distribution is sufficient for the pilot period.
 
 ### Cross-Hub Event and Process References
 
@@ -1009,9 +1015,9 @@ This glossary defines terms used throughout the document in plain language for r
 
 **[ActivityPub](https://www.w3.org/TR/activitypub/).** The open protocol that powers federated social networks like Mastodon. It defines how independent servers share posts and interactions. Civic.Social's event model is designed to map cleanly onto ActivityPub so hubs can federate with the broader fediverse in the future.
 
-**[ActivityStreams](https://www.w3.org/TR/activitystreams-core/).** The data format ActivityPub uses to describe actions (someone posting, voting, joining a group). Civic Events are designed to be translatable into ActivityStreams.
+**[ActivityStreams](https://www.w3.org/TR/activitystreams-core/).** The data format ActivityPub uses to describe actions (someone posting, voting, joining a group). Civic Activities are designed to be translatable into ActivityStreams.
 
-**Civic Event.** A standardized record of something that happened in a hub — a process was created, a vote was submitted, a result was published. Events are the common language that lets hubs, feeds, and dashboards share activity.
+**Civic Activity.** A standardized record of something that happened in a hub — a process was created, a vote was submitted, a result was published. Activities are the common language that lets hubs, feeds, and dashboards share activity. (The v0.1 wire format uses the `event_type` field and `GET /events` endpoint.)
 
 **Civic Hub.** A community-operated digital civic space. A hub hosts civic processes, manages participation, and emits events to the rest of the ecosystem. Each hub is independently operated by a community, organization, or government.
 
@@ -1025,7 +1031,7 @@ This glossary defines terms used throughout the document in plain language for r
 
 **Discovery manifest.** A file published at a well-known URL (`/.well-known/civic.json`) that tells other systems what a hub is, what jurisdiction it serves, what processes it hosts, and where to find its event feed.
 
-**Event emitter.** The internal component of a hub responsible for creating and publishing Civic Events. Every action in the hub passes through the emitter so there is a single source of truth for what happened.
+**Event emitter.** The internal component of a hub responsible for creating and publishing Civic Activities. Every action in the hub passes through the emitter so there is a single source of truth for what happened.
 
 **Federation.** The principle that independent hubs can interoperate — share events, reference each other's processes, recognize each other's credentials — without being owned by a single company or controlled by a central server.
 
