@@ -71,17 +71,30 @@ The following use cases illustrate where capability-based authorization concrete
 
 ## Where It Fits in the Ecosystem
 
-By layer:
+### Who decides what: the authorization map
+
+Authorization spans four documents, and the division of labor is easy to lose when reading them in sequence. The one-sentence version: **authorization is *decided* at the space, *declared* at the process, *evidenced* at the identity layer, and only its *outcome* travels on activities.**
+
+| Layer | Role in authorization | Defined in |
+|---|---|---|
+| **Space** | The enforcement point. Every decision — read or write, feed or action — flows through the single authorization seam (`canActor(actor, action, resource)`). Space administrators configure the space-surface policy: who may read content, post, join, moderate. | Civic Space Specification §4.7; this note |
+| **Process** | The declaration point. A process publishes its own rules in its descriptor — `eligibility_requirements` (who may act), `participation_mode`, `visibility` (who may read its record), `disclosure_policy` (what the record reveals) — and declares the authorities its actions require. It declares; the space enforces. | Civic Process Specification §2.3, §3, §12.1 |
+| **Identity** | The vocabulary and the evidence. The Identity Policy Object gives spaces and processes a machine-readable way to state requirements; credentials are the proof a participant presents against them. Capabilities — this note's long-term direction — are signed grants issued and verified through this same layer. | Civic Identity Specification §8 |
+| **Activity** | No authorization at all — only its residue. The wire carries the two-value visibility class (`public` / `restricted`), the outcome of a decision already made; rules never travel on activities, and the emitting space's seam decides which callers receive `restricted` items. | Civic Activity Specification §7 |
+
+One request, walked through the map: a participant tries to vote → the space authenticates them (identity adapter, session) → the seam checks the process's declared eligibility, using the identity layer's credential vocabulary → the handler validates the action → the activity emits with `meta.visibility` derived from the process's visibility policy → the feed serves it, with the space's seam filtering who may fetch it. Four documents, one decision path, one enforcement point.
+
+The remainder of this section describes where the **capability model** specifically fits, layer by layer:
 
 **Identity.** Capabilities are signed using the same cryptographic primitives as verifiable credentials. The identity layer provides the keys, the signing infrastructure, and the verification services. Capabilities are issued, held, and presented through the identity system.
 
-**Citizen Dashboard.** The citizen's dashboard is the natural place to hold capabilities, display the capabilities the citizen has granted to others, and provide the interface for revocation. Capabilities held on-device alongside DIDs and credentials are part of the "civic wallet" pattern described in the Client Architecture Note.
+**Citizen Dashboard.** The citizen's dashboard is the natural place to hold capabilities, display the capabilities the citizen has granted to others, and provide the interface for revocation. Capabilities held on-device alongside DIDs and credentials are part of the "civic wallet" pattern (a client architecture note describing this pattern is planned but not yet written).
 
 **Space.** The space is where most enforcement happens. When a participant takes an action, the hosting space — hub, dashboard, or representative space — verifies either a role (near term) or a capability (long term) before executing. Every space must be designed with a single, replaceable authorization seam so this evolution is possible.
 
 **Process.** Processes define what authorities exist — "who can submit a vote," "who can moderate comments," "who can finalize results." These authorities must be expressible as capabilities, not only as roles, so that delegation and scoped grants work naturally.
 
-**Feed and Discovery.** The activity feed and discovery layer respect capability-scoped visibility — some activities may be visible only to holders of specific capabilities, not just to members of a role.
+**Feed and Discovery.** In the capability-native future, the activity feed and discovery layer would respect capability-scoped visibility — some activities visible only to holders of specific capabilities, not just to members of a role. This is a long-horizon consideration (see Phasing, and the Relationship section below): the v0.1 wire carries only the two-value visibility class (Civic Activity Specification §7), with credential-scoped visibility named among its future extensions.
 
 ---
 

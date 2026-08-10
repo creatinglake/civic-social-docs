@@ -116,6 +116,39 @@ what makes the transitional model transitional, which is why the specification
 asks for provider migration to be *demonstrated* during the pilot rather than
 merely offered.
 
+## How the deferred capabilities chain
+
+The specifications defer several capabilities not because they are unscheduled
+but because each waits on a design artifact earlier in a chain. Two registers
+of "not yet" appear in the specifications, and they behave differently: a
+capability that is *specified but not built* (DID authentication, envelope
+validation) converges through conformance phasing — the target is written and
+the pilots close the distance — while a capability that is *not yet specified*
+sits behind an artifact that has to exist first. Two chains cover most of the
+second register:
+
+**Federation:** the civic JSON-LD context (unpublished, and currently claimed
+by no pilot) → the ActivityStreams 2.0 bridge (Civic Activity §9 is the
+sketch) → native ActivityPub (in the Civic Hubs pilot for evaluation).
+
+**Verifiability:** the export canonicalization profile (a Civic Hubs pilot
+deliverable) plus the DID-method decision (Civic Identity §13) → activity
+signing (Civic Activity §13) → verifiable cross-space propagation and the
+entity-scope portability profile (Civic Space §9.4).
+
+A capability whose upstream artifact is unpublished should be read as
+sequenced work, not slippage. The current contracts reserve each capability's
+attachment point — stable space DIDs, globally unique activity identifiers,
+consumers required to ignore unknown fields — so each lands additively when
+its chain completes: nothing emitted or exported under today's versions is
+invalidated. The activity envelope is also transport-agnostic, and the stated
+intent is to bridge to both major open social web protocols: ActivityStreams /
+ActivityPub first (the scheduled chain above), with an AT Protocol bridge as
+an intended later target, pending evaluation. Each bridge needs only its own
+schema artifact — the JSON-LD context for AS2, a civic Lexicon set for AT
+Protocol — and the namespace decision noted for the context governs the
+Lexicon namespace as well, since Lexicon identifiers are domain-anchored.
+
 ## What this document does not resolve
 
 **Numbered phases are local, and that is fine.** Several documents number
