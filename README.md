@@ -71,8 +71,8 @@ For funders, partners, and anyone new to the project:
 - **[The Investment Case — Why This, Why Now, Why Us](case/why-this-why-now-why-us.md)** —
   a structured response to the four questions funders and partners ask
   about every civic infrastructure investment.
-- **[Civic.Social Deck (Feb 2026)](case/civic-social-deck-2026-02-26.pdf)** —
-  15-slide visual overview. Useful as a quick walkthrough for first
+- **[Civic.Social Deck (Aug 2026)](case/civic-social-deck-2026-08-14.pdf)** —
+  26-slide visual overview. Useful as a quick walkthrough for first
   conversations. PDF renders inline on GitHub.
 
 These documents describe the destination. **[Civic.Social
