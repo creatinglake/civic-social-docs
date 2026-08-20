@@ -1,0 +1,7 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "civic": "https://civic.social/ns/civic#",
+    "civic:processType": { "@type": "@id" }
+  }
+}

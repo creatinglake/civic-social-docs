@@ -71,7 +71,7 @@ The general packaging and trust unit of the ecosystem: a manifest, a declared tr
 The first specified kind of Civic Plugin: a modular implementation of a Civic Process that can be installed and run across multiple civic spaces (hubs, dashboards, representative spaces, external websites). Plugins are universal by default and integrate with their host only through the identity and activity seams.
 
 **Civic Activity**
-A standardized data object representing an action or lifecycle transition within the ecosystem. Activities are the distribution layer — the single shared stream that all feeds, notifications, and federation surfaces are built from. The term is aligned with the vocabulary of ActivityStreams 2.0. (For v0.1, the wire-format field is `event_type` and the transport endpoint is `GET /events`; see the Civic Activity Specification.)
+A standardized data object representing an action or lifecycle transition within the ecosystem. Activities are the distribution layer — the single shared stream that all feeds, notifications, and federation surfaces are built from. As of Civic Activity Specification v0.2, a Civic Activity *is* an ActivityStreams 2.0 activity conforming to that specification's profile, with civic semantics carried by the civic JSON-LD context.
 
 **Civic Activity Feed**
 The aggregation and distribution layer for civic activities — one shared stream refracted into many lenses (inbox, notifications, discovery, space view, embed). Feeds are not scoped to any one audience or interface: every space publishes a feed of its own activity (a hub's space view is its feed), and any conformant consumer — a citizen's dashboard, a community hub, an organization, or a third-party page via embed — can assemble and render feeds from the streams it follows.
@@ -100,7 +100,7 @@ The ecosystem is anchored by four open specifications, which extend underlying o
 
 1. **Civic Space Specification** — the scoped host contract every space conforms to (portability, identity integration, plugin hosting, discovery, the Space API Profile)
 2. **Civic Process Specification** — the interactive unit (lifecycle profiles, actions, descriptors)
-3. **Civic Activity Specification** — the shared activity object and stream (schema, type registry, visibility, the ActivityStreams bridge roadmap)
+3. **Civic Activity Specification** — the activity layer as an ActivityStreams 2.0 profile (the civic vocabulary and JSON-LD context, type registry, visibility via AS2 addressing, and the federation conformance ladder)
 4. **Civic Identity Specification** — the portable, participant-owned key: sovereign identity nodes for every holder (person, entity, community) plus Space DIDs, with the Citizen Node and Personal Data Store as the most fully elaborated case (credential types, identity policy)
 
 Companion documents: the Civic Plugin Architecture, the Discovery Layer Specification, and the Authorization Model Note.
